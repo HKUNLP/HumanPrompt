@@ -1,0 +1,5 @@
+---
+ dataset: "gsm8k"
+ method:
+   name: "CoT"
+   sampling_n: 1
