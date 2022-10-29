@@ -7,6 +7,7 @@ from manifest import Manifest
 from utils.config_utils import load_config
 from components.prompt import PromptBuilder
 from components.transform.transform_factory import TransformFactory
+from methods.base import Method
 
 
 class Dataset:
@@ -28,15 +29,11 @@ def main():
     # wandb.init(project='unifiedhumanprompt', config=config)
 
     os.environ['OPENAI_API_KEY'] = "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"
-    prompt = PromptBuilder.build_prompt(
-        file_path='methods/standard/prompt_files/standard_prompt.txt',
-        input_x="Is the grass blue?",
-        transform=TransformFactory.get_transform(template='default')
+    method = Method(
+        backend="openai",
+        transform=TransformFactory.get_transform('default'),
     )
-    manifest = Manifest(
-        client_name="openai",
-    )
-    print(manifest.run(prompt))
+    print(method.run(x='Is the grass red?'))
 
 
 if __name__ == '__main__':
