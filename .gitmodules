@@ -1,0 +1,3 @@
+[submodule "unifiedhumanprompt/third_party/manifest"]
+	path = unifiedhumanprompt/third_party/manifest
+	url = git@github.com:HazyResearch/manifest.git
