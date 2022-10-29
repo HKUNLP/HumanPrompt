@@ -1,30 +1,44 @@
-from typing import Callable
+from typing import Any, Dict, Callable
+from unifiedhumanprompt.components.transform.base import Transform
 from transform.transform_factory import TransformFactory
 
 
-class PromptBuilder():
+class PromptBuilder(object):
     def __init__(self):
         pass
 
     @staticmethod
     def build_prompt(
             file_path: str = None,
-            prompt: str = None,
-            x: str = None,
-            y: str = None,
-            transform: Callable = None
+            x: Any[str, Dict] = None,
+            y: Any[str, Dict] = None, # Any[List[str], List[Any[str, Dict]]]
+            transform: Any[str, Callable] = None
     ):
         if file_path:
             with open(file_path, 'r') as f:
                 prompt = f.read()
-        elif x and y:
-            prompt = transform(x, y)
-        elif x:
-            prompt = transform(x)
-        elif prompt:
-            pass
+            return prompt
+
+        if isinstance(transform, Callable):
+            if x and y:
+                prompt = transform(x, y)
+            elif x:
+                prompt = transform(x)
+            else:
+                raise ValueError("x is required for transform")
+
+            return prompt
+
+        if isinstance(transform, str):
+            if x and y:
+                prompt = TransformFactory.get_transform(transform).transform(x, y)
+            elif x:
+                prompt = TransformFactory.get_transform(transform).transform(x)
+            else:
+                raise ValueError("x is required for transform")
+
+            return prompt
 
 
-x, y = 'my input', 'my output'
-prompt = PromptBuilder.build_prompt(x=x, y=y, transform=TransformFactory.get_transform(template='CoT'))
-
+x, y = {"question": 'my input'}, {"answer": 'my output'}
+prompt = PromptBuilder.build_prompt(x=x, y=y, transform="cot")
