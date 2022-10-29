@@ -1,5 +1,8 @@
 ---
- dataset: "gsm8k"
+ dataset:
+   dataset_name: "commonsense_qa"
+   cache_dir: "./data"
  method:
-   name: "CoT"
-   sampling_n: 1
+   backend: "openai"
+   transform: "cot"
+   max_tokens: 256

@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional, Union, Callable, Any
 
-from manifest import Manifest, Prompt
+from manifest import Manifest
 from unifiedhumanprompt.components.prompt import PromptBuilder
 
 
@@ -34,7 +34,5 @@ class Method:
             transform=self.transform
         )
         response_text = self.lm.run(prompt, **self.kwargs)
-        # TODO: Add extraction if needed
-        # TODO: Add aggregation if needed
         y = response_text
         return y

@@ -1,7 +1,7 @@
 class Transform(object):
 
     @staticmethod
-    def transform(x, y=None, **kargs):
+    def transform(x, y=None, **kwargs):
         """
         Transform x and y(may not) into a prompt.
         Args:

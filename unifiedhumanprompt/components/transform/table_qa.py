@@ -78,7 +78,7 @@ def select_x_prompt(table: Union[pd.DataFrame, Dict], prompt_style):
 class TableQATransform(Transform):
 
     @staticmethod
-    def transform(x, y=None, **kargs):
+    def transform(x, y=None, **kwargs):
         if y is None:
             return f"Q: {x['question']}"
         else:
