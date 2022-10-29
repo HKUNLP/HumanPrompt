@@ -1,5 +1,7 @@
-from typing import Callable, Union, List
+from typing import Union, List, Dict, Callable
+
 from manifest import Prompt
+from transform.transform_factory import TransformFactory
 
 
 class PromptBuilder:
@@ -8,39 +10,35 @@ class PromptBuilder:
     @staticmethod
     def build_prompt(
             file_path: str = None,
-            input_x: Union[str, List[str]] = None,
-            output_y: Union[str, List[str]] = None,
-            transform: Callable = None,
-            exemplar_splitter: str = '\n',
-    ) -> Prompt:
-        # TODO: Support combination of few-shot prompt and test prompt
-        few_shot_prompt = ""
-        if file_path is not None:
-            # Load from file
+            x: Union[str, Dict] = None,
+            y: Union[str, Dict] = None,  # Union[List[str], List[Any[str, Dict]]]
+            transform: Union[str, Callable] = None
+    ):
+        if file_path:
             with open(file_path, 'r') as f:
-                few_shot_prompt = f.read()
+                prompt = f.read()
+            return prompt
 
-        if isinstance(input_x, str):
-            input_x = [input_x]
-        if isinstance(output_y, str):
-            output_y = [output_y]
-        if input_x and output_y:
-            # Transform to the few-shot prompt
-            prompt_list = []
-            for x, y in zip(input_x, output_y):
-                prompt_list.append(transform(x, y))
-            prompt = exemplar_splitter.join(prompt_list)
-        elif input_x:
-            # Transform to the test prompt
-            assert len(input_x) == 1, "Only one input is allowed for test prompt."
-            test_prompt = transform(input_x[0])
-            if few_shot_prompt:
-                prompt = exemplar_splitter.join([few_shot_prompt, test_prompt])
+        if isinstance(transform, Callable):
+            if x and y:
+                prompt = transform(x, y)
+            elif x:
+                prompt = transform(x)
             else:
-                prompt = test_prompt
-        else:
-            raise ValueError(
-                "Please provide either a prompt string or a file path or both input and output."
-            )
+                raise ValueError("x is required for transform")
 
-        return Prompt(prompt)
+            return prompt
+
+        if isinstance(transform, str):
+            if x and y:
+                prompt = TransformFactory.get_transform(transform).transform(x, y)
+            elif x:
+                prompt = TransformFactory.get_transform(transform).transform(x)
+            else:
+                raise ValueError("x is required for transform")
+
+            return prompt
+
+
+x, y = {"question": 'my input'}, {"answer": 'my output'}
+prompt = PromptBuilder.build_prompt(x=x, y=y, transform="cot")
