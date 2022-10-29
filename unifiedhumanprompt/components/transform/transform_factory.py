@@ -1,7 +1,7 @@
-from base import Transform
-from qa import QATransform
-from table_qa import TableQATransform
-from cot import CoTTransform
+from .base import Transform
+from .qa import QATransform
+from .table_qa import TableQATransform
+from .cot import CoTTransform
 
 
 class TransformFactory(object):
@@ -9,7 +9,7 @@ class TransformFactory(object):
     Provide built factory class for creating transforms.
     """
     current_transforms = {
-        'base': Transform,
+        'default': Transform,
         'qa': QATransform,
         'cot': CoTTransform,
         'table_qa': TableQATransform,

@@ -1,9 +1,9 @@
 import pandas as pd
-from typing import Any, Dict
-from base import Transform
+from typing import Dict, Union
+from .base import Transform
 
 
-def convert_to_df(table: Any[pd.DataFrame, Dict]):
+def convert_to_df(table: Union[pd.DataFrame, Dict]):
     """
     Convert table to pandas DataFrame.
     """
@@ -15,8 +15,10 @@ def convert_to_df(table: Any[pd.DataFrame, Dict]):
     else:
         raise TypeError('table should be a dict or a pandas dataframe')
 
+    return df
 
-def create_table_prompt(table: Any[pd.DataFrame, Dict], title: str = ""):
+
+def create_table_prompt(table: Union[pd.DataFrame, Dict], title: str = ""):
     """
     Return the CREATE TABLE clause as prompt.
     """
@@ -40,7 +42,7 @@ def create_table_prompt(table: Any[pd.DataFrame, Dict], title: str = ""):
     return string
 
 
-def select_x_prompt(table: Any[pd.DataFrame, Dict], prompt_style):
+def select_x_prompt(table: Union[pd.DataFrame, Dict], prompt_style):
     """
     Return the first X rows table contents as prompt.
     """

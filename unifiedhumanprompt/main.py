@@ -1,12 +1,6 @@
-import wandb
-import json
 import os
 from argparse import ArgumentParser
-from manifest import Manifest
-
 from utils.config_utils import load_config
-from components.prompt import PromptBuilder
-from components.transform.transform_factory import TransformFactory
 from methods.base import Method
 
 
@@ -31,7 +25,7 @@ def main():
     os.environ['OPENAI_API_KEY'] = "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"
     method = Method(
         backend="openai",
-        transform=TransformFactory.get_transform('default'),
+        transform='default',
     )
     print(method.run(x='Is the grass red?'))
 

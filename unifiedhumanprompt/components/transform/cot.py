@@ -1,4 +1,4 @@
-from base import Transform
+from .base import Transform
 
 
 class CoTTransform(Transform):

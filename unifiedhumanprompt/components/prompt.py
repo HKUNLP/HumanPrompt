@@ -1,7 +1,5 @@
 from typing import Union, List, Dict, Callable
-
-from manifest import Prompt
-from transform.transform_factory import TransformFactory
+from .transform.transform_factory import TransformFactory
 
 
 class PromptBuilder:
@@ -38,7 +36,3 @@ class PromptBuilder:
                 raise ValueError("x is required for transform")
 
             return prompt
-
-
-x, y = {"question": 'my input'}, {"answer": 'my output'}
-prompt = PromptBuilder.build_prompt(x=x, y=y, transform="cot")
