@@ -1,7 +1,12 @@
-class Transform():
+class Transform:
     @staticmethod
     def transform(x, y=None):
-        if y is None:
-            return x
+        if x and y:
+            return f"Q: {x}\n" \
+                   f"A: {y}"
+        elif x:
+            return f"Q: {x}"
         else:
-            return f"{x}\n{y}"
+            raise ValueError(
+                "x must be provided."
+            )

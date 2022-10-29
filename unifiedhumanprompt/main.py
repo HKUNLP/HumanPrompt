@@ -1,15 +1,42 @@
-from argparse import ArgumentParser
 import wandb
 import json
+import os
+from argparse import ArgumentParser
+from manifest import Manifest
 
 from utils.config_utils import load_config
+from components.prompt import PromptBuilder
+from components.transform.transform_factory import TransformFactory
+
+
+class Dataset:
+    own_dataset = {
+        "default": "11"
+    }
+
+    @staticmethod
+    def load_dataset():
+        print(Dataset.own_dataset)
 
 
 def main():
+    # TODO: Use config
     config = load_config(args.config)
-    print(json.dumps(config, indent=2))
+    # TODO: Use dataset
+    dataset = Dataset.load_dataset()
     # TODO: Add wandb
     # wandb.init(project='unifiedhumanprompt', config=config)
+
+    os.environ['OPENAI_API_KEY'] = "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"
+    prompt = PromptBuilder.build_prompt(
+        file_path='methods/standard/prompt_files/standard_prompt.txt',
+        input_x="Is the grass blue?",
+        transform=TransformFactory.get_transform(template='default')
+    )
+    manifest = Manifest(
+        client_name="openai",
+    )
+    print(manifest.run(prompt))
 
 
 if __name__ == '__main__':
