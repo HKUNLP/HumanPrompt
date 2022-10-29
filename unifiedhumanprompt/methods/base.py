@@ -30,7 +30,7 @@ class Method:
     ) -> str:
         prompt = PromptBuilder.build_prompt(
             file_path=self.prompt_file_path,
-            input_x=x,
+            x=x,
             transform=self.transform
         )
         response_text = self.lm.run(prompt, **self.kwargs)
