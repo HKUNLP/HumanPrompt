@@ -1,18 +1,19 @@
-from typing import Any, Dict, Callable
-from unifiedhumanprompt.components.transform.base import Transform
+from typing import Union, List, Dict, Callable
+
+from manifest import Prompt
 from transform.transform_factory import TransformFactory
 
 
-class PromptBuilder(object):
-    def __init__(self):
-        pass
+class PromptBuilder:
+    """Prompt builder tool class."""
 
     @staticmethod
     def build_prompt(
+            prompt_string: str = None,
             file_path: str = None,
-            x: Any[str, Dict] = None,
-            y: Any[str, Dict] = None, # Any[List[str], List[Any[str, Dict]]]
-            transform: Any[str, Callable] = None
+            x: Union[str, Dict] = None,
+            y: Union[str, Dict] = None,  # Union[List[str], List[Any[str, Dict]]]
+            transform: Union[str, Callable] = None
     ):
         if file_path:
             with open(file_path, 'r') as f:
