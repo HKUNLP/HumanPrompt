@@ -7,7 +7,6 @@ class PromptBuilder:
 
     @staticmethod
     def build_prompt(
-            prompt_string: str = None,
             file_path: str = None,
             input_x: Union[str, List[str]] = None,
             output_y: Union[str, List[str]] = None,
@@ -15,9 +14,6 @@ class PromptBuilder:
             exemplar_splitter: str = '\n',
     ) -> Prompt:
         # TODO: Support combination of few-shot prompt and test prompt
-        if prompt_string is not None:
-            # String prompt
-            return Prompt(prompt_string)
         few_shot_prompt = ""
         if file_path is not None:
             # Load from file
@@ -48,6 +44,3 @@ class PromptBuilder:
             )
 
         return Prompt(prompt)
-
-
-
