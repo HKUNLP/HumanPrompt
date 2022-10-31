@@ -1,5 +1,5 @@
 from .base import Extract
-from .cot import CoTExtract
+from .regex import RegExtract
 
 
 class ExtractFactory(object):
@@ -8,7 +8,7 @@ class ExtractFactory(object):
     """
     current_extracts = {
         'default': Extract,
-        'cot': CoTExtract,
+        'regex': RegExtract,
         # Add more transforms here
     }
 

@@ -5,5 +5,5 @@
  method:
    backend: "openai"
    transform: "cot"
-   extract: "cot"
+   extract: "regex"
    max_tokens: 256

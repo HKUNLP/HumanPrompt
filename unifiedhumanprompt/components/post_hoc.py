@@ -2,11 +2,11 @@ from typing import Union, List, Dict, Callable
 from .extract.extract_factory import ExtractFactory
 
 
-class PostHoc(object):
+class HocPoster(object):
     """Answer extract tool class"""
 
     @staticmethod
-    def handle(
+    def post_hoc(
             raw_response: str = None,
             extract: Union[str, Callable] = None,
             **kwargs

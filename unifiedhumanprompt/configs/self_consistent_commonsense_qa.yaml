@@ -8,3 +8,6 @@
    extract: "regex"
    prompt_file_path: "methods/CoT/prompt_files/commonsense_qa.txt"
    max_tokens: 256
+   n: 2
+   top_k_return: 2
+   temperature: 0.4

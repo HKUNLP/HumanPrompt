@@ -1,13 +1,14 @@
 from .base import Extract
-import os
 import re
 
 
-class CoTExtract(Extract):
+class RegExtract(Extract):
 
     @staticmethod
     def extract(raw_response, **kwargs):
         """
+        Extract the answer from raw_response by regex.
+
         Chain of Thought (CoT) is a prompt format a series of intermediate reasoning steps
         which could significantly improves the ability of large language models to perform
         complex reasoning(https://arxiv.org/abs/2201.11903).
