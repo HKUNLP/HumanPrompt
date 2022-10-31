@@ -7,9 +7,9 @@ class Transform(object):
         Args:
             x: input, could be a str or a dict, when it is a str, it is the input itself.
             y: output, could be a str or a dict, when it is a str, it is the output itself.
+            **kwargs: other arguments
 
         Returns: a string of prompt
-
         """
 
         if not isinstance(x, str) and isinstance(y, str):

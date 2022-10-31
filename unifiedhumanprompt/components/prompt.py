@@ -12,16 +12,22 @@ class PromptBuilder:
             y: Union[str, Dict] = None,  # Union[List[str], List[Any[str, Dict]]]
             transform: Union[str, Callable] = None
     ):
-        if file_path:
+        prompt = ""
+
+        if file_path and not x:
             with open(file_path, 'r') as f:
-                prompt = f.read()
+                prompt += f.read()
             return prompt
+        elif file_path and x:
+            with open(file_path, 'r') as f:
+                prompt += f.read()
+                prompt += "\n\n"
 
         if isinstance(transform, Callable):
             if x and y:
-                prompt = transform(x, y)
+                prompt += transform(x, y)
             elif x:
-                prompt = transform(x)
+                prompt += transform(x)
             else:
                 raise ValueError("x is required for transform")
 
@@ -29,9 +35,9 @@ class PromptBuilder:
 
         if isinstance(transform, str):
             if x and y:
-                prompt = TransformFactory.get_transform(transform).transform(x, y)
+                prompt += TransformFactory.get_transform(transform).transform(x, y)
             elif x:
-                prompt = TransformFactory.get_transform(transform).transform(x)
+                prompt += TransformFactory.get_transform(transform).transform(x)
             else:
                 raise ValueError("x is required for transform")
 

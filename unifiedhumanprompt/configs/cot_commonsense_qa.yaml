@@ -6,4 +6,5 @@
    backend: "openai"
    transform: "cot"
    extract: "cot"
+   prompt_file_path: "methods/CoT/prompt_files/commonsense_qa.txt"
    max_tokens: 256

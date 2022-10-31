@@ -1,4 +1,4 @@
-Q: Q: A coin is heads up. Ka flips the coin. Sherrie flips the coin. Is the coin still heads up?
+Q: A coin is heads up. Ka flips the coin. Sherrie flips the coin. Is the coin still heads up?
 A: The coin was flipped by Ka and Sherrie. So the coin was flipped 2 times, which is an even number. The coin started heads up, so after an even number of flips, it will still be heads up. So the answer is yes.
 
 Q: A coin is heads up. Jamey flips the coin. Teressa flips the coin. Is the coin still heads up?
