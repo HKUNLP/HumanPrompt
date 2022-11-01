@@ -20,7 +20,7 @@ def main():
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('--config', type=str, default='configs/cot_commonsense_qa.yaml')
+    parser.add_argument('--config', type=str, default='configs/self_consistent_commonsense_qa.yaml')
     args = parser.parse_args()
 
     os.environ['OPENAI_API_KEY'] = "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"

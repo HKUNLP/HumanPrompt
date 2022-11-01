@@ -4,7 +4,7 @@ from unifiedhumanprompt.components.prompt import PromptBuilder
 from unifiedhumanprompt.components.post_hoc import HocPoster
 
 
-class Method:
+class Method():
     """Method pipeline class."""
 
     def __init__(
@@ -13,6 +13,8 @@ class Method:
             prompt_file_path: Optional[str] = None,
             transform: Union[Callable, str] = None,
             extract: Union[Callable, str] = None,
+            aggregation: Union[Callable, str] = None,
+            extraction_regex: str = ".*So the answer is (.*).\n?",
             **kwargs: Any
     ):
         self.lm = Manifest(
@@ -25,12 +27,13 @@ class Method:
         self.prompt_file_path = prompt_file_path
         self.transform = transform
         self.extract = extract
+        self.aggregation = aggregation
+        self.extraction_regex = extraction_regex
         self.kwargs = kwargs
 
     def run(
             self,
             x: Union[str, Dict],
-            extraction_regex: str = ".*So the answer is (.*).\n?"
     ) -> str:
         prompt = PromptBuilder.build_prompt(
             file_path=self.prompt_file_path,
@@ -39,24 +42,10 @@ class Method:
         )
         response = self.lm.run(prompt, **self.kwargs)
 
-        if isinstance(response, str):
-            y = HocPoster.post_hoc(
-                response,
-                extract=self.extract,
-                extraction_regex=extraction_regex
-            )
-            return y
-        elif isinstance(response, list):
-            y_s = []
-            for response_text in response:
-                y_s.append(
-                    HocPoster.post_hoc(
-                        response_text,
-                        extract=self.extract,
-                        extraction_regex=extraction_regex
-                    )
-                )
-
-
-
-            return y
+        y = HocPoster.post_hoc(
+            response,
+            extract=self.extract,
+            aggregation=self.aggregation,
+            extraction_regex=self.extraction_regex
+        )
+        return y

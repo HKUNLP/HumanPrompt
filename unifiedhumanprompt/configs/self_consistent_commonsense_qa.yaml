@@ -6,8 +6,9 @@
    backend: "openai"
    transform: "cot"
    extract: "regex"
+   aggregation: "simple_majority_vote"
    prompt_file_path: "methods/CoT/prompt_files/commonsense_qa.txt"
    max_tokens: 256
-   n: 2
-   top_k_return: 2
+   n: 1
+   top_k_return: 5
    temperature: 0.4
