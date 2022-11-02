@@ -1,0 +1,9 @@
+---
+ dataset:
+   dataset_name: "commonsense_qa"
+   cache_dir: "./data"
+ method:
+   backend: "openai"
+   transform: "zeroshot_cot"
+   extraction_words: "The answer(Choose from (a)/(b)/(c)/(d)) is:"
+   max_tokens: 256

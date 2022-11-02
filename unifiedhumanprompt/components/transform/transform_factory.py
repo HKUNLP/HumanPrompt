@@ -2,6 +2,7 @@ from .base import Transform
 from .qa import QATransform
 from .table_qa import TableQATransform
 from .cot import CoTTransform
+from .zeroshot_cot import ZeroShotCoTTransform
 
 
 class TransformFactory(object):
@@ -12,6 +13,7 @@ class TransformFactory(object):
         'default': Transform,
         'qa': QATransform,
         'cot': CoTTransform,
+        'zeroshot_cot': ZeroShotCoTTransform,
         'table_qa': TableQATransform,
         # Add more transforms here
     }

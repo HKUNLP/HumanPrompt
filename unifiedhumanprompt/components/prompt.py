@@ -10,7 +10,8 @@ class PromptBuilder:
             file_path: str = None,
             x: Union[str, Dict] = None,
             y: Union[str, Dict] = None,  # Union[List[str], List[Any[str, Dict]]]
-            transform: Union[str, Callable] = None
+            transform: Union[str, Callable] = None,
+            **kwargs
     ):
         prompt = ""
 
@@ -25,9 +26,9 @@ class PromptBuilder:
 
         if isinstance(transform, Callable):
             if x and y:
-                prompt += transform(x, y)
+                prompt += transform(x, y, **kwargs)
             elif x:
-                prompt += transform(x)
+                prompt += transform(x, **kwargs)
             else:
                 raise ValueError("x is required for transform")
 
@@ -35,9 +36,9 @@ class PromptBuilder:
 
         if isinstance(transform, str):
             if x and y:
-                prompt += TransformFactory.get_transform(transform).transform(x, y)
+                prompt += TransformFactory.get_transform(transform).transform(x, y, **kwargs)
             elif x:
-                prompt += TransformFactory.get_transform(transform).transform(x)
+                prompt += TransformFactory.get_transform(transform).transform(x, **kwargs)
             else:
                 raise ValueError("x is required for transform")
 
