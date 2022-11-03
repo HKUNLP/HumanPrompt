@@ -1,11 +1,13 @@
-from typing import Dict, List, Optional, Union, Callable, Any
+from typing import Any, Callable, Dict, Optional, Union
 
 from manifest import Manifest
+
 from unifiedhumanprompt.components.prompt import PromptBuilder
 
 
 class Method:
     """Method pipeline class."""
+
     def __init__(
         self,
         backend: str,
@@ -24,14 +26,9 @@ class Method:
         self.transform = transform
         self.kwargs = kwargs
 
-    def run(
-        self,
-        x: Union[str, Dict]
-    ) -> str:
+    def run(self, x: Union[str, Dict]) -> str:
         prompt = PromptBuilder.build_prompt(
-            file_path=self.prompt_file_path,
-            x=x,
-            transform=self.transform
+            file_path=self.prompt_file_path, x=x, transform=self.transform
         )
         response_text = self.lm.run(prompt, **self.kwargs)
         y = response_text

@@ -2,7 +2,6 @@ from .base import Transform
 
 
 class QATransform(Transform):
-
     @staticmethod
     def transform(x, y=None, **kwargs):
         """

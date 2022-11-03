@@ -6,9 +6,10 @@ class ExtractFactory(object):
     """
     Provide built factory class for creating transforms.
     """
+
     current_extracts = {
-        'default': Extract,
-        'regex': RegExtract,
+        "default": Extract,
+        "regex": RegExtract,
         # Add more transforms here
     }
 

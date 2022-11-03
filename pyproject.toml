@@ -1,0 +1,30 @@
+# Additional Tool Configurations
+[tool.mypy]
+disallow_untyped_defs = true
+strict_optional = false
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = [
+  "numpy",
+  "tqdm",
+  "accelerate",
+  "transformers",
+]
+
+[tool.isort]
+combine_as_imports = true
+force_grid_wrap = 0
+include_trailing_comma = true
+known_first_party = ["unifiedhumanprompt"]
+line_length = 88
+multi_line_output = 3
+
+[tool.pytest.ini_options]
+log_format = "[%(levelname)s] %(message)s"
+log_date_format = "%Y-%m-%d %H:%M:%S"
+addopts = "-v -rsXx"
+# The following options are useful for local debugging
+# addopts = "-v -rsXx -s -x --pdb"
+# log_cli_level = "DEBUG"
+# log_cli = true

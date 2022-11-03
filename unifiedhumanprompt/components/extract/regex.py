@@ -1,9 +1,9 @@
-from .base import Extract
 import re
+
+from .base import Extract
 
 
 class RegExtract(Extract):
-
     @staticmethod
     def extract(raw_response, **kwargs):
         """
@@ -22,9 +22,9 @@ class RegExtract(Extract):
 
         """
 
-        if 'extraction_regex' in kwargs:
+        if "extraction_regex" in kwargs:
             # if extraction_words is specified, we use it to extract the answer
-            extraction_regex = kwargs['extraction_regex']
+            extraction_regex = kwargs["extraction_regex"]
             answer = re.match(extraction_regex, raw_response).group(1)
             return answer.strip()
 

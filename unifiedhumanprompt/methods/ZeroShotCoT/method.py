@@ -1,19 +1,20 @@
-from typing import Dict, List, Optional, Union, Callable, Any
+from typing import Any, Callable, Dict, Union
+
 from manifest import Manifest
+
 from unifiedhumanprompt.components.prompt import PromptBuilder
-from unifiedhumanprompt.components.post_hoc import HocPoster
 
 
-class Method():
+class Method:
     """Method pipeline class."""
 
     def __init__(
-            self,
-            backend: str,
-            # todo: too wide
-            transform: Union[Callable, str] = None,
-            extraction_words: str = None,
-            **kwargs: Any
+        self,
+        backend: str,
+        # todo: too wide
+        transform: Union[Callable, str] = None,
+        extraction_words: str = None,
+        **kwargs: Any
     ):
         # todo: derive it to become a class?
         self.lm = Manifest(
@@ -28,24 +29,20 @@ class Method():
         self.kwargs = kwargs
 
     def run(
-            self,
-            x: Union[str, Dict],
+        self,
+        x: Union[str, Dict],
     ) -> str:
         step_1_prompt = PromptBuilder.build_prompt(
-            x=x,
-            transform=self.transform,
-            extraction_words=self.extraction_words
+            x=x, transform=self.transform, extraction_words=self.extraction_words
         )
 
         # todo: why we assume kwargs is always for the lm?
         chain_of_thought = self.lm.run(step_1_prompt, **self.kwargs)
 
-        x['chain_of_thought'] = chain_of_thought
+        x["chain_of_thought"] = chain_of_thought
 
         step_2_prompt = PromptBuilder.build_prompt(
-            x=x,
-            transform=self.transform,
-            extraction_words=self.extraction_words
+            x=x, transform=self.transform, extraction_words=self.extraction_words
         )
 
         y = self.lm.run(step_2_prompt, **self.kwargs)

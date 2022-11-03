@@ -1,5 +1,6 @@
-import datasets
 import os
+
+import datasets
 
 DIR = os.path.join(os.path.dirname(__file__))
 
@@ -11,7 +12,6 @@ class DatasetLoader(object):
         # Datasets implemented in this repo,
         # either they do not exist in the datasets library or they have something improper
         "strategy_qa": os.path.join(DIR, "strategy_qa.py"),
-
     }
 
     @staticmethod

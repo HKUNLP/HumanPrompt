@@ -1,5 +1,4 @@
 class Transform(object):
-
     @staticmethod
     def transform(x, y=None, **kwargs):
         """
