@@ -7,7 +7,7 @@
    transform: "cot"
    extract: "regex"
    aggregation: "simple_majority_vote"
-   prompt_file_path: "methods/CoT/prompt_files/commonsense_qa.txt"
+   prompt_file_path: "unifiedhumanprompt/methods/CoT/prompt_files/commonsense_qa.txt"
    max_tokens: 256
    n: 1
    top_k_return: 5

@@ -1,9 +1,9 @@
 import os
 from argparse import ArgumentParser
 
-from utils.config_utils import load_config
-from tasks.dataset_loader import DatasetLoader
-from methods.CoT.method import Method
+from unifiedhumanprompt.utils.config_utils import load_config
+from unifiedhumanprompt.tasks.dataset_loader import DatasetLoader
+from unifiedhumanprompt.methods.CoT.method import Method
 
 
 def main():
