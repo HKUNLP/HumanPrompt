@@ -2,7 +2,6 @@ from .base import Transform
 
 
 class CoTTransform(Transform):
-
     @staticmethod
     def transform(x, y=None, **kwargs):
         """
@@ -21,13 +20,13 @@ class CoTTransform(Transform):
 
         """
         transformed = f"Q: {x['question']}\n"
-        if 'context' in x:
+        if "context" in x:
             transformed += f"{x['context']}\n"
         transformed += "A: "
 
         if y:
-            if 'extraction_words' in kwargs:
-                extraction_words = kwargs['extraction_words']
+            if "extraction_words" in kwargs:
+                extraction_words = kwargs["extraction_words"]
             else:
                 extraction_words = "The answer is"
             transformed += f"{y['chain_of_thought']} {extraction_words} {y['answer']}"

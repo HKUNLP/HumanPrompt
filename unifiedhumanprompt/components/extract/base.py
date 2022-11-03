@@ -1,5 +1,4 @@
 class Extract(object):
-
     @staticmethod
     def extract(raw_response, **kwargs):
         """

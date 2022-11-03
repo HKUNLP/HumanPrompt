@@ -6,9 +6,10 @@ class AggregateFactory(object):
     """
     Provide built factory class for creating transforms.
     """
+
     current_extracts = {
-        'default': Aggregate,
-        'simple_majority_vote': SimpleMajorityVote,
+        "default": Aggregate,
+        "simple_majority_vote": SimpleMajorityVote,
         # Add more transforms here
     }
 
