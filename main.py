@@ -6,7 +6,7 @@ from unifiedhumanprompt.tasks.dataset_loader import DatasetLoader
 if __name__ == "__main__":
     os.environ["OPENAI_API_KEY"] = "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"
 
-    method = AutoMethod.from_config(method_name="cot")
+    method = AutoMethod.from_config(method_name="zero_shot_cot")
 
     dataset = DatasetLoader.load_dataset(dataset_name="commonsense_qa")
     data_item = dataset["test"][0]
