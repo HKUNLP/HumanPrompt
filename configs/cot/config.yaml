@@ -3,5 +3,5 @@
   backend: "openai"
   transform: "cot"
   extract: "regex"
-  prompt_file_path: "unifiedhumanprompt/artifacts/methods/cot/prompt_files/commonsense_qa.txt"
+  prompt_file_path: "cot/prompts/commonsense_qa.txt"
   max_tokens: 256
