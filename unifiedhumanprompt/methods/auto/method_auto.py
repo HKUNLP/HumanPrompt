@@ -1,15 +1,14 @@
 from collections import OrderedDict
 
-from .auto_factory import BaseAutoMethod
-from ..standard.method import Method
 from ..cot.method import CoTMethod
-
+from ..standard.method import Method
+from .auto_factory import BaseAutoMethod
 
 METHOD_MAPPING_NAMES = OrderedDict(
     [
         # TODO: Method class definition should have different names for different methods
-        ('standard', Method),
-        ('cot', CoTMethod)
+        ("standard", Method),
+        ("cot", CoTMethod),
     ]
 )
 

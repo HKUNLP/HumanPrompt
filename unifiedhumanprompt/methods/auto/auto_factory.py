@@ -8,9 +8,7 @@ class BaseAutoMethod:
     _method_mapping = None
 
     def __init__(self, *args, **kwargs):
-        raise EnvironmentError(
-            "BaseAutoMethod is not meant to be instantiated"
-        )
+        raise EnvironmentError("BaseAutoMethod is not meant to be instantiated")
 
     @classmethod
     def from_config(cls, method_name=None, config_file_path=None, **kwargs):
@@ -25,9 +23,7 @@ class BaseAutoMethod:
             if config_file_path is None:
                 config_file_path = default_config_file_path
         if not os.path.exists(config_file_path):
-            raise ValueError(
-                f"Config file path {config_file_path} does not exist."
-            )
+            raise ValueError(f"Config file path {config_file_path} does not exist.")
 
         config = load_config(config_file_path)
         if "method_name" not in config:
@@ -43,6 +39,6 @@ class BaseAutoMethod:
                 f"Available method names are: {list(cls._method_mapping.keys())}"
             )
 
-        config.pop('method_name')
+        config.pop("method_name")
         method = method_cls(**config, **kwargs)
         return method

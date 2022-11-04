@@ -1,9 +1,0 @@
----
- dataset:
-   dataset_name: "commonsense_qa"
-   cache_dir: "./data"
- method:
-   backend: "openai"
-   transform: "cot"
-   extract: "regex"
-   max_tokens: 256
