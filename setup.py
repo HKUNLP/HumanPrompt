@@ -50,7 +50,7 @@ setup(
     name=NAME,
     version="0.0.1",
     python_requires=REQUIRES_PYTHON,
-    packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
+    packages=find_packages(exclude=("configs", "tests*")),
     package_data={"unifiedhumanprompt.artifacts": get_artifacts()},
     include_package_data=True,
 )

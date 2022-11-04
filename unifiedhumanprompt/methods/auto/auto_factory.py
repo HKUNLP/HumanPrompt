@@ -20,9 +20,7 @@ class BaseAutoMethod:
 
         if method_name is not None:
             # TODO: replace hard-coded path
-            default_config_file_path = get_config_file(
-                f"{method_name}/configs/config.yaml"
-            )
+            default_config_file_path = get_config_file(f"{method_name}/config.yaml")
             if config_file_path is None:
                 config_file_path = default_config_file_path
         if not os.path.exists(config_file_path):
