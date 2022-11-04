@@ -34,8 +34,8 @@ class PromptBuilder:
                 raise ValueError("x is required for transform")
 
             return prompt
-        # TODO: use if/elif/else
-        if isinstance(transform, str):
+
+        elif isinstance(transform, str):
             if x and y:
                 prompt += TransformFactory.get_transform(transform).transform(
                     x, y, **kwargs
@@ -48,3 +48,6 @@ class PromptBuilder:
                 raise ValueError("x is required for transform")
 
             return prompt
+
+        else:
+            raise ValueError("transform must be a callable or a string")
