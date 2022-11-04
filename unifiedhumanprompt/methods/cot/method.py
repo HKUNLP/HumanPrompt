@@ -6,7 +6,7 @@ from unifiedhumanprompt.components.post_hoc import HocPoster
 from unifiedhumanprompt.components.prompt import PromptBuilder
 
 
-class Method:
+class CoTMethod:
     """Method pipeline class."""
 
     def __init__(

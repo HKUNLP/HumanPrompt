@@ -5,7 +5,7 @@ from manifest import Manifest
 from unifiedhumanprompt.components.prompt import PromptBuilder
 
 
-class Method:
+class ZeroShotCoTMethod:
     """Method pipeline class."""
 
     def __init__(

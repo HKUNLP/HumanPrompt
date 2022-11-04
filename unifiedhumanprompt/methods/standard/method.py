@@ -15,6 +15,7 @@ class Method:
         transform: Union[Callable, str] = None,
         **kwargs: Any
     ):
+        # TODO: Where to load the arg `extractor`?
         self.lm = Manifest(
             client_name=backend,
             client_connection=None,
