@@ -1,7 +1,7 @@
 import os
 from argparse import ArgumentParser
 
-from unifiedhumanprompt.methods.CoT.method import Method
+from unifiedhumanprompt.methods.cot.method import CoTMethod
 from unifiedhumanprompt.tasks.dataset_loader import DatasetLoader
 from unifiedhumanprompt.utils.config_utils import load_config
 
@@ -9,7 +9,7 @@ from unifiedhumanprompt.utils.config_utils import load_config
 def main():
     config = load_config(args.config)
     dataset = DatasetLoader.load_dataset(**config["dataset"])
-    method = Method(**config["method"])
+    method = CoTMethod(**config["method"])
 
     data_item = dataset["test"][0]
     data_item["context"] = "Answer choices: {}".format(
