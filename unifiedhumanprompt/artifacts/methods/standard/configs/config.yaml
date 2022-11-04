@@ -1,0 +1,6 @@
+---
+  method_name: "standard"
+  backend: "openai"
+  transform: "cot"
+  prompt_file_path: "unifiedhumanprompt/artifacts/methods/standard/prompt_files/standard_prompt.txt"
+  max_tokens: 256

@@ -1,7 +1,0 @@
----
- method:
-   backend: "openai"
-   transform: "cot"
-   extract: "regex"
-   prompt_file_path: "methods/CoT/prompt_files/commonsense_qa.txt"
-   max_tokens: 256

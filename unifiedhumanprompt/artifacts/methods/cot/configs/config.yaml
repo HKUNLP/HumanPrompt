@@ -1,0 +1,7 @@
+---
+  method_name: "cot"
+  backend: "openai"
+  transform: "cot"
+  extract: "regex"
+  prompt_file_path: "unifiedhumanprompt/artifacts/methods/cot/prompt_files/commonsense_qa.txt"
+  max_tokens: 256
