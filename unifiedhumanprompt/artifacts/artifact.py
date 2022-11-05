@@ -8,7 +8,7 @@ def get_config_file(config_path):
     Returns path to a builtin config file.
     Args:
         config_path (str): config file name relative to unifiedhumanprompt's "configs/"
-            directory, e.g., "cot/configs/config.yaml"
+            directory, e.g., "cot/commonsense_qa/config.yaml"
     Returns:
         str: the real path to the config file.
     """
@@ -25,7 +25,7 @@ def get_prompt_file(prompt_path):
     Returns path to a builtin prompt file.
     Args:
         prompt_path (str): prompt file name relative to unifiedhumanprompt's "prompts/"
-            directory, e.g., "cot/prompt_files/commonsense_qa.txt"
+            directory, e.g., "cot/commonsense_qa/prompt.txt"
     Returns:
         str: the real path to the prompt file.
     """

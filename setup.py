@@ -40,8 +40,8 @@ def get_artifacts() -> List[str]:
             # Fall back to copying if symlink fails: ex. on Windows.
             shutil.copytree(source_configs_dir, destination)
 
-    config_paths = glob.glob("configs/**/*.yaml", recursive=True) + glob.glob(
-        "configs/**/*.txt", recursive=True
+    config_paths = glob.glob("configs/**/**/*.yaml", recursive=True) + glob.glob(
+        "configs/**/**/*.txt", recursive=True
     )
     return config_paths
 
