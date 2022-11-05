@@ -2,5 +2,5 @@
   method_name: "standard"
   backend: "openai"
   transform: "cot"
-  prompt_file_path: "standard/prompts/standard_prompt.txt"
+  prompt_file_path: "standard/example/prompt.txt"
   max_tokens: 256
