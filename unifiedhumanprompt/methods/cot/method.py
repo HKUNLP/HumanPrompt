@@ -1,56 +1,37 @@
-from typing import Any, Callable, Dict, Optional, Union
-
-from manifest import Manifest
-
-from unifiedhumanprompt.components.post_hoc import HocPoster
-from unifiedhumanprompt.components.prompt import PromptBuilder
+from typing import Any, Dict, Union, List
+from ...components.post_hoc import HocPoster
+from ...components.prompt import PromptBuilder
+from ..base_method.method import PromptMethod
 
 
-class CoTMethod:
-    """Method pipeline class."""
+class CoTMethod(PromptMethod):
+    """TODO: add docstring"""
 
-    def __init__(
-        self,
-        backend: str,
-        prompt_file_path: Optional[str] = None,
-        transform: Union[Callable, str] = None,
-        extraction_words: str = None,
-        extract: Union[Callable, str] = None,
-        aggregation: Union[Callable, str] = None,
-        extraction_regex: str = ".*So the answer is (.*).\n?",
-        **kwargs: Any
-    ):
-        self.lm = Manifest(
-            client_name=backend,
-            client_connection=None,
-            cache_name="noop",
-            cache_connection=None,
-            session_id=None,
-        )
-        self.prompt_file_path = prompt_file_path
-        self.transform = transform
-        self.extraction_words = extraction_words
-        self.extract = extract
-        self.aggregation = aggregation
-        self.extraction_regex = extraction_regex
-        self.kwargs = kwargs
+    def __init__(self, **kwargs: Any):
+        super().__init__(**kwargs)
 
     def run(
-        self,
-        x: Union[str, Dict],
+            self,
+            x: Union[str, Dict],
+            in_context_examples: List[Dict] = None,
+            prompt_file_path=None,
+            **kwargs: Any
     ) -> str:
+
         prompt = PromptBuilder.build_prompt(
-            file_path=self.prompt_file_path,
             x=x,
-            transform=self.transform,
-            extraction_words=self.extraction_words,
+            in_context_examples=in_context_examples if in_context_examples else self.kwargs.get('in_context_examples', None),
+            prompt_file_path=prompt_file_path if prompt_file_path else self.kwargs.get('prompt_file_path', None),
+            transform=kwargs['transform'] if 'transform' in kwargs else self.kwargs.get('transform', None),
+            extraction_words=kwargs['extraction_words'] if 'extraction_words' in kwargs else self.kwargs.get('extraction_words', None)
         )
-        response = self.lm.run(prompt, **self.kwargs)
+
+        response = self.run_lm(prompt, **kwargs)
 
         y = HocPoster.post_hoc(
             response,
-            extract=self.extract,
-            aggregation=self.aggregation,
-            extraction_regex=self.extraction_regex,
+            extract=kwargs['extract'] if 'extract' in kwargs else self.kwargs.get('extract', None),
+            aggregation=kwargs['aggregation'] if 'aggregation' in kwargs else self.kwargs.get('aggregation', None),
+            extraction_regex=kwargs['extraction_regex'] if 'extraction_regex' in kwargs else self.kwargs.get('extraction_regex', ".*So the answer is (.*).\n?"),
         )
         return y

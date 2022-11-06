@@ -1,50 +1,45 @@
-from typing import Any, Callable, Dict, Union
+from typing import Any, Dict, Union, List
 
-from manifest import Manifest
+from ...components.prompt import PromptBuilder
+from ..base_method.method import PromptMethod
 
-from unifiedhumanprompt.components.prompt import PromptBuilder
 
+class ZeroShotCoTMethod(PromptMethod):
+    """TODO: add docstring"""
 
-class ZeroShotCoTMethod:
-    """Method pipeline class."""
-
-    def __init__(
-        self,
-        backend: str,
-        # todo: too wide
-        transform: Union[Callable, str] = None,
-        extraction_words: str = None,
-        **kwargs: Any
-    ):
-        # todo: derive it to become a class?
-        self.lm = Manifest(
-            client_name=backend,
-            client_connection=None,
-            cache_name="noop",
-            cache_connection=None,
-            session_id=None,
-        )
-        self.transform = transform
-        self.extraction_words = extraction_words
-        self.kwargs = kwargs
+    def __init__(self, **kwargs: Any):
+        super().__init__(**kwargs)
 
     def run(
-        self,
-        x: Union[str, Dict],
+            self,
+            x: Union[str, Dict],
+            in_context_examples: List[Dict] = None,
+            prompt_file_path=None,
+            **kwargs: Any
     ) -> str:
         step_1_prompt = PromptBuilder.build_prompt(
-            x=x, transform=self.transform, extraction_words=self.extraction_words
+            x=x,
+            in_context_examples=in_context_examples if in_context_examples else self.kwargs.get('in_context_examples',
+                                                                                                None),
+            prompt_file_path=prompt_file_path if prompt_file_path else self.kwargs.get('prompt_file_path', None),
+            transform=kwargs['transform'] if 'transform' in kwargs else self.kwargs.get('transform', None),
+            extraction_words=kwargs['extraction_words'] if 'extraction_words' in kwargs else self.kwargs.get(
+                'extraction_words', None)
         )
 
-        # todo: why we assume kwargs is always for the lm?
-        chain_of_thought = self.lm.run(step_1_prompt, **self.kwargs)
-
+        chain_of_thought = self.run_lm(step_1_prompt, **kwargs)
         x["chain_of_thought"] = chain_of_thought
 
         step_2_prompt = PromptBuilder.build_prompt(
-            x=x, transform=self.transform, extraction_words=self.extraction_words
+            x=x,
+            in_context_examples=in_context_examples if in_context_examples else self.kwargs.get('in_context_examples',
+                                                                                                None),
+            prompt_file_path=prompt_file_path if prompt_file_path else self.kwargs.get('prompt_file_path', None),
+            transform=kwargs['transform'] if 'transform' in kwargs else self.kwargs.get('transform', None),
+            extraction_words=kwargs['extraction_words'] if 'extraction_words' in kwargs else self.kwargs.get(
+                'extraction_words', None)
         )
 
-        y = self.lm.run(step_2_prompt, **self.kwargs)
+        y = self.run_lm(step_2_prompt, **kwargs)
 
         return y

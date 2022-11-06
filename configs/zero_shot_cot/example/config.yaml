@@ -1,6 +1,6 @@
 ---
   method_name: "zero_shot_cot"
-  backend: "openai"
+  client_name: "openai"
   transform: "zero_shot_cot"
   extraction_words: "Choose from (a), (b), (c), (d), the answer is:"
   max_tokens: 256

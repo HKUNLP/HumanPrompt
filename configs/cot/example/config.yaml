@@ -1,6 +1,6 @@
 ---
   method_name: "cot"
-  backend: "openai"
+  client_name: "openai"
   transform: "cot"
   extract: "regex"
   prompt_file_path: "cot/commonsense_qa/prompt.txt"

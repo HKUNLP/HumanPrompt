@@ -18,7 +18,9 @@ class BaseAutoMethod:
                 "You need to specify either a method name or a config file path."
             )
 
+        # Fixme: why these pop and get things? do we need to fix the parameters num and category in config?
         if method_name is not None:
+
             # TODO: replace hard-coded path
             if 'dataset_name' in kwargs:
                 # Default to be examples/configs
@@ -37,7 +39,10 @@ class BaseAutoMethod:
                 "method_name must be specified in config file to instantiate a method."
             )
 
-        config["prompt_file_path"] = get_prompt_file(config["prompt_file_path"])
+        if "prompt_file_path" in config:
+            config["prompt_file_path"] = get_prompt_file(config["prompt_file_path"])
+        else:
+            config["prompt_file_path"] = None
 
         method_name = config["method_name"]
         method_cls = cls._method_mapping.get(method_name, None)
