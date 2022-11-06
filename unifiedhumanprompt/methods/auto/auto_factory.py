@@ -22,12 +22,16 @@ class BaseAutoMethod:
         if method_name is not None:
 
             # TODO: replace hard-coded path
-            if 'dataset_name' in kwargs:
+            if "dataset_name" in kwargs:
                 # Default to be examples/configs
-                default_config_file_path = get_config_file(f"{method_name}/{kwargs['dataset_name']}/config.yaml")
+                default_config_file_path = get_config_file(
+                    f"{method_name}/{kwargs['dataset_name']}/config.yaml"
+                )
             else:
                 # If not found, default to be examples/configs
-                default_config_file_path = get_config_file(f"{method_name}/example/config.yaml")
+                default_config_file_path = get_config_file(
+                    f"{method_name}/example/config.yaml"
+                )
             if config_file_path is None:
                 config_file_path = default_config_file_path
         if not os.path.exists(config_file_path):

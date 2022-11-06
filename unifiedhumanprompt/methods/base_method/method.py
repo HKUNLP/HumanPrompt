@@ -1,15 +1,12 @@
-from typing import Any
-from manifest import Manifest
 import abc
 import inspect
+from typing import Any
+
+from manifest import Manifest
 
 
 class PromptMethod(abc.ABC):
-
-    def __init__(
-            self,
-            **kwargs: Any
-    ):
+    def __init__(self, **kwargs: Any):
         """
         Receives kwargs and prepare a manifest connection for prompt method running.
         Args:
@@ -51,13 +48,7 @@ class PromptMethod(abc.ABC):
         return self.manifest.run(prompt, **run_params)
 
     @abc.abstractmethod
-    def run(
-            self,
-            x,
-            in_context_examples=None,
-            prompt_file_path=None,
-            **kwargs: Any
-    ):
+    def run(self, x, in_context_examples=None, prompt_file_path=None, **kwargs: Any):
         """
         Run the method with the given x and optional in_context_examples or prompt_file_path.
         Args:

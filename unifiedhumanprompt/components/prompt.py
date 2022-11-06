@@ -1,4 +1,5 @@
-from typing import Callable, Dict, Union, Any, List
+from typing import Any, Callable, Dict, List, Union
+
 from .transform.transform_factory import TransformFactory
 
 
@@ -7,11 +8,11 @@ class PromptBuilder:
 
     @staticmethod
     def build_prompt(
-            x=None,
-            in_context_examples: List[Dict] = None,
-            prompt_file_path: str = None,
-            transform: Union[str, Callable] = None,
-            **kwargs: Any
+        x=None,
+        in_context_examples: List[Dict] = None,
+        prompt_file_path: str = None,
+        transform: Union[str, Callable] = None,
+        **kwargs: Any
     ):
         """
         Build prompt from x, in_context_examples, and prompt_file_path.
@@ -29,12 +30,16 @@ class PromptBuilder:
 
         # First, if the file path is specified, load the prompt from the file.
         if prompt_file_path:
-            return PromptBuilder.build_prompt_from_file(prompt_file_path, x, transform, **kwargs)
+            return PromptBuilder.build_prompt_from_file(
+                prompt_file_path, x, transform, **kwargs
+            )
 
         # If the file path is not specified, check if there are in-context examples.
         elif in_context_examples:
             # If there are in-context examples, add them to the prompt.
-            return PromptBuilder.build_prompt_from_examples(x, in_context_examples, transform, **kwargs)
+            return PromptBuilder.build_prompt_from_examples(
+                x, in_context_examples, transform, **kwargs
+            )
 
         elif x:
             # If there are no in-context examples, just use the input.
@@ -44,11 +49,12 @@ class PromptBuilder:
             raise ValueError("No prompt pattern for this set of args.")
 
     @staticmethod
-    def build_one_prompt(x: Union[str, Dict],
-                         transform: Union[str, Callable],
-                         y: Union[str, Dict] = None,
-                         **kwargs
-                         ) -> str:
+    def build_one_prompt(
+        x: Union[str, Dict],
+        transform: Union[str, Callable],
+        y: Union[str, Dict] = None,
+        **kwargs
+    ) -> str:
 
         if isinstance(transform, Callable):
             if x and y:
@@ -64,9 +70,7 @@ class PromptBuilder:
                     x, y, **kwargs
                 )
             elif x:
-                return TransformFactory.get_transform(transform).transform(
-                    x, **kwargs
-                )
+                return TransformFactory.get_transform(transform).transform(x, **kwargs)
             else:
                 raise ValueError("x is required for transform")
 
@@ -74,10 +78,12 @@ class PromptBuilder:
             raise ValueError("transform must be a callable or a string")
 
     @staticmethod
-    def build_prompt_from_file(prompt_file_path: str,
-                               x: Union[str, Dict] = None,
-                               transform: Union[str, Callable] = None,
-                               **kwargs: Any):
+    def build_prompt_from_file(
+        prompt_file_path: str,
+        x: Union[str, Dict] = None,
+        transform: Union[str, Callable] = None,
+        **kwargs: Any
+    ):
         prompt = ""
 
         if prompt_file_path and not x:
@@ -92,25 +98,26 @@ class PromptBuilder:
         return prompt
 
     @staticmethod
-    def build_prompt_from_examples(x: Union[str, Dict],
-                                   in_context_examples: List[Dict],
-                                   transform: Union[str, Callable],
-                                   **kwargs: Any):
+    def build_prompt_from_examples(
+        x: Union[str, Dict],
+        in_context_examples: List[Dict],
+        transform: Union[str, Callable],
+        **kwargs: Any
+    ):
         # todo: add spec for x, in_context_examples
         in_context_examples_prompt = ""
         for in_context_example in in_context_examples:
-            in_context_examples_prompt += PromptBuilder.build_one_prompt(
-                x=in_context_example['x'],
-                y=in_context_example['y'],
-                transform=transform,
-                **kwargs
-            ) + "\n\n"
+            in_context_examples_prompt += (
+                PromptBuilder.build_one_prompt(
+                    x=in_context_example["x"],
+                    y=in_context_example["y"],
+                    transform=transform,
+                    **kwargs
+                )
+                + "\n\n"
+            )
 
-        x_prompt = PromptBuilder.build_one_prompt(
-            x=x,
-            transform=transform,
-            **kwargs
-        )
+        x_prompt = PromptBuilder.build_one_prompt(x=x, transform=transform, **kwargs)
 
         prompt = in_context_examples_prompt + x_prompt
         return prompt
