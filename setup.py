@@ -46,11 +46,32 @@ def get_artifacts() -> List[str]:
     return config_paths
 
 
+install_requires = [
+    "omegaconf",
+    "datasets",
+    "manifest@git+https://github.com/HazyResearch/manifest.git@709703b159bde7fd224cfad795ef1a012fe668cb#egg=manifest",
+]
+
+extras_require = {
+    "dev": [
+        "black",
+        "flake8",
+        "isort",
+        "mypy",
+        "pytest",
+        "pre-commit",
+    ],
+}
+
+extras_require["all"] = list(set(sum(extras_require.values(), [])))
+
 setup(
     name=NAME,
     version="0.0.1",
     python_requires=REQUIRES_PYTHON,
     packages=find_packages(exclude=("configs", "tests*")),
     package_data={"unifiedhumanprompt.artifacts": get_artifacts()},
+    install_requires=install_requires,
+    extras_require=extras_require,
     include_package_data=True,
 )
