@@ -17,7 +17,7 @@ class CoTMethod(PromptMethod):
         in_context_examples: List[Dict] = None,
         prompt_file_path: Optional[str] = None,
         **kwargs: Any
-    ) -> str:
+    ) -> Union[str, List[str]]:
 
         prompt = PromptBuilder.build_prompt(
             x=x,

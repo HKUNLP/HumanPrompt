@@ -16,7 +16,7 @@ class StandardMethod(PromptMethod):
         in_context_examples: List[Dict] = None,
         prompt_file_path: Optional[str] = None,
         **kwargs: Any
-    ) -> str:
+    ) -> Union[str, List[str]]:
         prompt = PromptBuilder.build_prompt(
             x=x,
             in_context_examples=in_context_examples
@@ -30,4 +30,5 @@ class StandardMethod(PromptMethod):
             else self.kwargs.get("transform", None),
         )
 
-        return self.run_lm(prompt, **kwargs)
+        response = self.run_lm(prompt, **kwargs)
+        return response

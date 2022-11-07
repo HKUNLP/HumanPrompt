@@ -16,7 +16,10 @@ class ZeroShotCoTMethod(PromptMethod):
         in_context_examples: List[Dict] = None,
         prompt_file_path: Optional[str] = None,
         **kwargs: Any
-    ) -> str:
+    ) -> Union[str, List[str]]:
+        if isinstance(x, str):
+            raise NotImplementedError
+
         step_1_prompt = PromptBuilder.build_prompt(
             x=x,
             in_context_examples=in_context_examples
@@ -34,6 +37,9 @@ class ZeroShotCoTMethod(PromptMethod):
         )
 
         chain_of_thought = self.run_lm(step_1_prompt, **kwargs)
+        assert isinstance(
+            chain_of_thought, str
+        ), "Assume no over sampling in this implementation"
         x["chain_of_thought"] = chain_of_thought
 
         step_2_prompt = PromptBuilder.build_prompt(
