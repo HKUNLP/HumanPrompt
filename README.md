@@ -21,6 +21,7 @@ pre-commit run --all-files # trigger all hooks
 - [ ] Support batch running function
 
 ## Completed ✓
+- [ ] Add static checkings
 - [x] Derive the manifest from the method, make full use of its init, run and run_batch(In progress)
 - [x] Support in-context examples when using method.run
 - [x] Path and preparation for PyPI
