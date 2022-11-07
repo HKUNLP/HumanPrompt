@@ -1,7 +1,6 @@
-import yaml
+from omegaconf import OmegaConf
 
 
 def load_config(file_path):
-    with open(file_path, "r") as f:
-        config = yaml.load(f, Loader=yaml.FullLoader)
+    config = OmegaConf.load(file_path)
     return config
