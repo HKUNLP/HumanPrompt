@@ -1,6 +1,6 @@
 import os
 
-import pkg_resources
+import pkg_resources  # type: ignore
 
 
 def get_config_file(config_path: str) -> str:
