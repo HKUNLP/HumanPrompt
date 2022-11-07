@@ -14,6 +14,9 @@ class ZeroShotCoTTransform(Transform):
         (https://arxiv.org/abs/2205.11916)
 
         """
+        if isinstance(x, str) or isinstance(y, str):
+            raise NotImplementedError
+
         transformed = f"Q: {x['question']}\n"
         if "context" in x:
             transformed += f"{x['context']}\n"

@@ -84,6 +84,9 @@ class TableQATransform(Transform):
     def transform(
         x: Union[str, Dict], y: Union[str, Dict] = None, **kwargs: Any
     ) -> str:
+        if isinstance(x, str) or isinstance(y, str):
+            raise NotImplementedError
+
         if y is None:
             return f"Q: {x['question']}"
         else:

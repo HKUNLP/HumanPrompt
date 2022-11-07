@@ -6,7 +6,9 @@ from .base import Transform
 class CoTTransform(Transform):
     @staticmethod
     def transform(
-        x: Union[str, Dict], y: Union[str, Dict] = None, **kwargs: Any
+        x: Union[str, Dict[str, str]],
+        y: Union[str, Dict[str, str]] = None,
+        **kwargs: Any,
     ) -> str:
         """
         Chain of Thought (CoT) is a prompt format a series of intermediate reasoning steps
@@ -23,6 +25,9 @@ class CoTTransform(Transform):
         Returns: a string of prompt
 
         """
+        if isinstance(x, str) or isinstance(y, str):
+            raise NotImplementedError
+
         transformed = f"Q: {x['question']}\n"
         if "context" in x:
             transformed += f"{x['context']}\n"
