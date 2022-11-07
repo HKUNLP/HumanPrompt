@@ -1,4 +1,5 @@
 import os
+from typing import Any
 
 import datasets
 
@@ -15,7 +16,7 @@ class DatasetLoader(object):
     }
 
     @staticmethod
-    def load_dataset(dataset_name, **kwargs):
+    def load_dataset(dataset_name: str, **kwargs: Any) -> datasets.Dataset:
         """
         Load dataset from the datasets library or from this repo.
         Args:

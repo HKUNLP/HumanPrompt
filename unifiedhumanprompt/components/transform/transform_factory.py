@@ -1,3 +1,5 @@
+from typing import Type
+
 from .base import Transform
 from .cot import CoTTransform
 from .qa import QATransform
@@ -20,7 +22,7 @@ class TransformFactory(object):
     }
 
     @staticmethod
-    def get_transform(transform: str) -> Transform:
+    def get_transform(transform: str) -> Type[Transform]:
         # If the transform is in current_transforms, return the identity class
         if transform in TransformFactory.current_transforms:
             return TransformFactory.current_transforms[transform]

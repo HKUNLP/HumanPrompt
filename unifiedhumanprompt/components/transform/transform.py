@@ -1,6 +1,9 @@
+from typing import Dict, Union
+
+
 class Transform:
     @staticmethod
-    def transform(x, y=None):
+    def transform(x: Union[str, Dict], y: Union[str, Dict] = None) -> str:
         if x and y:
             return f"Q: {x}\n" f"A: {y}"
         elif x:

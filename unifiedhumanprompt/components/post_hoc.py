@@ -1,4 +1,4 @@
-from typing import Callable, List, Union
+from typing import Any, Callable, List, Union
 
 from .aggregate.aggregate_factory import AggregateFactory
 from .extract.extract_factory import ExtractFactory
@@ -13,13 +13,13 @@ class HocPoster(object):
         extract: Union[str, Callable] = None,
         aggregation: Union[str, Callable] = None,
         post_hoc: Union[str, Callable] = None,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> str:
         assert bool(extract or aggregation) ^ bool(
             post_hoc
         ), "When assigning post_hoc, extract and aggregation should not be assigned."
 
-        def _post_hoc_for_str(_raw_response):
+        def _post_hoc_for_str(_raw_response: str) -> Union[str, List]:
             if post_hoc:
                 if isinstance(post_hoc, Callable):
                     return post_hoc(_raw_response, **kwargs)

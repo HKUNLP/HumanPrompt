@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Optional, Union
 
 from ...components.prompt import PromptBuilder
 from ..base_method.method import PromptMethod
@@ -14,7 +14,7 @@ class ZeroShotCoTMethod(PromptMethod):
         self,
         x: Union[str, Dict],
         in_context_examples: List[Dict] = None,
-        prompt_file_path=None,
+        prompt_file_path: Optional[str] = None,
         **kwargs: Any
     ) -> str:
         step_1_prompt = PromptBuilder.build_prompt(

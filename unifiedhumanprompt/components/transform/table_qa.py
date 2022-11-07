@@ -1,11 +1,11 @@
-from typing import Dict, Union
+from typing import Any, Dict, Union
 
 import pandas as pd
 
 from .base import Transform
 
 
-def convert_to_df(table: Union[pd.DataFrame, Dict]):
+def convert_to_df(table: Union[pd.DataFrame, Dict]) -> pd.DataFrame:
     """
     Convert table to pandas DataFrame.
     """
@@ -20,7 +20,7 @@ def convert_to_df(table: Union[pd.DataFrame, Dict]):
     return df
 
 
-def create_table_prompt(table: Union[pd.DataFrame, Dict], title: str = ""):
+def create_table_prompt(table: Union[pd.DataFrame, Dict], title: str = "") -> str:
     """
     Return the CREATE TABLE clause as prompt.
     """
@@ -44,7 +44,7 @@ def create_table_prompt(table: Union[pd.DataFrame, Dict], title: str = ""):
     return string
 
 
-def select_x_prompt(table: Union[pd.DataFrame, Dict], prompt_style):
+def select_x_prompt(table: Union[pd.DataFrame, Dict], prompt_style: str) -> str:
     """
     Return the first X rows table contents as prompt.
     """
@@ -81,7 +81,9 @@ def select_x_prompt(table: Union[pd.DataFrame, Dict], prompt_style):
 
 class TableQATransform(Transform):
     @staticmethod
-    def transform(x, y=None, **kwargs):
+    def transform(
+        x: Union[str, Dict], y: Union[str, Dict] = None, **kwargs: Any
+    ) -> str:
         if y is None:
             return f"Q: {x['question']}"
         else:

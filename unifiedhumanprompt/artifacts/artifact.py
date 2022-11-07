@@ -3,7 +3,7 @@ import os
 import pkg_resources
 
 
-def get_config_file(config_path):
+def get_config_file(config_path: str) -> str:
     """
     Returns path to a builtin config file.
     Args:
@@ -20,7 +20,7 @@ def get_config_file(config_path):
     return cfg_file
 
 
-def get_prompt_file(prompt_path):
+def get_prompt_file(prompt_path: str) -> str:
     """
     Returns path to a builtin prompt file.
     Args:

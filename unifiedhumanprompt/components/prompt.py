@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Union
+from typing import Any, Callable, Dict, List, Optional, Union
 
 from .transform.transform_factory import TransformFactory
 
@@ -8,12 +8,12 @@ class PromptBuilder:
 
     @staticmethod
     def build_prompt(
-        x=None,
+        x: Union[str, Dict],
         in_context_examples: List[Dict] = None,
-        prompt_file_path: str = None,
+        prompt_file_path: Optional[str] = None,
         transform: Union[str, Callable] = None,
         **kwargs: Any
-    ):
+    ) -> str:
         """
         Build prompt from x, in_context_examples, and prompt_file_path.
 
@@ -53,7 +53,7 @@ class PromptBuilder:
         x: Union[str, Dict],
         transform: Union[str, Callable],
         y: Union[str, Dict] = None,
-        **kwargs
+        **kwargs: Any
     ) -> str:
 
         if isinstance(transform, Callable):
@@ -83,7 +83,7 @@ class PromptBuilder:
         x: Union[str, Dict] = None,
         transform: Union[str, Callable] = None,
         **kwargs: Any
-    ):
+    ) -> str:
         prompt = ""
 
         if prompt_file_path and not x:
@@ -103,7 +103,7 @@ class PromptBuilder:
         in_context_examples: List[Dict],
         transform: Union[str, Callable],
         **kwargs: Any
-    ):
+    ) -> str:
         # todo: add spec for x, in_context_examples
         in_context_examples_prompt = ""
         for in_context_example in in_context_examples:

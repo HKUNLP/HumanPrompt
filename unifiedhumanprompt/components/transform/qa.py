@@ -1,9 +1,13 @@
+from typing import Any, Dict, Union
+
 from .base import Transform
 
 
 class QATransform(Transform):
     @staticmethod
-    def transform(x, y=None, **kwargs):
+    def transform(
+        x: Union[str, Dict], y: Union[str, Dict] = None, **kwargs: Any
+    ) -> str:
         """
         Transform x and y into a question and answer format.
 

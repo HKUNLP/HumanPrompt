@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Optional, Union
 
 from ...components.post_hoc import HocPoster
 from ...components.prompt import PromptBuilder
@@ -15,7 +15,7 @@ class CoTMethod(PromptMethod):
         self,
         x: Union[str, Dict],
         in_context_examples: List[Dict] = None,
-        prompt_file_path=None,
+        prompt_file_path: Optional[str] = None,
         **kwargs: Any
     ) -> str:
 

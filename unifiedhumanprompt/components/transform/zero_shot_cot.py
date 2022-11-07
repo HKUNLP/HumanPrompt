@@ -1,9 +1,13 @@
+from typing import Any, Dict, Union
+
 from .base import Transform
 
 
 class ZeroShotCoTTransform(Transform):
     @staticmethod
-    def transform(x, y=None, **kwargs):
+    def transform(
+        x: Union[str, Dict], y: Union[str, Dict] = None, **kwargs: Any
+    ) -> str:
         """
         Zero-shot Chain of Thought (CoT) is a prompt format use the same single prompt template,
         significantly outperforms zero-shot LLM performances on diverse benchmark reasoning tasks

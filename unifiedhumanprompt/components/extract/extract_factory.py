@@ -1,3 +1,5 @@
+from typing import Type
+
 from .base import Extract
 from .regex import RegExtract
 
@@ -14,7 +16,7 @@ class ExtractFactory(object):
     }
 
     @staticmethod
-    def get_extract(extract: str) -> Extract:
+    def get_extract(extract: str) -> Type[Extract]:
         # If the extract is in current_extracts, return the identity class
         if extract in ExtractFactory.current_extracts:
             return ExtractFactory.current_extracts[extract]

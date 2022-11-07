@@ -1,3 +1,5 @@
+from typing import Type
+
 from .base import Aggregate
 from .simple_majority_vote import SimpleMajorityVote
 
@@ -14,7 +16,7 @@ class AggregateFactory(object):
     }
 
     @staticmethod
-    def get_aggregate(extract: str) -> Aggregate:
+    def get_aggregate(extract: str) -> Type[Aggregate]:
         # If the extract is in current_extracts, return the identity class
         if extract in AggregateFactory.current_extracts:
             return AggregateFactory.current_extracts[extract]

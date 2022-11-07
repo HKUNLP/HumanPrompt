@@ -1,9 +1,13 @@
+from typing import Any, Dict, Union
+
 from .base import Transform
 
 
 class CoTTransform(Transform):
     @staticmethod
-    def transform(x, y=None, **kwargs):
+    def transform(
+        x: Union[str, Dict], y: Union[str, Dict] = None, **kwargs: Any
+    ) -> str:
         """
         Chain of Thought (CoT) is a prompt format a series of intermediate reasoning steps
         which could significantly improves the ability of large language models to perform

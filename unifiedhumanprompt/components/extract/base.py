@@ -1,6 +1,9 @@
+from typing import Any
+
+
 class Extract(object):
     @staticmethod
-    def extract(raw_response, **kwargs):
+    def extract(raw_response: str, **kwargs: Any) -> str:
         """
         Extract the answer from the raw response.
         Args:

@@ -1,6 +1,11 @@
+from typing import Any, Dict, Union
+
+
 class Transform(object):
     @staticmethod
-    def transform(x, y=None, **kwargs):
+    def transform(
+        x: Union[str, Dict], y: Union[str, Dict] = None, **kwargs: Any
+    ) -> str:
         """
         Transform x and y(may not) into a prompt.
         Args:

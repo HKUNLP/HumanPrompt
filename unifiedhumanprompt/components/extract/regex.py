@@ -1,11 +1,12 @@
 import re
+from typing import Any
 
 from .base import Extract
 
 
 class RegExtract(Extract):
     @staticmethod
-    def extract(raw_response, **kwargs):
+    def extract(raw_response: str, **kwargs: Any) -> str:
         """
         Extract the answer from raw_response by regex.
 

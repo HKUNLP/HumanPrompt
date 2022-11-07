@@ -1,6 +1,6 @@
 import abc
 import inspect
-from typing import Any
+from typing import Any, Dict, List, Optional, Union
 
 from manifest import Manifest
 
@@ -20,7 +20,7 @@ class PromptMethod(abc.ABC):
                 init_params[param] = kwargs[param]
         self.manifest = Manifest(**init_params)
 
-    def run_lm(self, prompt, **kwargs):
+    def run_lm(self, prompt: str, **kwargs: Any):
         """
         Run the language model with the given prompt.
         Only the acceptable kwargs are passed to the language model.
@@ -48,7 +48,14 @@ class PromptMethod(abc.ABC):
         return self.manifest.run(prompt, **run_params)
 
     @abc.abstractmethod
-    def run(self, x, in_context_examples=None, prompt_file_path=None, **kwargs: Any):
+    # def run(self, x, in_context_examples=None, prompt_file_path=None, **kwargs: Any):
+    def run(
+        self,
+        x: Union[str, Dict],
+        in_context_examples: List[Dict] = None,
+        prompt_file_path: Optional[str] = None,
+        **kwargs: Any
+    ) -> str:
         """
         Run the method with the given x and optional in_context_examples or prompt_file_path.
         Args:

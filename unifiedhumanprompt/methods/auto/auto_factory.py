@@ -1,18 +1,26 @@
 import os.path
+from typing import Any, Optional, OrderedDict, Type
 
 from ...artifacts.artifact import get_config_file, get_prompt_file
 from ...utils.config_utils import load_config
+from ..base_method.method import PromptMethod
 
 
 class BaseAutoMethod:
     # Base class for all auto methods
-    _method_mapping = None
+    _method_mapping: OrderedDict[str, Type[PromptMethod]] = None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any):
         raise EnvironmentError("BaseAutoMethod is not meant to be instantiated")
 
     @classmethod
-    def from_config(cls, method_name=None, config_file_path=None, **kwargs):
+    # def from_config(cls, method_name=None, config_file_path=None, **kwargs):
+    def from_config(
+        cls,
+        method_name: Optional[str] = None,
+        config_file_path: Optional[str] = None,
+        **kwargs: Any,
+    ) -> PromptMethod:
         if method_name is None and config_file_path is None:
             raise ValueError(
                 "You need to specify either a method name or a config file path."
