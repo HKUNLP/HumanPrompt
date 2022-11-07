@@ -24,6 +24,7 @@ multi_line_output = 3
 log_format = "[%(levelname)s] %(message)s"
 log_date_format = "%Y-%m-%d %H:%M:%S"
 addopts = "-v -rsXx"
+pythonpath = ["."]
 # The following options are useful for local debugging
 # addopts = "-v -rsXx -s -x --pdb"
 # log_cli_level = "DEBUG"
