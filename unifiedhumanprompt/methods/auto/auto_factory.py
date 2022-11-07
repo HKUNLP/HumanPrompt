@@ -14,7 +14,6 @@ class BaseAutoMethod:
         raise EnvironmentError("BaseAutoMethod is not meant to be instantiated")
 
     @classmethod
-    # def from_config(cls, method_name=None, config_file_path=None, **kwargs):
     def from_config(
         cls,
         method_name: Optional[str] = None,
@@ -28,8 +27,6 @@ class BaseAutoMethod:
 
         # Fixme: why these pop and get things? do we need to fix the parameters num and category in config?
         if method_name is not None:
-
-            # TODO: replace hard-coded path
             if "dataset_name" in kwargs:
                 # Default to be examples/configs
                 default_config_file_path = get_config_file(
@@ -46,6 +43,7 @@ class BaseAutoMethod:
             raise ValueError(f"Config file path {config_file_path} does not exist.")
 
         config = load_config(config_file_path)
+        config.update(kwargs)
         if "method_name" not in config:
             raise ValueError(
                 "method_name must be specified in config file to instantiate a method."
@@ -53,8 +51,6 @@ class BaseAutoMethod:
 
         if "prompt_file_path" in config:
             config["prompt_file_path"] = get_prompt_file(config["prompt_file_path"])
-        else:
-            config["prompt_file_path"] = None
 
         method_name = config["method_name"]
         method_cls = cls._method_mapping.get(method_name, None)
@@ -64,6 +60,5 @@ class BaseAutoMethod:
                 f"Available method names are: {list(cls._method_mapping.keys())}"
             )
 
-        config.pop("method_name")
-        method = method_cls(**config, **kwargs)
+        method = method_cls(**config)
         return method
