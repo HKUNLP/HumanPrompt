@@ -1,5 +1,5 @@
 check:
-	isort -c configs/ examples/ unifiedhumanprompt/ setup.py
-	black configs/ examples/ unifiedhumanprompt/ setup.py --check
-	flake8 configs/ examples/ unifiedhumanprompt/ setup.py
-	mypy configs/ examples/ unifiedhumanprompt/ setup.py
+	isort -c examples/ unifiedhumanprompt/ setup.py
+	black examples/ unifiedhumanprompt/ setup.py --check
+	flake8 examples/ unifiedhumanprompt/ setup.py
+	mypy examples/ unifiedhumanprompt/ setup.py
