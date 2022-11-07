@@ -56,7 +56,7 @@ class PromptBuilder:
         **kwargs: Any
     ) -> str:
 
-        if isinstance(transform, Callable):
+        if callable(transform):
             if x and y:
                 return transform(x, y, **kwargs)
             elif x:
