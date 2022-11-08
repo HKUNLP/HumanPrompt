@@ -1,4 +1,0 @@
-omegaconf==2.2.3
-datasets==2.6.1
-# pre-commit==2.20.0
-git+https://github.com/HazyResearch/manifest.git@709703b159bde7fd224cfad795ef1a012fe668cb#egg=manifest

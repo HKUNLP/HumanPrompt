@@ -11,11 +11,21 @@ def test_init() -> None:
 
 @pytest.mark.usefixtures("openai_api_key")
 def test_run() -> None:
-    method = AutoMethod.from_config(method_name="cot")
-    result = method.run(
+    method = AutoMethod.from_config(
+        method_name="cot",
+        dataset_name="hotpot_qa",
+        engine="code-davinci-002",
+        temperature=0,
+        stop_sequence="\n",
+        transform="cot",
+        extract="regex",
+        extraction_regex="(?i).*So the answer is (.*).\n?",
+        prompt_file_path="cot/hotpot_qa/prompt.txt",
+        max_tokens=256,
+    )
+    prediction = method.run(
         {
-            "context": "Answer choices: (a) suburban development (b) apartment building (c) bus stop (d) michigan (e) suburbs",
-            "question": "The townhouse was a hard sell for the realtor, it was right next to a high rise what?",
+            "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
         }
     )
-    assert result == "(b)"
+    assert prediction == "yes"
