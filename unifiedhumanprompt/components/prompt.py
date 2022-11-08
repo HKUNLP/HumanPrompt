@@ -13,7 +13,7 @@ class PromptBuilder:
         in_context_examples: List[Dict] = None,
         prompt_file_path: Optional[str] = None,
         transform: Union[str, Callable] = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> str:
         """
         Build prompt from x, in_context_examples, and prompt_file_path.
@@ -62,7 +62,7 @@ class PromptBuilder:
         x: Union[str, Dict],
         transform: Union[str, Callable],
         y: Union[str, Dict] = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> str:
 
         if callable(transform):
@@ -91,7 +91,7 @@ class PromptBuilder:
         prompt_file_path: str,
         x: Union[str, Dict] = None,
         transform: Union[str, Callable] = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> str:
         prompt = ""
 
@@ -111,7 +111,7 @@ class PromptBuilder:
         x: Union[str, Dict],
         in_context_examples: List[Dict],
         transform: Union[str, Callable],
-        **kwargs: Any
+        **kwargs: Any,
     ) -> str:
         # todo: add spec for x, in_context_examples
         in_context_examples_prompt = ""
@@ -121,7 +121,7 @@ class PromptBuilder:
                     x=in_context_example["x"],
                     y=in_context_example["y"],
                     transform=transform,
-                    **kwargs
+                    **kwargs,
                 )
                 + "\n\n"
             )

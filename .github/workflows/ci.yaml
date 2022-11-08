@@ -26,9 +26,9 @@ jobs:
       - name: Install Manifest
         run: |
           make dev
-#      - name: Run preliminary checks
-#        run: |
-#          make check
+      - name: Run preliminary checks
+        run: |
+          make check
       - name: Test with pytest
         run: |
           OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}  pytest tests
