@@ -9,6 +9,7 @@ class PromptBuilder:
     @staticmethod
     def build_prompt(
         x: Union[str, Dict],
+        description: str = None,
         in_context_examples: List[Dict] = None,
         prompt_file_path: Optional[str] = None,
         transform: Union[str, Callable] = None,
@@ -19,6 +20,7 @@ class PromptBuilder:
 
         Args:
             x: Input to the prompt.
+            description: Description to be added at the start of the prompt.
             in_context_examples: List of examples to be used in context.
             prompt_file_path: Path to file containing prompt.
             transform: Transform to apply to x.
@@ -30,23 +32,30 @@ class PromptBuilder:
 
         # First, if the file path is specified, load the prompt from the file.
         if prompt_file_path:
-            return PromptBuilder.build_prompt_from_file(
+            prompt_body = PromptBuilder.build_prompt_from_file(
                 prompt_file_path, x, transform, **kwargs
             )
 
         # If the file path is not specified, check if there are in-context examples.
         elif in_context_examples:
             # If there are in-context examples, add them to the prompt.
-            return PromptBuilder.build_prompt_from_examples(
+            prompt_body = PromptBuilder.build_prompt_from_examples(
                 x, in_context_examples, transform, **kwargs
             )
 
         elif x:
             # If there are no in-context examples, just use the input.
-            return PromptBuilder.build_one_prompt(x, transform, **kwargs)
+            prompt_body = PromptBuilder.build_one_prompt(x, transform, **kwargs)
 
         else:
             raise ValueError("No prompt pattern for this set of args.")
+
+        if description:
+            prompt = f"{description}\n\n{prompt_body}"
+        else:
+            prompt = prompt_body
+
+        return prompt
 
     @staticmethod
     def build_one_prompt(
