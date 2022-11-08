@@ -49,6 +49,8 @@ def get_artifacts() -> List[str]:
 install_requires = [
     "omegaconf",
     "datasets",
+    "evaluate",
+    "scikit-learn",
     "manifest@git+https://github.com/HazyResearch/manifest.git@709703b159bde7fd224cfad795ef1a012fe668cb#egg=manifest",
 ]
 

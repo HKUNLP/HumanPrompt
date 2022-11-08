@@ -23,26 +23,19 @@ def run_experiment(
     """
     # TODO: Add wandb logging
     predictions, gold_answers = [], []
-    for data_item in dataset:
-        # TODO: Add an adapter to ensure the `data_item` from different datasets has unified keys.
-        data_item["context"] = "Answer choices: {}".format(
-            " ".join(
-                [
-                    "({}) {}".format(label.lower(), text.lower())
-                    for label, text in zip(
-                        data_item["choices"]["label"], data_item["choices"]["text"]
-                    )
-                ]
-            )
+    for id, data_item in enumerate(dataset):
+        model_input = {
+            "question": data_item["question"],
+        }
+        prediction = method.run(model_input)
+        gold_answer = data_item["answer"]
+        predictions.append({"prediction_text": prediction, "id": f"test-{id}"})
+        gold_answers.append(
+            {
+                "answers": {"answer_start": [0], "text": [gold_answer]},
+                "id": f"test-{id}",
+            }
         )
-        # TODO: Handle `None` prediction, cause error.
-        prediction = method.run(data_item)
-        gold_answer = data_item["answerKey"]
-        # TODO: Maybe add an answer normalizer here, e.g., "(a)" equals to "A". Or relevant to the `transform`.
-        prediction = prediction.lstrip("(").rstrip(")").lower()
-        gold_answer = gold_answer.lower()
-        predictions.append(prediction)
-        gold_answers.append(gold_answer)
         print("*" * 80)
         print(f"pred answer: {prediction}")
         print(f"gold answer: {gold_answer}")
@@ -53,18 +46,24 @@ def run_experiment(
 
 if __name__ == "__main__":
     os.environ["OPENAI_API_KEY"] = "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"
-    exp_config = load_config("configs/cot-commonsense_qa.yaml")
+    exp_config = load_config("configs/cot-hotpotqa.yaml")
     if not hasattr(exp_config, "method"):
         raise ValueError("Experiment config must have a `method` field.")
 
     method_config = exp_config["method"]
-    dataset = DatasetLoader.load_dataset(dataset_name=exp_config["dataset"])
+    dataset = DatasetLoader.load_dataset(
+        dataset_name=exp_config["dataset"], name="fullwiki"
+    )
     if exp_config["dataset_split"] not in dataset:
         raise ValueError(
             f"Dataset {exp_config['dataset']} does not have split {exp_config['dataset_split']}."
         )
 
     dataset = dataset[exp_config["dataset_split"]]
+    max_test_samples = exp_config.get("max_test_samples", None)
+    if max_test_samples:
+        dataset = dataset.select(range(max_test_samples))
+
     method = AutoMethod.from_config(
         method_name=method_config["method_name"]
         if method_config.get("method_name")
@@ -72,6 +71,7 @@ if __name__ == "__main__":
         config_file_path=method_config["config_file_path"]
         if method_config.get("config_file_path")
         else None,
+        dataset_name=exp_config["dataset"],
         **method_config.get("method_args", {}),
     )
     evaluator = Evaluator(exp_config["metrics"])

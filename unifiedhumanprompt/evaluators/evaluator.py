@@ -1,4 +1,4 @@
-from typing import Any, List, Dict
+from typing import Any, Dict, List, Set
 
 import evaluate
 
@@ -6,26 +6,23 @@ import evaluate
 class Evaluator:
     """Evaluator base class."""
 
-    _available_metrics: set[str] = {
-            "exact_match",
-            "accuracy",
-            "f1"
-         }
+    _available_metrics: Set[str] = {"exact_match", "accuracy", "f1", "squad"}
 
     def __init__(
-            self,
-            metrics: List[str],
+        self,
+        metrics: List[str],
     ):
+        self.metric_executors = {}
         for metric in metrics:
             if metric not in self._available_metrics:
                 raise ValueError(f"Metric {metric} is not available.")
-
-        self.metrics = metrics
+            # initialize metric executors
+            self.metric_executors[metric] = evaluate.load(metric)
 
     def evaluate(
-            self,
-            predictions: List,  # TODO: Extend input to `Union[List[Dict], Dict[str, Dict]`
-            gold_answers: List,
+        self,
+        predictions: List,  # TODO: Extend input to `Union[List[Dict], Dict[str, Dict]`
+        gold_answers: List,
     ) -> Dict[str, Any]:
         """
         Evaluate the predictions with assigned metrics.
@@ -38,14 +35,10 @@ class Evaluator:
         """
         # TODO: Add support for other metrics, maybe not in `evaluate` package.
         eval_dict = dict()
-        if "exact_match" in self.metrics:
-            metric_exact_match = evaluate.load("exact_match")
-            eval_dict.update(metric_exact_match.compute(references=gold_answers, predictions=predictions))
-        if "accuracy" in self.metrics:
-            metric_accuracy = evaluate.load("accuracy")
-            eval_dict.update(metric_accuracy.compute(references=gold_answers, predictions=predictions))
-        if "f1" in self.metrics:
-            metric_f1 = evaluate.load("f1")
-            eval_dict.update(metric_f1.compute(references=gold_answers, predictions=predictions))
+
+        for metric, executor in self.metric_executors.items():
+            eval_dict.update(
+                executor.compute(references=gold_answers, predictions=predictions)
+            )
 
         return eval_dict
