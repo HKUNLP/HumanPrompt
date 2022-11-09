@@ -1,0 +1,15 @@
+---
+  dataset: "gsm8k"
+  dataset_split: "test"
+  dataset_subset_name: "main"
+  method:
+    method_name: "cot"
+    method_args:
+      client_name: "openai"
+      transform: "cot"
+      extract: "regex"
+      extraction_regex: ".*So the answer is (.*).\n?"
+      prompt_file_path: "cot/gsm8k/prompt.txt"
+      max_tokens: 256
+  metrics:
+    - "exact_match"

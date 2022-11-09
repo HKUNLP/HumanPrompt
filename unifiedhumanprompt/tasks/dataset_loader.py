@@ -1,5 +1,5 @@
 import os
-from typing import Any, Union
+from typing import Any, Union, List, Dict
 
 import datasets
 from datasets import Dataset, DatasetDict, IterableDataset, IterableDatasetDict
@@ -10,16 +10,18 @@ DIR = os.path.join(os.path.dirname(__file__))
 class DatasetLoader(object):
     """Dataset loader class."""
 
+    # Datasets implemented in this repo
+    # Either they do not exist in the datasets library or they have something improper
     own_dataset = {
-        # Datasets implemented in this repo,
-        # either they do not exist in the datasets library or they have something improper
         "strategy_qa": os.path.join(DIR, "strategy_qa.py"),
+        "svamp": os.path.join(DIR, "svamp.py"),
     }
 
     @staticmethod
     def load_dataset(
-        dataset_name: str, **kwargs: Any
-    ) -> Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]:
+            dataset_name: str,
+            **kwargs: Any
+    ) -> Union[datasets.Dataset, List, Dict]:
         """
         Load dataset from the datasets library or from this repo.
         Args:
