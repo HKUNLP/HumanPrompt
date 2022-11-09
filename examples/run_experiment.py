@@ -59,8 +59,14 @@ if __name__ == "__main__":
 
     dataset = DatasetLoader.load_dataset(
         dataset_name=exp_config["dataset"],
-        split=exp_config["dataset_split"]
+        split=exp_config["dataset_split"],
+        name=exp_config["dataset_subset_name"]
+        if "dataset_subset_name" in exp_config else None
     )
+    method = AutoMethod.from_config(exp_config["method"])
+    evaluator = Evaluator.from_config(exp_config["evaluator"])
+    eval_dict = run_experiment(dataset, method, evaluator)
+    print(eval_dict)
     method_config = exp_config["method"]
     method = AutoMethod.from_config(
         method_name=method_config["method_name"]

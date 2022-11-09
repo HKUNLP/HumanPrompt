@@ -31,13 +31,10 @@ class DatasetLoader(object):
         Returns: dataset
 
         """
-        # TODO: Add warning for strategyqa test set
         # Check whether the dataset is in the own_dataset dictionary
         if dataset_name in DatasetLoader.own_dataset.keys():
             dataset_path = DatasetLoader.own_dataset[dataset_name]
             return datasets.load_dataset(dataset_path, **kwargs)
         else:
             # If not, load it from the datasets library
-            if dataset_name == "gsm8k":
-                kwargs["name"] = "main"
             return datasets.load_dataset(dataset_name, **kwargs)

@@ -1,6 +1,7 @@
 ---
   dataset: "gsm8k"
   dataset_split: "test"
+  dataset_subset_name: "main"
   method:
     method_name: "cot"
     method_args:
