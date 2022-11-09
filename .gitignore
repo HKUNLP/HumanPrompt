@@ -145,3 +145,9 @@ tmp
 
 data
 /unifiedhumanprompt/artifacts/configs
+
+# huggingface dataset cache dir
+.cached_datasets/
+
+# debug
+debugging/
