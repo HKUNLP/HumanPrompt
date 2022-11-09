@@ -57,14 +57,11 @@ if __name__ == "__main__":
     if not hasattr(exp_config, "method"):
         raise ValueError("Experiment config must have a `method` field.")
 
+    dataset = DatasetLoader.load_dataset(
+        dataset_name=exp_config["dataset"],
+        split=exp_config["dataset_split"]
+    )
     method_config = exp_config["method"]
-    dataset = DatasetLoader.load_dataset(dataset_name=exp_config["dataset"])
-    if exp_config["dataset_split"] not in dataset:
-        raise ValueError(
-            f"Dataset {exp_config['dataset']} does not have split {exp_config['dataset_split']}."
-        )
-
-    dataset = dataset[exp_config["dataset_split"]]
     method = AutoMethod.from_config(
         method_name=method_config["method_name"]
         if method_config.get("method_name")
