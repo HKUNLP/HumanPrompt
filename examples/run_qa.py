@@ -47,23 +47,21 @@ def run_experiment(
 if __name__ == "__main__":
     os.environ["OPENAI_API_KEY"] = "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"
     exp_config = load_config("configs/cot-hotpotqa.yaml")
-    if not hasattr(exp_config, "method"):
-        raise ValueError("Experiment config must have a `method` field.")
 
-    method_config = exp_config["method"]
     dataset = DatasetLoader.load_dataset(
-        dataset_name=exp_config["dataset"], name="fullwiki"
+        dataset_name=exp_config["dataset"],
+        split=exp_config["dataset_split"],
+        name=exp_config["dataset_subset_name"]
+        if "dataset_subset_name" in exp_config else None
     )
-    if exp_config["dataset_split"] not in dataset:
-        raise ValueError(
-            f"Dataset {exp_config['dataset']} does not have split {exp_config['dataset_split']}."
-        )
-
-    dataset = dataset[exp_config["dataset_split"]]
     max_test_samples = exp_config.get("max_test_samples", None)
     if max_test_samples:
         dataset = dataset.select(range(max_test_samples))
 
+    if not hasattr(exp_config, "method"):
+        raise ValueError("Experiment config must have a `method` field.")
+
+    method_config = exp_config["method"]
     method = AutoMethod.from_config(
         method_name=method_config["method_name"]
         if method_config.get("method_name")

@@ -54,8 +54,6 @@ def run_experiment(
 if __name__ == "__main__":
     os.environ["OPENAI_API_KEY"] = "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"
     exp_config = load_config("configs/cot-commonsense_qa.yaml")
-    if not hasattr(exp_config, "method"):
-        raise ValueError("Experiment config must have a `method` field.")
 
     dataset = DatasetLoader.load_dataset(
         dataset_name=exp_config["dataset"],
@@ -63,10 +61,10 @@ if __name__ == "__main__":
         name=exp_config["dataset_subset_name"]
         if "dataset_subset_name" in exp_config else None
     )
-    method = AutoMethod.from_config(exp_config["method"])
-    evaluator = Evaluator.from_config(exp_config["evaluator"])
-    eval_dict = run_experiment(dataset, method, evaluator)
-    print(eval_dict)
+
+    if not hasattr(exp_config, "method"):
+        raise ValueError("Experiment config must have a `method` field.")
+
     method_config = exp_config["method"]
     method = AutoMethod.from_config(
         method_name=method_config["method_name"]

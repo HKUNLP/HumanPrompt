@@ -1,6 +1,7 @@
 ---
   dataset: "hotpot_qa"
   dataset_split: "validation"
+  dataset_subset_name: "fullwiki"
   max_test_samples: 3
   method:
     method_name: "cot"
