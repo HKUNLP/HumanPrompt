@@ -1,4 +1,4 @@
-from unifiedhumanprompt.tasks.dataset_loader import DatasetLoader
+from humanprompt.tasks.dataset_loader import DatasetLoader
 
 
 def test_init() -> None:

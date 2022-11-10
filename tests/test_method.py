@@ -1,6 +1,6 @@
 import pytest
 
-from unifiedhumanprompt.methods.auto.method_auto import AutoMethod
+from humanprompt.methods.auto.method_auto import AutoMethod
 
 
 @pytest.mark.usefixtures("openai_api_key")

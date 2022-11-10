@@ -7,27 +7,27 @@ from typing import List
 from setuptools import find_packages, setup
 
 REQUIRES_PYTHON = ">=3.7.0"
-NAME = "unifiedhumanprompt"
+NAME = "humanprompt"
 
 
 def get_artifacts() -> List[str]:
     """
-    Return a list of configs to include in package for model zoo. Copy over these configs inside
-    unifiedhumanprompt/artifacts.
+    Return a list of hub to include in package for model zoo. Copy over these hub inside
+    humanprompt/artifacts.
     """
 
     # Use absolute paths while symlinking.
-    source_configs_dir = path.join(path.dirname(path.realpath(__file__)), "configs")
+    source_hub_dir = path.join(path.dirname(path.realpath(__file__)), "hub")
     destination = path.join(
         path.dirname(path.realpath(__file__)),
-        "unifiedhumanprompt",
+        "humanprompt",
         "artifacts",
-        "configs",
+        "hub",
     )
     # Symlink the config directory inside package to have a cleaner pip install.
 
     # Remove stale symlink/directory from a previous build.
-    if path.exists(source_configs_dir):
+    if path.exists(source_hub_dir):
         if path.islink(destination):
             os.unlink(destination)
         elif path.isdir(destination):
@@ -35,13 +35,13 @@ def get_artifacts() -> List[str]:
 
     if not path.exists(destination):
         try:
-            os.symlink(source_configs_dir, destination)
+            os.symlink(source_hub_dir, destination)
         except OSError:
             # Fall back to copying if symlink fails: ex. on Windows.
-            shutil.copytree(source_configs_dir, destination)
+            shutil.copytree(source_hub_dir, destination)
 
-    config_paths = glob.glob("configs/**/**/*.yaml", recursive=True) + glob.glob(
-        "configs/**/**/*.txt", recursive=True
+    config_paths = glob.glob("hub/**/**/*.yaml", recursive=True) + glob.glob(
+        "hub/**/**/*.txt", recursive=True
     )
     return config_paths
 
@@ -71,8 +71,8 @@ setup(
     name=NAME,
     version="0.0.1",
     python_requires=REQUIRES_PYTHON,
-    packages=find_packages(exclude=("configs", "tests*")),
-    package_data={"unifiedhumanprompt.artifacts": get_artifacts()},
+    packages=find_packages(exclude=("hub", "tests*")),
+    package_data={"humanprompt.artifacts": get_artifacts()},
     install_requires=install_requires,
     extras_require=extras_require,
     include_package_data=True,

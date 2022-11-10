@@ -1,7 +1,7 @@
 import os
 
-from unifiedhumanprompt.methods.auto.method_auto import AutoMethod
-from unifiedhumanprompt.tasks.dataset_loader import DatasetLoader
+from humanprompt.methods.auto.method_auto import AutoMethod
+from humanprompt.tasks.dataset_loader import DatasetLoader
 
 if __name__ == "__main__":
     os.environ["OPENAI_API_KEY"] = "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"

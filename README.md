@@ -2,7 +2,7 @@
 
 ## Development
 ~~~
-pip install -e . # install unifiedhumanprompt abd soft link configs to unifiedhumanprompt/artifacts/configs
+pip install -e . # install humanprompt abd soft link hub to humanprompt/artifacts/hub
 ~~~
 
 ~~~

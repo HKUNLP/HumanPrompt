@@ -144,7 +144,7 @@ key.txt
 tmp
 
 data
-/unifiedhumanprompt/artifacts/configs
+/humanprompt/artifacts/hub
 
 # huggingface dataset cache dir
 .cached_datasets/

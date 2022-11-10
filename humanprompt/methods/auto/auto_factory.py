@@ -28,12 +28,12 @@ class BaseAutoMethod:
         # Fixme: why these pop and get things? do we need to fix the parameters num and category in config?
         if method_name is not None:
             if "dataset_name" in kwargs:
-                # Default to be examples/configs
+                # Default to be examples/hub
                 default_config_file_path = get_config_file(
                     f"{method_name}/{kwargs['dataset_name']}/config.yaml"
                 )
             else:
-                # If not found, default to be examples/configs
+                # If not found, default to be examples/hub
                 default_config_file_path = get_config_file(
                     f"{method_name}/example/config.yaml"
                 )

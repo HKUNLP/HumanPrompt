@@ -1,11 +1,11 @@
 import os
 from typing import Dict, List, Union
 
-from unifiedhumanprompt.evaluators.evaluator import Evaluator
-from unifiedhumanprompt.methods.auto.method_auto import AutoMethod
-from unifiedhumanprompt.methods.base_method.method import PromptMethod
-from unifiedhumanprompt.tasks.dataset_loader import DatasetLoader
-from unifiedhumanprompt.utils.config_utils import load_config
+from humanprompt.evaluators.evaluator import Evaluator
+from humanprompt.methods.auto.method_auto import AutoMethod
+from humanprompt.methods.base_method.method import PromptMethod
+from humanprompt.tasks.dataset_loader import DatasetLoader
+from humanprompt.utils.config_utils import load_config
 
 
 def run_experiment(
