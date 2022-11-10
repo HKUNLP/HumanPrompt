@@ -41,39 +41,45 @@ def build_db_create_table_prompt_part(table: Union[pd.DataFrame, Dict], title: s
     return string
 
 
-def build_db_select_x_prompt_part(table: Union[pd.DataFrame, Dict], prompt_style: str) -> str:
+def build_db_select_x_prompt_part(table: Union[pd.DataFrame, Dict],
+                                  prompt_style: str,) -> str:
     """
     Return the first X rows table contents as prompt.
     """
 
     df = convert_to_df(table)
+    select_head = ""
 
     if prompt_style == "create_table_select_full_table":
         num_rows = len(df)
-        string = "/*\nAll rows of the table:\nSELECT * FROM w;\n"
+        select_head += "/*\nAll rows of the table:\nSELECT * FROM w;\n"
     elif prompt_style == "create_table_select_3":
         num_rows = 3
-        string = "/*\n{} example rows:\nSELECT * FROM w LIMIT {};\n".format(
+        select_head += "/*\n{} example rows:\nSELECT * FROM w LIMIT {};\n".format(
             num_rows, num_rows
         )
+    elif prompt_style == 'no_table':
+        # No table input, to test Codex QA with only internal knowledge
+        num_rows = 0
     else:
         raise ValueError("prompt_style not supported")
 
+    content = ""
     for column_id, header in enumerate(df.columns):
-        string += str(header)
+        content += str(header)
         if column_id != len(df.columns) - 1:
-            string += "\t"
-    string += "\n"
+            content += "\t"
+    content += "\n"
 
     for row_id, row in df.iloc[:num_rows].iterrows():
         for column_id, header in enumerate(df.columns):
-            string += str(row[header])
+            content += str(row[header])
             if column_id != len(df.columns) - 1:
-                string += "\t"
-        string += "\n"
-    string += "*/\n"
+                content += "\t"
+        content += "\n"
+    content += "*/\n"
 
-    return string
+    return select_head + content
 
 
 def build_db_prompt(table: Union[pd.DataFrame, Dict], title: str = "",

@@ -45,7 +45,7 @@ class PromptMethod(abc.ABC):
             if param in run_required_params + client_request_required_params:
                 run_params[param] = kwargs[param]
 
-        return self.manifest.run(prompt, **run_params)
+        return self.manifest.run(prompt, overwrite_cache=True, **run_params)
 
     @abc.abstractmethod
     # def run(self, x, in_context_examples=None, prompt_file_path=None, **kwargs: Any):

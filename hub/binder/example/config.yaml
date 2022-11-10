@@ -1,0 +1,24 @@
+---
+  method_name: "binder"
+  client_name: "openai"
+  prompt_file_path: "binder/wikitq/prompt.txt"
+
+  # Program Generation
+  generation:
+    transform: "binder"
+    n_shots: 14
+    generate_type: 'nsql'
+    seed: 42
+    engine: "code-davinci-002"
+    max_tokens: 512
+    temperature: 0.4
+    n: 2
+    top_k_return: 2
+    stop_token: "\n\n"
+
+  # Program Execution
+  execution:
+    qa_retrieve_pool_file: "templates/qa_retrieve_pool/qa_retrieve_pool.json" # fixme: hardcode
+    # Aggregation options
+    aggregation: "simple_majority_vote"
+    process_program_with_fuzzy_match_on_db: true
