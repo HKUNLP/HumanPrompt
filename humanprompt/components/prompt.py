@@ -15,18 +15,23 @@ class PromptBuilder:
             prompt_file_path: Optional[str] = None,
             transform: Union[str, Callable] = None,
             n_shots: int = None,
+            do_trim: bool = False,
+            max_tokens: int = 8001,
             **kwargs: Any,
     ) -> str:
         """
         Build prompt from x, in_context_examples, and prompt_file_path.
 
         Args:
+
             x: Input to the prompt.
             description: Description to be added at the start of the prompt.
             in_context_examples: List of examples to be used in context.
             prompt_file_path: Path to file containing prompt.
             transform: Transform to apply to x.
             n_shots: Number of shots to use in the prompt.
+            do_trim: Whether to trim the prompt to max_tokens.
+            max_tokens: Maximum number of tokens to use in the prompt.
             **kwargs: Additional arguments to pass to the transform.
 
         Returns:
@@ -53,10 +58,15 @@ class PromptBuilder:
         else:
             raise ValueError("No prompt pattern for this set of args.")
 
+        # If the description is specified, add it to the prompt.
         if description:
             prompt = f"{description}\n\n{prompt_body}"
         else:
             prompt = prompt_body
+
+        # if trim is specified, trim the prompt.
+        if do_trim:
+            prompt = PromptBuilder.trim_prompt(prompt, max_tokens)
 
         return prompt
 
@@ -157,7 +167,7 @@ class PromptBuilder:
         """Trim prompt to fit into the max tokens."""
         items = PromptBuilder.parse_prompt_to_examples(prompt)
         few_shot_prompt, generate_prompt = items[:-1], items[-1]
-        tokenizer = AutoTokenizer.from_pretrained("gpt2")
+        tokenizer = AutoTokenizer.from_pretrained("gpt2") # fixme: hardcode
         n_shots = len(few_shot_prompt)
 
         # Ensure the input length fit Codex max input tokens by shrinking the n_shots
