@@ -17,6 +17,7 @@
 
 import json
 import os
+from typing import Iterator, List, Tuple
 
 import datasets
 
@@ -45,9 +46,7 @@ TABFACT is challenging since it involves both soft linguistic reasoning and hard
 
 _HOMEPAGE = "https://tabfact.github.io/"
 
-_GIT_ARCHIVE_URL = (
-    "https://github.com/wenhuchen/Table-Fact-Checking/archive/948b5560e2f7f8c9139bd91c7f093346a2bb56a8.zip"
-)
+_GIT_ARCHIVE_URL = "https://github.com/wenhuchen/Table-Fact-Checking/archive/948b5560e2f7f8c9139bd91c7f093346a2bb56a8.zip"
 
 
 class TabFact(datasets.GeneratorBasedBuilder):
@@ -55,19 +54,21 @@ class TabFact(datasets.GeneratorBasedBuilder):
 
     VERSION = datasets.Version("1.0.0")
 
-    def _info(self):
+    def _info(self) -> datasets.DatasetInfo:
         features = {
             "id": datasets.Value("int32"),
             "table": {
                 "id": datasets.Value("string"),
                 "header": datasets.features.Sequence(datasets.Value("string")),
-                "rows": datasets.features.Sequence(datasets.features.Sequence(datasets.Value("string"))),
+                "rows": datasets.features.Sequence(
+                    datasets.features.Sequence(datasets.Value("string"))
+                ),
                 "caption": datasets.Value("string"),
             },
             "statement": datasets.Value("string"),
             "label": datasets.Value("int32"),
             "hardness": datasets.Value("string"),
-            "small_test": datasets.Value("bool")
+            "small_test": datasets.Value("bool"),
         }
 
         return datasets.DatasetInfo(
@@ -78,46 +79,67 @@ class TabFact(datasets.GeneratorBasedBuilder):
             citation=_CITATION,
         )
 
-    def _split_generators(self, dl_manager):
+    def _split_generators(
+        self, dl_manager: datasets.DownloadManager
+    ) -> List[datasets.SplitGenerator]:
         extracted_path = dl_manager.download_and_extract(_GIT_ARCHIVE_URL)
 
-        repo_path = os.path.join(extracted_path, "Table-Fact-Checking-948b5560e2f7f8c9139bd91c7f093346a2bb56a8")
+        repo_path = os.path.join(
+            extracted_path,
+            "Table-Fact-Checking-948b5560e2f7f8c9139bd91c7f093346a2bb56a8",
+        )
         all_csv_path = os.path.join(repo_path, "data", "all_csv")
 
-        train_statements_file = os.path.join(repo_path, "tokenized_data", "train_examples.json")
-        val_statements_file = os.path.join(repo_path, "tokenized_data", "val_examples.json")
-        test_statements_file = os.path.join(repo_path, "tokenized_data", "test_examples.json")
+        train_statements_file = os.path.join(
+            repo_path, "tokenized_data", "train_examples.json"
+        )
+        val_statements_file = os.path.join(
+            repo_path, "tokenized_data", "val_examples.json"
+        )
+        test_statements_file = os.path.join(
+            repo_path, "tokenized_data", "test_examples.json"
+        )
 
         info_path = os.path.join(repo_path, "data")
 
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
-                gen_kwargs={"statements_file": train_statements_file, "all_csv_path": all_csv_path,
-                            "info_path": info_path},
+                gen_kwargs={
+                    "statements_file": train_statements_file,
+                    "all_csv_path": all_csv_path,
+                    "info_path": info_path,
+                },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.VALIDATION,
-                gen_kwargs={"statements_file": val_statements_file, "all_csv_path": all_csv_path,
-                            "info_path": info_path},
+                gen_kwargs={
+                    "statements_file": val_statements_file,
+                    "all_csv_path": all_csv_path,
+                    "info_path": info_path,
+                },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.TEST,
-                gen_kwargs={"statements_file": test_statements_file, "all_csv_path": all_csv_path,
-                            "info_path": info_path},
+                gen_kwargs={
+                    "statements_file": test_statements_file,
+                    "all_csv_path": all_csv_path,
+                    "info_path": info_path,
+                },
             ),
         ]
 
-    def _generate_examples(self, statements_file, all_csv_path, info_path):
-
-        def __convert_to_table(table_str):
+    def _generate_examples(
+        self, statements_file: str, all_csv_path: str, info_path: str
+    ) -> Iterator[Tuple[str, dict]]:
+        def __convert_to_table(table_str: str) -> dict:
             table = {
-                "header": table_str.split('\n')[0].split('#'),
-                "rows": [row_str.split('#') for row_str in table_str.split('\n')[1:-1]]
+                "header": table_str.split("\n")[0].split("#"),
+                "rows": [row_str.split("#") for row_str in table_str.split("\n")[1:-1]],
             }
             return table
 
-        def __construct_hardness_dict(path):
+        def __construct_hardness_dict(path: str) -> dict:
             hardness_dict = {}
             with open(os.path.join(path, "simple_ids.json"), "r") as f:
                 simple_table_list = json.load(f)
@@ -136,7 +158,7 @@ class TabFact(datasets.GeneratorBasedBuilder):
 
             return hardness_dict
 
-        def __construct_small_test_dict(path):
+        def __construct_small_test_dict(path: str) -> dict:
             small_test_dict = {}
             with open(os.path.join(path, "all_csv_ids.json"), "r") as f:
                 all_csv_list = json.load(f)
@@ -172,12 +194,12 @@ class TabFact(datasets.GeneratorBasedBuilder):
                     "id": i,
                     "table": {
                         "id": table_id,
-                        "header": parsed_table['header'],
-                        "rows": parsed_table['rows'],
-                        "caption": caption
+                        "header": parsed_table["header"],
+                        "rows": parsed_table["rows"],
+                        "caption": caption,
                     },
                     "statement": statement,
                     "label": label,
                     "hardness": hardness_dict[table_id],
-                    "small_test": small_test_dict[table_id]
+                    "small_test": small_test_dict[table_id],
                 }

@@ -14,14 +14,12 @@
 # limitations under the License.
 """StrategyQA Dataset"""
 
-
 import json
-import datasets
-from typing import Dict, List, Optional, Tuple, Iterator
+from typing import Dict, Iterator, List, Tuple
 
+import datasets
 
 logger = datasets.logging.get_logger(__name__)
-
 
 _CITATION = """\
 @article{geva2021strategyqa,
@@ -50,11 +48,13 @@ class StrategyQA(datasets.GeneratorBasedBuilder):
         ),
     ]
 
-    def __init__(self, *args, writer_batch_size=None, **kwargs):
+    def __init__(
+        self, *args: List, writer_batch_size: int = None, **kwargs: Dict
+    ) -> None:
         super().__init__(*args, writer_batch_size=writer_batch_size, **kwargs)
-        self.schema_cache = dict()
+        self.schema_cache: Dict = dict()
 
-    def _info(self):
+    def _info(self) -> datasets.DatasetInfo:
         features = datasets.Features(
             {
                 "id": datasets.Value("string"),
@@ -73,7 +73,9 @@ class StrategyQA(datasets.GeneratorBasedBuilder):
             citation=_CITATION,
         )
 
-    def _split_generators(self, dl_manager: datasets.DownloadManager) -> List[datasets.SplitGenerator]:
+    def _split_generators(
+        self, dl_manager: datasets.DownloadManager
+    ) -> List[datasets.SplitGenerator]:
         downloaded_filepath = dl_manager.download_and_extract(_URL)
 
         return [
@@ -88,10 +90,12 @@ class StrategyQA(datasets.GeneratorBasedBuilder):
                 gen_kwargs={
                     "data_filepath": downloaded_filepath + "/strategyqa_test.json",
                 },
-            )
+            ),
         ]
 
-    def _generate_examples(self, data_filepath: str) -> Iterator[Tuple[str, Dict[str, str]]]:
+    def _generate_examples(
+        self, data_filepath: str
+    ) -> Iterator[Tuple[int, Dict[str, dict]]]:
         logger.info("generating examples from = %s", data_filepath)
         with open(data_filepath, encoding="utf-8") as f:
             data = json.load(f)
@@ -113,5 +117,5 @@ class StrategyQA(datasets.GeneratorBasedBuilder):
                         "question": ex["question"],
                         "answer": None,
                         "facts": None,
-                        "decomposition": None
+                        "decomposition": None,
                     }

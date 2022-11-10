@@ -1,10 +1,10 @@
 from typing import Type
 
 from .base import Transform
+from .binder import BinderTransform
 from .cot import CoTTransform
 from .qa import QATransform
 from .zero_shot_cot import ZeroShotCoTTransform
-from .binder import BinderTransform
 
 
 class TransformFactory(object):

@@ -39,7 +39,12 @@ def run_experiment(
         prediction = method.run(data_item)
         gold_answer = data_item["answerKey"]
         # TODO: Maybe add an answer normalizer here, e.g., "(a)" equals to "A". Or relevant to the `transform`.
-        prediction = prediction.lstrip("(").rstrip(")").lower()
+        if isinstance(prediction, list):
+            prediction = [pred.lstrip("(").rstrip(")").lower() for pred in prediction]
+        elif isinstance(prediction, str):
+            prediction = prediction.lstrip("(").rstrip(")").lower()
+        else:
+            raise TypeError("Prediction should be a list or a string.")
         gold_answer = gold_answer.lower()
         predictions.append(prediction)
         gold_answers.append(gold_answer)
@@ -59,7 +64,8 @@ if __name__ == "__main__":
         dataset_name=exp_config["dataset"],
         split=exp_config["dataset_split"],
         name=exp_config["dataset_subset_name"]
-        if "dataset_subset_name" in exp_config else None
+        if "dataset_subset_name" in exp_config
+        else None,
     )
 
     if not hasattr(exp_config, "method"):

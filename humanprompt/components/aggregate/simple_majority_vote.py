@@ -5,7 +5,9 @@ from .base import Aggregate
 
 class SimpleMajorityVote(Aggregate):
     @staticmethod
-    def aggregate(answers: Union[str, List[str]], **kwargs: Any) -> Union[str, List[str]]:
+    def aggregate(
+        answers: Union[str, List[str]], **kwargs: Any
+    ) -> Union[str, List[str]]:
         """
         Aggregate the answers into a single answer.
 
@@ -36,5 +38,3 @@ class SimpleMajorityVote(Aggregate):
             return list(vote_result)
         else:
             assert False, "Invalid vote result type: {}".format(type(vote_result))
-
-

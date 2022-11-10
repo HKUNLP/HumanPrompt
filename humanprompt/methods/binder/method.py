@@ -1,13 +1,12 @@
-from typing import Any, Dict, List, Optional, Union
 import os
+from typing import Any, Dict, List, Optional, Union
+
+from humanprompt.third_party.binder.nsql.nsql_exec import Executor, NeuralDB
+from humanprompt.third_party.binder.utils.normalizer import post_process_sql
 
 from ...components.post_hoc import HocPoster
 from ...components.prompt import PromptBuilder
 from ...methods.base_method.method import PromptMethod
-
-# Special for binder
-from ...third_party.binder.nsql.nsql_exec import Executor, NeuralDB
-from ...third_party.binder.utils.normalizer import post_process_sql
 
 
 class BinderMethod(PromptMethod):
@@ -18,12 +17,15 @@ class BinderMethod(PromptMethod):
         self.keys = [os.environ.get("OPENAI_API_KEY")]
 
     def run(
-            self,
-            x: Union[str, Dict[str, Union[str, Dict]]],
-            in_context_examples: List[Dict] = None,
-            prompt_file_path: Optional[str] = None,
-            **kwargs: Any
+        self,
+        x: Union[str, Dict[str, Union[str, Dict]]],
+        in_context_examples: List[Dict] = None,
+        prompt_file_path: Optional[str] = None,
+        **kwargs: Any
     ) -> Union[str, List[str]]:
+        assert isinstance(x, Dict)
+        assert isinstance(x["table"], Dict)
+
         prompt = PromptBuilder.build_prompt(
             x=x,
             in_context_examples=in_context_examples
@@ -32,35 +34,41 @@ class BinderMethod(PromptMethod):
             prompt_file_path=prompt_file_path
             if prompt_file_path
             else self.kwargs.get("prompt_file_path", None),
-            **self.kwargs['generation']
+            **self.kwargs["generation"]
         )
 
-        nsqls = self.run_lm(prompt, **self.kwargs['generation'])
+        nsqls = self.run_lm(prompt, **self.kwargs["generation"])
 
         # ********* Execution *********
         # TODO: Merge the execution part into the framework.
         # TODO: add a converter of args and kwargs
-        executor = Executor(self.kwargs['execution'], keys=self.keys)
+        executor = Executor(self.kwargs["execution"], keys=self.keys)
 
         # Execute
         exec_answer_list = []
         for nsql in nsqls:
             try:
                 db = NeuralDB(
-                    tables=[{"title": x['table']['page_title'], "table": x['table']}]
+                    tables=[{"title": x["table"]["page_title"], "table": x["table"]}]
                 )
                 nsql = post_process_sql(
                     sql_str=nsql,
                     df=db.get_table_df(),
-                    process_program_with_fuzzy_match_on_db=self.kwargs['execution'].get(
-                        'process_program_with_fuzzy_match_on_db', True),
-                    table_title=x['table']['page_title']
+                    process_program_with_fuzzy_match_on_db=self.kwargs["execution"].get(
+                        "process_program_with_fuzzy_match_on_db", True
+                    ),
+                    table_title=x["table"]["page_title"],
                 )
-                exec_answer = executor.nsql_exec(nsql, db,verbose=kwargs['verbose'] if 'verbose' in kwargs else self.kwargs.get(
-                                                     'verbose', False))
+                exec_answer = executor.nsql_exec(
+                    nsql,
+                    db,
+                    verbose=kwargs["verbose"]
+                    if "verbose" in kwargs
+                    else self.kwargs.get("verbose", False),
+                )
                 exec_answer_list.append(exec_answer)
-            except Exception as e:
-                exec_answer = '<error>'
+            except Exception:
+                exec_answer = "<error>"
                 exec_answer_list.append(exec_answer)
 
         # ********* Post-hoc *********
@@ -68,6 +76,6 @@ class BinderMethod(PromptMethod):
             exec_answer_list,
             aggregation=kwargs["aggregation"]
             if "aggregation" in kwargs
-            else self.kwargs['execution'].get('aggregation', None)
+            else self.kwargs["execution"].get("aggregation", None),
         )
         return y

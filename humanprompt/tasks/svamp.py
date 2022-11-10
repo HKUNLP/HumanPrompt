@@ -14,9 +14,10 @@
 # limitations under the License.
 """SVAMP Dataset"""
 
-import datasets
-from typing import Dict, List, Optional, Tuple, Iterator
 import csv
+from typing import Any, Dict, Iterator, List, Tuple
+
+import datasets
 
 logger = datasets.logging.get_logger(__name__)
 
@@ -42,7 +43,9 @@ SVAMP is a challenge set of ASDiv-A and MAWPS.
 """
 _HOMEPAGE = "https://github.com/arkilpatel/SVAMP"
 _LICENSE = "MIT License"
-_URL = "https://raw.githubusercontent.com/arkilpatel/SVAMP/main/data/mawps-asdiv-a_svamp/"
+_URL = (
+    "https://raw.githubusercontent.com/arkilpatel/SVAMP/main/data/mawps-asdiv-a_svamp/"
+)
 _TRAINING_FILE = "train.csv"
 _DEV_FILE = "dev.csv"
 _URLS = {
@@ -62,11 +65,13 @@ class SVAMP(datasets.GeneratorBasedBuilder):
         ),
     ]
 
-    def __init__(self, *args, writer_batch_size=None, **kwargs):
+    def __init__(
+        self, *args: List, writer_batch_size: int = None, **kwargs: Dict
+    ) -> None:
         super().__init__(*args, writer_batch_size=writer_batch_size, **kwargs)
-        self.schema_cache = dict()
+        self.schema_cache: Dict = dict()
 
-    def _info(self):
+    def _info(self) -> datasets.DatasetInfo:
         features = datasets.Features(
             {
                 "id": datasets.Value("string"),
@@ -78,7 +83,7 @@ class SVAMP(datasets.GeneratorBasedBuilder):
                 "equation": datasets.Value("string"),
                 "group_nums": datasets.features.Sequence(datasets.Value("string")),
                 "type": datasets.Value("string"),
-                "variation type": datasets.Value("string")
+                "variation type": datasets.Value("string"),
             }
         )
         return datasets.DatasetInfo(
@@ -90,7 +95,9 @@ class SVAMP(datasets.GeneratorBasedBuilder):
             citation=_CITATION,
         )
 
-    def _split_generators(self, dl_manager: datasets.DownloadManager) -> List[datasets.SplitGenerator]:
+    def _split_generators(
+        self, dl_manager: datasets.DownloadManager
+    ) -> List[datasets.SplitGenerator]:
         downloaded_files = dl_manager.download_and_extract(_URLS)
 
         return [
@@ -102,13 +109,11 @@ class SVAMP(datasets.GeneratorBasedBuilder):
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.VALIDATION,
-                gen_kwargs={
-                    "filepath": downloaded_files["dev"]
-                },
-            )
+                gen_kwargs={"filepath": downloaded_files["dev"]},
+            ),
         ]
 
-    def _generate_examples(self, filepath: str) -> Iterator[Tuple[str, Dict[str, str]]]:
+    def _generate_examples(self, filepath: str) -> Iterator[Tuple[int, Dict[str, Any]]]:
         logger.info("generating examples from = %s", filepath)
         with open(filepath, encoding="utf-8") as f:
             reader = csv.DictReader(f)
@@ -116,7 +121,7 @@ class SVAMP(datasets.GeneratorBasedBuilder):
                 # Train set
                 if "type" not in ex:
                     ex["Type"] = None
-                    ex['Variation Type'] = None
+                    ex["Variation Type"] = None
                 yield idx, {
                     "id": str(idx),
                     "question": ex["Question"],
@@ -125,7 +130,7 @@ class SVAMP(datasets.GeneratorBasedBuilder):
                     "ques": ex["Ques"],
                     "numbers": ex["Numbers"],
                     "equation": ex["Equation"],
-                    "group_nums": list(ex['group_nums']),
+                    "group_nums": list(ex["group_nums"]),
                     "type": ex["Type"],
-                    "variation type": ex['Variation Type']
+                    "variation type": ex["Variation Type"],
                 }

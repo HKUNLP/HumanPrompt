@@ -1,7 +1,8 @@
 from typing import Any, Callable, Dict, List, Optional, Union
 
-from .transform.transform_factory import TransformFactory
 from transformers import AutoTokenizer
+
+from .transform.transform_factory import TransformFactory
 
 
 class PromptBuilder:
@@ -9,15 +10,15 @@ class PromptBuilder:
 
     @staticmethod
     def build_prompt(
-            x: Union[str, Dict],
-            description: str = None,
-            in_context_examples: List[Dict] = None,
-            prompt_file_path: Optional[str] = None,
-            transform: Union[str, Callable] = None,
-            n_shots: int = None,
-            do_trim: bool = False,
-            max_tokens: int = 8001,
-            **kwargs: Any,
+        x: Union[str, Dict],
+        description: str = None,
+        in_context_examples: List[Dict] = None,
+        prompt_file_path: Optional[str] = None,
+        transform: Union[str, Callable] = None,
+        n_shots: int = None,
+        do_trim: bool = False,
+        max_tokens: int = 8001,
+        **kwargs: Any,
     ) -> str:
         """
         Build prompt from x, in_context_examples, and prompt_file_path.
@@ -66,16 +67,16 @@ class PromptBuilder:
 
         # if trim is specified, trim the prompt.
         if do_trim:
-            prompt = PromptBuilder.trim_prompt(prompt, max_tokens)
+            prompt = PromptBuilder.trim_examples(prompt, max_tokens)
 
         return prompt
 
     @staticmethod
     def build_one_prompt(
-            x: Union[str, Dict],
-            transform: Union[str, Callable],
-            y: Union[str, Dict] = None,
-            **kwargs: Any,
+        x: Union[str, Dict],
+        transform: Union[str, Callable],
+        y: Union[str, Dict] = None,
+        **kwargs: Any,
     ) -> str:
 
         if callable(transform):
@@ -101,10 +102,10 @@ class PromptBuilder:
 
     @staticmethod
     def build_prompt_from_file(
-            prompt_file_path: str,
-            x: Union[str, Dict] = None,
-            transform: Union[str, Callable] = None,
-            **kwargs: Any,
+        prompt_file_path: str,
+        x: Union[str, Dict] = None,
+        transform: Union[str, Callable] = None,
+        **kwargs: Any,
     ) -> str:
         prompt = ""
 
@@ -121,24 +122,24 @@ class PromptBuilder:
 
     @staticmethod
     def build_prompt_from_examples(
-            x: Union[str, Dict],
-            in_context_examples: List[Dict],
-            transform: Union[str, Callable],
-            n_shots: int = None,
-            **kwargs: Any,
+        x: Union[str, Dict],
+        in_context_examples: List[Dict],
+        transform: Union[str, Callable],
+        n_shots: int = None,
+        **kwargs: Any,
     ) -> str:
         # todo: add spec for x, in_context_examples
         in_context_examples_prompt = ""
         n_shots = len(in_context_examples) if n_shots is None else n_shots
         for in_context_example in in_context_examples[:n_shots]:
             in_context_examples_prompt += (
-                    PromptBuilder.build_one_prompt(
-                        x=in_context_example["x"],
-                        y=in_context_example["y"],
-                        transform=transform,
-                        **kwargs,
-                    )
-                    + "\n\n"
+                PromptBuilder.build_one_prompt(
+                    x=in_context_example["x"],
+                    y=in_context_example["y"],
+                    transform=transform,
+                    **kwargs,
+                )
+                + "\n\n"
             )
 
         x_prompt = PromptBuilder.build_one_prompt(x=x, transform=transform, **kwargs)
@@ -147,9 +148,7 @@ class PromptBuilder:
         return prompt
 
     @staticmethod
-    def parse_prompt_to_examples(
-            prompt: str
-    ) -> List[str]:
+    def parse_prompt_to_examples(prompt: str) -> List[str]:
         """
 
         Args:
@@ -161,13 +160,12 @@ class PromptBuilder:
         # todo: change the logic
         return prompt.split("\n\n")
 
-
     @staticmethod
     def trim_examples(prompt: str, max_tokens: int) -> str:
         """Trim prompt to fit into the max tokens."""
         items = PromptBuilder.parse_prompt_to_examples(prompt)
         few_shot_prompt, generate_prompt = items[:-1], items[-1]
-        tokenizer = AutoTokenizer.from_pretrained("gpt2") # fixme: hardcode
+        tokenizer = AutoTokenizer.from_pretrained("gpt2")  # fixme: hardcode
         n_shots = len(few_shot_prompt)
 
         # Ensure the input length fit Codex max input tokens by shrinking the n_shots
