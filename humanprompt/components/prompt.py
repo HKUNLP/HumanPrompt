@@ -130,3 +130,9 @@ class PromptBuilder:
 
         prompt = in_context_examples_prompt + x_prompt
         return prompt
+
+    @staticmethod
+    def trim_prompt(prompt: str, max_tokens: int) -> str:
+        """Trim prompt to fit into the max tokens."""
+        # todo: implement
+        pass

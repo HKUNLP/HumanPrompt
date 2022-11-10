@@ -1,0 +1,26 @@
+---
+  method_name: "binder"
+  client_name: "openai"
+  prompt_file_path: "binder/wikitq/prompt.txt"
+
+  # Program Generation
+  generation:
+    - transform: "binder"
+    - n_shots: 14
+    - generate_type: 'nsql'
+    - seed: 42
+    - engine: "code-davinci-002"
+    - n_parallel_prompts: 2
+    - max_generation_tokens: 512
+    - max_api_total_tokens: 8001
+    - temperature: 0.4
+    - sampling_n: 20
+    - stop_tokens: "\n\n"
+
+  # Program Execution
+  execution:
+    - temperature: 0
+    - qa_retrieve_pool_file: "binder/wikitq/qa_retrieve_pool.json"
+    # Aggregation options
+    - aggregation: "majority_vote"
+    - process_program_with_fuzzy_match_on_db: true
