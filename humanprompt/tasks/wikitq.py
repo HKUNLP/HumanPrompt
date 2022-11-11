@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """The WikiTableQuestions dataset is for the task of question answering on semi-structured HTML tables"""
-
+# mypy: ignore-errors
 import json
 import os
 from typing import Iterator, List, Tuple

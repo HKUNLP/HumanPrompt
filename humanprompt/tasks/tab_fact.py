@@ -14,7 +14,7 @@
 # limitations under the License.
 
 """TabFact: A Large-scale Dataset for Table-based Fact Verification"""
-
+# mypy: ignore-errors
 import json
 import os
 from typing import Iterator, List, Tuple
@@ -158,7 +158,7 @@ class TabFact(datasets.GeneratorBasedBuilder):
 
             return hardness_dict
 
-        def __construct_small_test_dict(path: str) -> dict:
+        def __construct_small_test_dict(path: str) -> dict:  # type: ignore[override]
             small_test_dict = {}
             with open(os.path.join(path, "all_csv_ids.json"), "r") as f:
                 all_csv_list = json.load(f)

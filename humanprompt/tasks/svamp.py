@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """SVAMP Dataset"""
-
+# mypy: ignore-errors
 import csv
 from typing import Any, Dict, Iterator, List, Tuple
 

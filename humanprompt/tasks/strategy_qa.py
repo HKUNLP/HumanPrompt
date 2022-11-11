@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """StrategyQA Dataset"""
-
+# mypy: ignore-errors
 import json
 from typing import Dict, Iterator, List, Tuple
 
