@@ -1,4 +1,5 @@
 dev:
+	pip install --upgrade setuptools
 	pip install -e .[all]
 
 check:
@@ -7,5 +8,5 @@ check:
 	flake8 examples/ humanprompt/ setup.py
 	mypy humanprompt/ --ignore-missing-imports
 
-test:
+test: dev
 	pytest tests

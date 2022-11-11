@@ -58,6 +58,7 @@ install_requires = [
 extras_require = {
     "binder": [
         "binder@git+https://github.com/HKUNLP/Binder.git@humanprompt#egg=binder",
+        "python-Levenshtein",
     ],
     "dev": [
         "black",
