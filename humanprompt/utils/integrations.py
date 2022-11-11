@@ -1,5 +1,7 @@
-import importlib
-
-
 def is_binder_available() -> bool:
-    return importlib.util.find_spec("binder") is not None
+    try:
+        import binder  # noqa: F401
+
+        return True
+    except ImportError:
+        return False
