@@ -1,15 +1,10 @@
-import importlib.util
 import os
 from typing import Any, Dict, List, Optional, Union
 
 from ...components.post_hoc import HocPoster
 from ...components.prompt import PromptBuilder
 from ...methods.base_method.method import PromptMethod
-
-
-def is_binder_available() -> bool:
-    return importlib.util.find_spec("binder") is not None
-
+from ...utils.integrations import is_binder_available
 
 has_binder = is_binder_available()
 if not has_binder:

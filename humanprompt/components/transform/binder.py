@@ -1,9 +1,16 @@
 from typing import Any, Dict, Union
 
-from binder.nsql.database import NeuralDB
-
+from ...utils.integrations import is_binder_available
 from ..utils.db_utils import build_db_prompt
 from .base import Transform
+
+has_binder = is_binder_available()
+if not has_binder:
+    raise RuntimeError(
+        "binder is not installed. Please install binder to use this method."
+    )
+if has_binder:
+    from binder.nsql.database import NeuralDB
 
 
 class BinderTransform(Transform):
