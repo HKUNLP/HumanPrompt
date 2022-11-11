@@ -1,12 +1,25 @@
+import importlib.util
 import os
 from typing import Any, Dict, List, Optional, Union
-
-from humanprompt.third_party.binder.nsql.nsql_exec import Executor, NeuralDB
-from humanprompt.third_party.binder.utils.normalizer import post_process_sql
 
 from ...components.post_hoc import HocPoster
 from ...components.prompt import PromptBuilder
 from ...methods.base_method.method import PromptMethod
+
+
+def is_binder_available() -> bool:
+    return importlib.util.find_spec("binder") is not None
+
+
+has_binder = is_binder_available()
+if not has_binder:
+    raise RuntimeError(
+        "binder is not installed. Please install binder to use this method."
+    )
+if has_binder:
+    from binder.nsql.database import NeuralDB
+    from binder.nsql.nsql_exec import Executor
+    from binder.utils.normalizer import post_process_sql
 
 
 class BinderMethod(PromptMethod):

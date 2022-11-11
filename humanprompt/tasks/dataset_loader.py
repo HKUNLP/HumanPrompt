@@ -14,6 +14,7 @@ class DatasetLoader(object):
     own_dataset = {
         "strategy_qa": os.path.join(DIR, "strategy_qa.py"),
         "svamp": os.path.join(DIR, "svamp.py"),
+        "wikitq": os.path.join(DIR, "wikitq.py"),
     }
 
     @staticmethod

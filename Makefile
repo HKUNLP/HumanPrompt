@@ -5,7 +5,7 @@ check:
 	isort -c examples/ humanprompt/ setup.py
 	black examples/ humanprompt/ setup.py --check
 	flake8 examples/ humanprompt/ setup.py
-	mypy humanprompt/ --ignore-missing-imports --scripts-are-modules
+	mypy humanprompt/ --ignore-missing-imports
 
 test:
 	pytest tests

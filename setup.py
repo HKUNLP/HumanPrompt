@@ -52,6 +52,7 @@ install_requires = [
     "evaluate",
     "scikit-learn",
     "manifest-ml",
+    "importlib",
 ]
 
 extras_require = {

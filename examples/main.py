@@ -8,7 +8,9 @@ if __name__ == "__main__":
 
     method = AutoMethod.from_config(method_name="binder")
 
-    data_item = DatasetLoader.load_dataset(dataset_name="wikitq")[0]
+    data = DatasetLoader.load_dataset(dataset_name="wikitq")
+    data_item = data["test"][2]
 
     result = method.run(data_item)
     print(result)
+    print(data_item["answer_text"])

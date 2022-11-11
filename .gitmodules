@@ -1,6 +1,0 @@
-[submodule "humanprompt/third_party/manifest"]
-	path = humanprompt/third_party/manifest
-	url = git@github.com:HazyResearch/manifest.git
-[submodule "humanprompt/third_party/binder"]
-	path = humanprompt/third_party/binder
-	url = git@github.com:HKUNLP/Binder.git

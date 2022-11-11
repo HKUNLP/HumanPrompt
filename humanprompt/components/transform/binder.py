@@ -1,6 +1,7 @@
 from typing import Any, Dict, Union
 
-from ...third_party.binder.nsql.database import NeuralDB
+from binder.nsql.database import NeuralDB
+
 from ..utils.db_utils import build_db_prompt
 from .base import Transform
 
