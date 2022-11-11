@@ -5,10 +5,6 @@ from ..utils.db_utils import build_db_prompt
 from .base import Transform
 
 has_binder = is_binder_available()
-if not has_binder:
-    raise RuntimeError(
-        "binder is not installed. Please install binder to use this method."
-    )
 if has_binder:
     from binder.nsql.database import NeuralDB
 
@@ -34,6 +30,11 @@ class BinderTransform(Transform):
 
         assert isinstance(x, Dict)
         assert isinstance(x["table"], Dict)
+
+        if not has_binder:
+            raise RuntimeError(
+                "binder is not installed. Please install binder to use this method."
+            )
 
         db = NeuralDB(tables=[{"title": x["table"]["page_title"], "table": x["table"]}])
 

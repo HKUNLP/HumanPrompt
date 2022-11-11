@@ -1,6 +1,6 @@
 dev:
 	pip install --upgrade setuptools
-	pip install -e .[all]
+	pip install -e .[dev]
 
 check:
 	isort -c examples/ humanprompt/ setup.py

@@ -7,10 +7,6 @@ from ...methods.base_method.method import PromptMethod
 from ...utils.integrations import is_binder_available
 
 has_binder = is_binder_available()
-if not has_binder:
-    raise RuntimeError(
-        "binder is not installed. Please install binder to use this method."
-    )
 if has_binder:
     from binder.nsql.database import NeuralDB
     from binder.nsql.nsql_exec import Executor
@@ -47,6 +43,10 @@ class BinderMethod(PromptMethod):
 
         nsqls = self.run_lm(prompt, **self.kwargs["generation"])
 
+        if not has_binder:
+            raise RuntimeError(
+                "binder is not installed. Please install binder to use this method."
+            )
         # ********* Execution *********
         # TODO: Merge the execution part into the framework.
         # TODO: add a converter of args and kwargs
