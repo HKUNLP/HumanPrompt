@@ -49,6 +49,7 @@ def get_artifacts() -> List[str]:
 install_requires = [
     "omegaconf",
     "datasets",
+    "transformers",
     "evaluate",
     "scikit-learn",
     "manifest-ml",
