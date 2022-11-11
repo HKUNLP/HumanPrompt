@@ -16,13 +16,14 @@ pre-commit run --all-files # trigger all hooks
 - [ ] Add methods(ReAct, AMA_prompting, self ask) that requires external API
 - [ ] Add one program generation method(prompt prog)
 - [ ] Add one data generation method(ZeroGenI)
-- [ ] Add one skg method(Binder)
-- [ ] Init the experiments part
 - [ ] Support batch running function
 - [ ] Start UI construction
-- [ ] Add more tests
+
 
 ## Completed ✓
+- [x] Add more tests
+- [x] Add one skg method(Binder)
+- [x] Init the experiments part
 - [x] Add CLI
 - [x] Add static checkings
 - [x] Derive the manifest from the method, make full use of its init, run and run_batch(In progress)
