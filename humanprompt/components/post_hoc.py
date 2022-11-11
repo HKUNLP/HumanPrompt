@@ -58,6 +58,8 @@ class HocPoster(object):
                 elif callable(post_hoc):
                     # First try to use the post_hoc function passed in to handle the raw_responses
                     return post_hoc(raw_response, **kwargs)
+                else:
+                    raise TypeError("post_hoc should be str or Callable.")
             except Exception:
                 # If the post_hoc function is not defined, use the extract and aggregation functions to
                 # handle the raw_responses

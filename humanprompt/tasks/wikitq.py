@@ -13,28 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """The WikiTableQuestions dataset is for the task of question answering on semi-structured HTML tables"""
-
-import os
-import datasets
+# mypy: ignore-errors
 import json
+import os
+from typing import Iterator, List, Tuple
+
+import datasets
 
 
-def _load_table(table_path, page_title_path=None) -> dict:
+def _load_table(table_path: str, page_title_path: str = None) -> dict:
     """
     attention: the table_path must be the .tsv path.
     Load the WikiTableQuestion from csv file. Result in a dict format like:
     {"header": [header1, header2,...], "rows": [[row11, row12, ...], [row21,...]... [...rownm]]}
     """
 
-    def __load_table(table_path) -> dict:
+    def __load_table(table_path: str) -> dict:
         """
         attention: the table_path must be the .tsv path.
         Load the WikiTableQuestion from csv file. Result in a dict format like:
         {"header": [header1, header2,...], "rows": [[row11, row12, ...], [row21,...]... [...rownm]]}
         """
 
-        def __extract_content(_line: str):
-            _vals = [_.replace("\n", " ").strip() for _ in _line.strip("\n").split("\t")]
+        def __extract_content(_line: str) -> List:
+            _vals = [
+                _.replace("\n", " ").strip() for _ in _line.strip("\n").split("\t")
+            ]
             return _vals
 
         with open(table_path, "r") as f:
@@ -42,7 +46,7 @@ def _load_table(table_path, page_title_path=None) -> dict:
 
             rows = []
             for i, line in enumerate(lines):
-                line = line.strip('\n')
+                line = line.strip("\n")
                 if i == 0:
                     header = line.split("\t")
                 else:
@@ -53,7 +57,7 @@ def _load_table(table_path, page_title_path=None) -> dict:
         # Defense assertion
         for i in range(len(rows) - 1):
             if not len(rows[i]) == len(rows[i - 1]):
-                raise ValueError('some rows have diff cols.')
+                raise ValueError("some rows have diff cols.")
 
         return table_item
 
@@ -63,8 +67,8 @@ def _load_table(table_path, page_title_path=None) -> dict:
     if not page_title_path:
         page_title_path = table_path.replace("csv", "page").replace(".tsv", ".json")
     with open(page_title_path, "r") as f:
-        page_title = json.load(f)['title']
-    table_item['page_title'] = page_title
+        page_title = json.load(f)["title"]
+    table_item["page_title"] = page_title
 
     return table_item
 
@@ -88,10 +92,10 @@ _CITATION = """\
 
 _DESCRIPTION = """\
 Two important aspects of semantic parsing for question answering are the breadth of the knowledge source and the depth of
-logical compositionality. While existing work trades off one aspect for another, this paper simultaneously makes progress 
-on both fronts through a new task: answering complex questions on semi-structured tables using question-answer pairs as 
-supervision. The central challenge arises from two compounding factors: the broader domain results in an open-ended set 
-of relations, and the deeper compositionality results in a combinatorial explosion in the space of logical forms. We 
+logical compositionality. While existing work trades off one aspect for another, this paper simultaneously makes progress
+on both fronts through a new task: answering complex questions on semi-structured tables using question-answer pairs as
+supervision. The central challenge arises from two compounding factors: the broader domain results in an open-ended set
+of relations, and the deeper compositionality results in a combinatorial explosion in the space of logical forms. We
 propose a logical-form driven parsing algorithm guided by strong typing constraints and show that it obtains significant
  improvements over natural baselines. For evaluation, we created a new dataset of 22,033 complex questions on Wikipedia
   tables, which is made publicly available.
@@ -107,7 +111,7 @@ _URL = "https://github.com/ppasupat/WikiTableQuestions/archive/refs/heads/master
 class WikiTableQuestion(datasets.GeneratorBasedBuilder):
     """The WikiTableQuestions dataset"""
 
-    def _info(self):
+    def _info(self) -> datasets.DatasetInfo:
         return datasets.DatasetInfo(
             description=_DESCRIPTION,
             features=datasets.Features(
@@ -115,9 +119,13 @@ class WikiTableQuestion(datasets.GeneratorBasedBuilder):
                     "id": datasets.Value("string"),
                     "question": datasets.Value("string"),
                     "table_id": datasets.Value("string"),
-                    "table": {"page_title": datasets.Value("string"),
-                              "header": datasets.features.Sequence(datasets.Value("string")),
-                              "rows": datasets.features.Sequence(datasets.features.Sequence(datasets.Value("string")))},
+                    "table": {
+                        "page_title": datasets.Value("string"),
+                        "header": datasets.features.Sequence(datasets.Value("string")),
+                        "rows": datasets.features.Sequence(
+                            datasets.features.Sequence(datasets.Value("string"))
+                        ),
+                    },
                     "answer_text": datasets.features.Sequence(datasets.Value("string")),
                 }
             ),
@@ -127,30 +135,43 @@ class WikiTableQuestion(datasets.GeneratorBasedBuilder):
             citation=_CITATION,
         )
 
-    def _split_generators(self, dl_manager):
+    def _split_generators(
+        self, dl_manager: datasets.DownloadManager
+    ) -> List[datasets.SplitGenerator]:
         """Returns SplitGenerators."""
-        data_dir = os.path.join(dl_manager.download_and_extract(_URL), 'WikiTableQuestions-master')
+        data_dir = os.path.join(
+            dl_manager.download_and_extract(_URL), "WikiTableQuestions-master"
+        )
 
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
-                gen_kwargs={"filepath": os.path.join(data_dir, "data/random-split-1-train.tsv"),
-                            "data_dir": data_dir},
+                gen_kwargs={
+                    "filepath": os.path.join(data_dir, "data/random-split-1-train.tsv"),
+                    "data_dir": data_dir,
+                },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.VALIDATION,
-                gen_kwargs={"filepath": os.path.join(data_dir, "data/random-split-1-dev.tsv"),
-                            "data_dir": data_dir},
+                gen_kwargs={
+                    "filepath": os.path.join(data_dir, "data/random-split-1-dev.tsv"),
+                    "data_dir": data_dir,
+                },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.TEST,
-                gen_kwargs={"filepath": os.path.join(data_dir, "data/pristine-unseen-tables.tsv"),
-                            "data_dir": data_dir},
+                gen_kwargs={
+                    "filepath": os.path.join(
+                        data_dir, "data/pristine-unseen-tables.tsv"
+                    ),
+                    "data_dir": data_dir,
+                },
             ),
-
         ]
 
-    def _generate_examples(self, filepath, data_dir):
+    def _generate_examples(
+        self, filepath: str, data_dir: str
+    ) -> Iterator[Tuple[int, dict]]:
         """Yields examples."""
         # data_id, question, table_id, gold_result_str
         with open(filepath, encoding="utf-8") as f:
@@ -158,13 +179,17 @@ class WikiTableQuestion(datasets.GeneratorBasedBuilder):
                 # skip the header
                 if idx == 0:
                     continue
-                data_id, question, table_id, gold_result_str = line.strip("\n").split("\t")
-                gold_result = gold_result_str.split('|')
+                data_id, question, table_id, gold_result_str = line.strip("\n").split(
+                    "\t"
+                )
+                gold_result = gold_result_str.split("|")
                 yield idx, {
                     "id": data_id,
                     "question": question,
                     "table_id": table_id,
-                    "table": _load_table(os.path.join(data_dir, table_id.replace('.csv', '.tsv'))),
+                    "table": _load_table(
+                        os.path.join(data_dir, table_id.replace(".csv", ".tsv"))
+                    ),
                     # convert the .csv postfix to .tsv, for easier read-in
                     "answer_text": gold_result,
                 }

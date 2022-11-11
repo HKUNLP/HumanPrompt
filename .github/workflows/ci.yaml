@@ -31,4 +31,4 @@ jobs:
           make check
       - name: Test with pytest
         run: |
-          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}  pytest tests
+          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}  make test

@@ -1,0 +1,31 @@
+---
+  method_name: "binder"
+  client_name: "openai"
+  prompt_file_path: "binder/tab_fact/prompt.txt"
+  transform: "binder"
+
+  # Program Generation
+  generation:
+    transform: "binder"
+    n_shots: 14
+    generate_type: 'nsql'
+    seed: 42
+    engine: "code-davinci-002"
+    max_tokens: 512
+    temperature: 0.4
+    n: 2
+    top_k_return: 2
+    stop_token: "\n\n"
+
+  # Program Execution
+  execution:
+    qa_retrieve_pool_file: "templates/qa_retrieve_pool/qa_retrieve_pool.json"
+    # Aggregation options
+    aggregation: "majority_vote_plus" # todo: to be implenmented
+    allow_none_and_empty_answer: true
+    allow_multiple_answers: true
+    answer_placeholder: 0
+    # choices=['simple', 'prob', 'answer_biased']
+    answer_biased: 1
+    answer_biased_weight: 4
+    process_program_with_fuzzy_match_on_db: true

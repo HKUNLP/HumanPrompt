@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+from ..binder.method import BinderMethod
 from ..cot.method import CoTMethod
 from ..react.method import ReActMethod
 from ..standard.method import StandardMethod
@@ -13,6 +14,7 @@ METHOD_MAPPING_NAMES = OrderedDict(
         ("cot", CoTMethod),
         ("zero_shot_cot", ZeroShotCoTMethod),
         ("react", ReActMethod),
+        ("binder", BinderMethod),
     ]
 )
 
