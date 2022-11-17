@@ -47,7 +47,7 @@ data_item["context"] = "Answer choices: {}".format(
 # Run the method
 result = method.run(data_item)
 print(result)
-print(data_item["answer_text"])
+print(data_item)
 ```
 ## Project Architecture
 to be added
