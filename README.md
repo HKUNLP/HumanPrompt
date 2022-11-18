@@ -82,12 +82,12 @@ You can use `git commit --no-verify` to skip and allow us to handle that later o
 ### Things to be done in the future
 
 #### Before 2022.12
-- [ ] Add methods(ReAct, AMA_prompting, self ask) that requires external API
+- [ ] Add methods(ReAct, self-ask) that requires external API
 - [ ] Add one program generation method(prompt prog)
 - [ ] Add one data generation method(ZeroGenI)
 - [ ] Support batch running function
-- [ ] Start UI construction
-
+- [ ] Start UI construction 
+- [x] Add AMA_prompting
 - [x] Shorten the repo name to be published on PyPI
 - [x] Add more tests
 - [x] Add one skg method(Binder)
