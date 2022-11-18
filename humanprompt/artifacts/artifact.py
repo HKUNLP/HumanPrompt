@@ -35,3 +35,8 @@ def get_prompt_file(prompt_path: str) -> str:
     if not os.path.exists(prompt_file):
         raise RuntimeError("{} not available in Model Zoo!".format(prompt_path))
     return prompt_file
+
+
+def get_class(class_path: str) -> str:
+    """ """
+    return "humanprompt.artifacts.hub.{}".format(class_path)

@@ -1,3 +1,4 @@
+import json
 from typing import Any, Dict, List, Optional, Union
 
 from ...components.post_hoc import HocPoster
@@ -10,6 +11,12 @@ class AMAPromptingMethod(PromptMethod):
 
     def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)
+        with open(self.kwargs["prompt_examples_path"]["questioner_examples"], "r") as f:
+            self.questioner_in_context_examples_s = json.load(f)
+        with open(
+            self.kwargs["prompt_examples_path"]["openended_qa_examples"], "r"
+        ) as f:
+            self.openended_qa_in_context_examples_s = json.load(f)
 
     def run(
         self,
@@ -19,34 +26,49 @@ class AMAPromptingMethod(PromptMethod):
         **kwargs: Any
     ) -> Union[str, List[str]]:
 
-        prompt = PromptBuilder.build_prompt(
-            x=x,
-            in_context_examples=in_context_examples
-            if in_context_examples
-            else self.kwargs.get("in_context_examples", None),
-            prompt_file_path=prompt_file_path
-            if prompt_file_path
-            else self.kwargs.get("prompt_file_path", None),
-            transform=kwargs["transform"]
-            if "transform" in kwargs
-            else self.kwargs.get("transform", None),
-            extraction_words=kwargs["extraction_words"]
-            if "extraction_words" in kwargs
-            else self.kwargs.get("extraction_words", None),
+        assert isinstance(x, Dict)
+
+        y_s = []
+
+        assert len(self.questioner_in_context_examples_s) == len(
+            self.openended_qa_in_context_examples_s
         )
 
-        response = self.run_lm(prompt, **kwargs)
+        for questioner_in_context_examples, openended_qa_in_context_examples in zip(
+            self.questioner_in_context_examples_s,
+            self.openended_qa_in_context_examples_s,
+        ):
+            questioner_prompt = PromptBuilder.build_prompt(
+                x=x,
+                in_context_examples=questioner_in_context_examples,
+                transform=self.kwargs["transform"]["questioner"],
+            )
+
+            question = self.run_lm(questioner_prompt, **kwargs)
+            assert isinstance(question, str)  # fixme: hard encode
+            x["question"] = question.strip()
+
+            openended_qa_prompt = PromptBuilder.build_prompt(
+                x=x,
+                in_context_examples=openended_qa_in_context_examples,
+                transform=self.kwargs["transform"]["openended_qa"],
+            )
+
+            answer = self.run_lm(openended_qa_prompt, **kwargs)
+            assert isinstance(answer, str)  # fixme: hard encode
+            y_s.append(answer.strip())
 
         y = HocPoster.post_hoc(
-            response,
+            y_s,
             extract=kwargs["extract"]
             if "extract" in kwargs
             else self.kwargs.get("extract", None),
+            extraction_regex=kwargs["extraction_regex"]
+            if "extraction_regex" in kwargs
+            else self.kwargs.get("extraction_regex", "(.*),?.*"),
             aggregation=kwargs["aggregation"]
             if "aggregation" in kwargs
             else self.kwargs.get("aggregation", None),
-            extraction_regex=kwargs["extraction_regex"]
-            if "extraction_regex" in kwargs
-            else self.kwargs.get("extraction_regex", ".*So the answer is (.*).\n?"),
         )
+
         return y

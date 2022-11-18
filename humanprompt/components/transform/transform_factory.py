@@ -27,5 +27,12 @@ class TransformFactory(object):
         if transform in TransformFactory.current_transforms:
             return TransformFactory.current_transforms[transform]
         else:
-            # If the transform is not in, treat it as a class name and return the class
-            return globals()[transform]
+            try:
+                # If the transform is not in current_transforms, try to import it from the transform path
+                from pydoc import locate
+
+                transform_class = locate(transform)
+                return transform_class  # type: ignore
+            except Exception:
+                # If the transform is not in, treat it as a class name and return the class
+                return globals()[transform]

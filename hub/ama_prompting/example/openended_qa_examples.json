@@ -1,0 +1,107 @@
+[
+  [
+    {
+      "x": {
+        "passage": "When Judy and Jack went to school, they got in trouble with their teacher for being late. I didn't think it was very fair.",
+        "question": "Did she think it was fair?"
+      },
+      "y": {
+        "answer": "No"
+      }
+    },
+    {
+      "x": {
+        "passage": "If inflation is occurring, leading to higher prices for basic necessities such as gas by 2 dollars. Do you think that inflation is good for society?",
+        "question": "Is inflation good for society?"
+      },
+      "y": {
+        "answer": "Maybe"
+      }
+    },
+    {
+      "x": {
+        "passage": "Put yourself out there. The more time you spend dating and socializing, the more likely you will find a boyfriend you like.",
+        "question": "Does socializing help you find a boyfriend?"
+      },
+      "y": {
+        "answer": "Yes"
+      }
+    }
+  ],
+  [
+    {
+      "x": {
+        "passage": "Jack recommends his least favorite books of the year to his followers. The least favorite book this year was Harry Potter and the 7 Rings.",
+        "question": "What book does Jack dislike?"
+      },
+      "y": {
+        "answer": "Jack does not like Harry Potter and the 7 Rings."
+      }
+    },
+    {
+      "x": {
+        "passage": "When Judy and Jack went to school, they got in trouble with their teacher for being late. I didn't think it was very fair.",
+        "question": "Did she think it was fair?"
+      },
+      "y": {
+        "answer": "No, she didn't think it was very fair."
+      }
+    },
+    {
+      "x": {
+        "passage": "If inflation is occurring, leading to higher prices for basic necessities such as gas by 2 dollars. Do you think that inflation is good for society?",
+        "question": "Is inflation good for society?"
+      },
+      "y": {
+        "answer": "Hmm. Do you think so?"
+      }
+    },
+    {
+      "x": {
+        "passage": "Put yourself out there. The more time you spend dating and socializing, the more likely you will find a boyfriend you like.",
+        "question": "Does socializing help you find a boyfriend?"
+      },
+      "y": {
+        "answer": "Yes, it helps you find a boyfriend."
+      }
+    }
+  ],
+  [
+    {
+      "x": {
+        "passage": "Anna's mother always told her to be confident even if she feels nervous on the inside",
+        "question": "Does Anna always feel nervous on the inside?"
+      },
+      "y": {
+        "answer": "Unknown"
+      }
+    },
+    {
+      "x": {
+        "passage": "Max and Jeff were extremely competitive at soccer, but Max was a lot better.",
+        "question": "Was Jeff better than Max at soccer?"
+      },
+      "y": {
+        "answer": "No, Max was a lot better"
+      }
+    },
+    {
+      "x": {
+        "passage": "When Judy and Jack went to school, they got in trouble with their teacher for being late. I didn't think it was very fair.",
+        "question": "Did she think it was fair?"
+      },
+      "y": {
+        "answer": "No, she didn't think it was very fair."
+      }
+    },
+    {
+      "x": {
+        "passage": "The FSP conference took place last week in Spain and representatives from 21 countries attended.",
+        "question": "Did representatives from more than 20 countries attend FSP?"
+      },
+      "y": {
+        "answer": "Yes"
+      }
+    }
+  ]
+]
