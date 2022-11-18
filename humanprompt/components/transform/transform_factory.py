@@ -1,9 +1,9 @@
 from typing import Type
 
 from .base import Transform
+from .binder import BinderTransform
 from .cot import CoTTransform
 from .qa import QATransform
-from .table_qa import TableQATransform
 from .zero_shot_cot import ZeroShotCoTTransform
 
 
@@ -17,7 +17,7 @@ class TransformFactory(object):
         "qa": QATransform,
         "cot": CoTTransform,
         "zero_shot_cot": ZeroShotCoTTransform,
-        "table_qa": TableQATransform,
+        "binder": BinderTransform
         # Add more transforms here
     }
 

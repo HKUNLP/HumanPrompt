@@ -49,12 +49,17 @@ def get_artifacts() -> List[str]:
 install_requires = [
     "omegaconf",
     "datasets",
+    "transformers",
     "evaluate",
     "scikit-learn",
     "manifest-ml",
 ]
 
 extras_require = {
+    "binder": [
+        "binder@git+https://github.com/HKUNLP/Binder.git@humanprompt#egg=binder",
+        "python-Levenshtein",
+    ],
     "dev": [
         "black",
         "flake8",

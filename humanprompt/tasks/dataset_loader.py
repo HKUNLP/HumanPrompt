@@ -1,5 +1,5 @@
 import os
-from typing import Any, Union, List, Dict
+from typing import Any, Union
 
 import datasets
 from datasets import Dataset, DatasetDict, IterableDataset, IterableDatasetDict
@@ -15,13 +15,13 @@ class DatasetLoader(object):
     own_dataset = {
         "strategy_qa": os.path.join(DIR, "strategy_qa.py"),
         "svamp": os.path.join(DIR, "svamp.py"),
+        "wikitq": os.path.join(DIR, "wikitq.py"),
     }
 
     @staticmethod
     def load_dataset(
-            dataset_name: str,
-            **kwargs: Any
-    ) -> Union[datasets.Dataset, List, Dict]:
+        dataset_name: str, **kwargs: Any
+    ) -> Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]:
         """
         Load dataset from the datasets library or from this repo.
         Args:

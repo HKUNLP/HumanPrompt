@@ -1,11 +1,12 @@
 dev:
-	pip install -e .[all]
+	pip install --upgrade setuptools
+	pip install -e .[dev]
 
 check:
 	isort -c examples/ humanprompt/ setup.py
 	black examples/ humanprompt/ setup.py --check
 	flake8 examples/ humanprompt/ setup.py
-	mypy humanprompt/ --ignore-missing-imports --scripts-are-modules
+	mypy humanprompt/ --ignore-missing-imports
 
-test:
+test: dev
 	pytest tests

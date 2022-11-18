@@ -2,7 +2,6 @@ import os.path
 from typing import Any, Optional, OrderedDict, Type
 
 from omegaconf.dictconfig import DictConfig
-
 from ...artifacts.artifact import get_class, get_config_file, get_prompt_file
 from ...utils.config_utils import load_config
 from ..base_method.method import PromptMethod
@@ -45,6 +44,8 @@ class BaseAutoMethod:
             raise ValueError(f"Config file path {config_file_path} does not exist.")
 
         config = load_config(config_file_path)
+        assert isinstance(config, DictConfig), "Only DictConfig is supported for now."
+
         config.update(kwargs)
         if "method_name" not in config:
             raise ValueError(

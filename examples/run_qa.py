@@ -52,7 +52,8 @@ if __name__ == "__main__":
         dataset_name=exp_config["dataset"],
         split=exp_config["dataset_split"],
         name=exp_config["dataset_subset_name"]
-        if "dataset_subset_name" in exp_config else None
+        if "dataset_subset_name" in exp_config
+        else None,
     )
     max_test_samples = exp_config.get("max_test_samples", None)
     if max_test_samples:
