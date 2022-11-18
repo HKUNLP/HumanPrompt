@@ -18,7 +18,6 @@ class AMAPromptingMethod(PromptMethod):
         ) as f:
             self.openended_qa_in_context_examples_s = json.load(f)
 
-
     def run(
         self,
         x: Union[str, Dict],

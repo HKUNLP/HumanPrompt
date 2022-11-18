@@ -2,6 +2,7 @@ import os.path
 from typing import Any, Optional, OrderedDict, Type
 
 from omegaconf.dictconfig import DictConfig
+
 from ...artifacts.artifact import get_class, get_config_file, get_prompt_file
 from ...utils.config_utils import load_config
 from ..base_method.method import PromptMethod
