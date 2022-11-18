@@ -1,0 +1,120 @@
+[
+  [
+    {
+      "x": {
+        "statement": "most of the light comes from the sun"
+      },
+      "y": {
+        "question": "Does most of the light come from the sun?"
+      }
+    },
+    {
+      "x": {
+        "statement": "the test was not"
+      },
+      "y": {
+        "question": "Was the test hard?"
+      }
+    },
+    {
+      "x": {
+        "statement": "it is a good idea to buy your parents gifts"
+      },
+      "y": {
+        "question": "Is it a good idea to buy your parents gifts?"
+      }
+    },
+    {
+      "x": {
+        "statement": "the balloon popped"
+      },
+      "y": {
+        "question": "Did the balloon pop?"
+      }
+    },
+    {
+      "x": {
+        "statement": "The father and son went camping to California."
+      },
+      "y": {
+        "question": "Did the father and son go camping?"
+      }
+    }
+  ],
+  [
+    {
+      "x": {
+        "statement": "most of the light comes from the sun"
+      },
+      "y": {
+        "question": "Does most of the light come from the sun?"
+      }
+    },
+    {
+      "x": {
+        "statement": "the test was not"
+      },
+      "y": {
+        "question": "Was the test hard?"
+      }
+    },
+    {
+      "x": {
+        "statement": "it is a good idea to buy your parents gifts"
+      },
+      "y": {
+        "question": "Is it a good idea to buy your parents gifts?"
+      }
+    },
+    {
+      "x": {
+        "statement": "the balloon popped"
+      },
+      "y": {
+        "question": "Did the balloon pop?"
+      }
+    },
+    {
+      "x": {
+        "statement": "The father and son went camping to California."
+      },
+      "y": {
+        "question": "Did the father and son go camping?"
+      }
+    }
+  ],
+  [
+    {
+      "x": {
+        "statement": "she prefers kittens over puppies."
+      },
+      "y": {
+        "question": "Does she prefer kittens over puppies?"
+      }
+    },
+    {
+      "x": {
+        "statement": "Max and his wife went on a trip to Europe"
+      },
+      "y": {
+        "question": "Did Max and his wife go on a trip to Europe?"
+      }
+    },
+    {
+      "x": {
+        "statement": "jared was born during the war in 1942."
+      },
+      "y": {
+        "question": "Was Jared born during a war in 1942?"
+      }
+    },
+    {
+      "x": {
+        "statement": "it took jenna 7 attempts to solve the problem"
+      },
+      "y": {
+        "question": "Did it take Jenna 7 attempts to solve the problem?"
+      }
+    }
+  ]
+]

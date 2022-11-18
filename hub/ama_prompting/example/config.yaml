@@ -1,0 +1,13 @@
+---
+  method_name: "ama_prompting"
+  client_name: "openai"
+  transform:
+    "questioner": "ama_prompting.example.questioner.QuestionerTransform"
+    "openended_qa": "ama_prompting.example.openended_qa.OpenEndedQATransform"
+  prompt_examples_path:
+    "questioner_examples": "ama_prompting/example/questioner_examples.json"
+    "openended_qa_examples": "ama_prompting/example/openended_qa_examples.json"
+  extract: "regex"
+  extraction_regex: "(.*),?.*"
+  aggregation: "simple_majority_vote"
+  max_tokens: 30
