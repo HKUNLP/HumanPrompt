@@ -1,0 +1,3 @@
+[submodule "humanprompt/third_party/spider"]
+	path = humanprompt/third_party/spider
+	url = git@github.com:taoyds/spider.git
