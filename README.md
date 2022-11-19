@@ -82,6 +82,8 @@ You can use `git commit --no-verify` to skip and allow us to handle that later o
 ### Things to be done in the future
 
 #### Before 2022.12
+- [ ] Add verbose in each method
+- [ ] Add README and credict to each method
 - [ ] Add methods(ReAct, self-ask) that requires external API
 - [ ] Add one program generation method(prompt prog)
 - [ ] Add one data generation method(ZeroGenI)
