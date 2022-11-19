@@ -9,7 +9,7 @@ class SimpleMajorityVote(Aggregate):
         answers: Union[str, List[str]], **kwargs: Any
     ) -> Union[str, List[str]]:
         """
-        Aggregate the answers into a single answer.
+        Aggregate the answers into a single answer by majority voting.
 
         Args:
             answers: a list of answers
