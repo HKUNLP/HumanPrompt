@@ -3,6 +3,7 @@ from collections import OrderedDict
 from ..ama_prompting.method import AMAPromptingMethod
 from ..binder.method import BinderMethod
 from ..cot.method import CoTMethod
+from ..db_text2sql.method import DBText2SQLMethod
 from ..react.method import ReActMethod
 from ..standard.method import StandardMethod
 from ..zero_shot_cot.method import ZeroShotCoTMethod
@@ -17,6 +18,7 @@ METHOD_MAPPING_NAMES = OrderedDict(
         ("react", ReActMethod),
         ("binder", BinderMethod),
         ("ama_prompting", AMAPromptingMethod),
+        ("db_text2sql", DBText2SQLMethod),
     ]
 )
 

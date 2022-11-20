@@ -19,7 +19,7 @@ import json
 
 import datasets
 
-from ..third_party.spider.preprocess.get_tables import dump_db_json_schema
+from humanprompt.third_party.spider.preprocess.get_tables import dump_db_json_schema
 
 logger = datasets.logging.get_logger(__name__)
 

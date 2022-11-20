@@ -3,6 +3,7 @@ from typing import Type
 from .base import Transform
 from .binder import BinderTransform
 from .cot import CoTTransform
+from .db_text2sql import DBText2SQLTransform
 from .qa import QATransform
 from .zero_shot_cot import ZeroShotCoTTransform
 
@@ -17,7 +18,8 @@ class TransformFactory(object):
         "qa": QATransform,
         "cot": CoTTransform,
         "zero_shot_cot": ZeroShotCoTTransform,
-        "binder": BinderTransform
+        "binder": BinderTransform,
+        "db_text2sql": DBText2SQLTransform
         # Add more transforms here
     }
 
