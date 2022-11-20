@@ -1,0 +1,7 @@
+---
+  method_name: "db_text2sql"
+  client_name: "openai"
+  transform: "db_text2sql"
+  prompt_style: "create_table_select_3"
+  max_tokens: 256
+  stop_token: "\n\n"

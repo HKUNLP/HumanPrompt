@@ -68,6 +68,7 @@ If you are interested in contributing your method into this framework, you can:
       4. a minimal demo in `./examples` for running and testing your method.
    4. Create a demo of usage in ./examples folder.
    5. Require a PR to merge your branch into `main` branch.
+   6. We will handle the last few steps for you to make sure your method is well integrated into this framework.
 
 ### Pre-commit
 We use pre-commit to control the quality of code.
@@ -82,6 +83,7 @@ You can use `git commit --no-verify` to skip and allow us to handle that later o
 ### Things to be done in the future
 
 #### Before 2022.12
+- [ ] Add parameter hint for methods
 - [ ] Add verbose in each method
 - [ ] Add README and credict to each method
 - [ ] Add methods(ReAct, self-ask) that requires external API
