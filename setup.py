@@ -54,7 +54,7 @@ install_requires = [
     "scikit-learn",
     "manifest-ml",
     "backoff",
-    "setup",
+    "sqlparse",
 ]
 
 extras_require = {
