@@ -2,7 +2,10 @@ import abc
 import inspect
 from typing import Any, Dict, List, Optional, Union
 
+import backoff
 from manifest import Manifest
+
+MAX_TRIES = 3
 
 
 class PromptMethod(abc.ABC):
@@ -20,6 +23,7 @@ class PromptMethod(abc.ABC):
                 init_params[param] = kwargs[param]
         self.manifest = Manifest(**init_params)
 
+    @backoff.on_exception(backoff.expo, Exception, max_tries=MAX_TRIES)
     def run_lm(self, prompt: str, **kwargs: Any) -> Union[str, List[str]]:
         """
         Run the language model with the given prompt.
@@ -48,7 +52,6 @@ class PromptMethod(abc.ABC):
         return self.manifest.run(prompt, overwrite_cache=True, **run_params)
 
     @abc.abstractmethod
-    # def run(self, x, in_context_examples=None, prompt_file_path=None, **kwargs: Any):
     def run(
         self,
         x: Union[str, Dict],
