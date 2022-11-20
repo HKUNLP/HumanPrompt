@@ -1,7 +1,7 @@
 from typing import Any, Dict, Union
 
 from ...utils.integrations import is_binder_available
-from ..utils.db_utils import build_db_prompt
+from ..utils.db_utils import build_table_prompt
 from .base import Transform
 
 has_binder = is_binder_available()
@@ -57,9 +57,9 @@ class BinderTransform(Transform):
         # DB prompt: database information
         prompt_style = kwargs["prompt_style"] if "prompt_style" in kwargs else None
         db_prompt = (
-            build_db_prompt(table, title, prompt_style)
+            build_table_prompt(table, title, prompt_style)
             if prompt_style
-            else build_db_prompt(table, title)
+            else build_table_prompt(table, title)
         )
 
         # QA prompt: question and answer
