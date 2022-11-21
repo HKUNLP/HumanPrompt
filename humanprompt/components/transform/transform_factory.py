@@ -1,11 +1,13 @@
 from typing import Type
 
-from .base import Transform
+from .transform_base import Transform
 from .binder import BinderTransform
 from .cot import CoTTransform
 from .db_text2sql import DBText2SQLTransform
 from .qa import QATransform
 from .zero_shot_cot import ZeroShotCoTTransform
+
+from hub.cot.commonsense_qa.transform_cot_commonsense_qa import CoTCommonsenseQATransform
 
 
 class TransformFactory(object):
@@ -19,7 +21,9 @@ class TransformFactory(object):
         "cot": CoTTransform,
         "zero_shot_cot": ZeroShotCoTTransform,
         "binder": BinderTransform,
-        "db_text2sql": DBText2SQLTransform
+        "db_text2sql": DBText2SQLTransform,
+        # Method&Dataset-specific
+        "cot-commonsense_qa": CoTCommonsenseQATransform
         # Add more transforms here
     }
 
