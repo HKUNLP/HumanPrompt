@@ -8,6 +8,6 @@ def test_init() -> None:
     DatasetLoader.load_dataset("wikitq", "train")
     DatasetLoader.load_dataset("wikitq", "validation")
     DatasetLoader.load_dataset("wikitq", "test")
-    DatasetLoader.load_dataset("spider", "train")
-    DatasetLoader.load_dataset("spider", "validation")
+    # DatasetLoader.load_dataset("spider", "train")
+    # DatasetLoader.load_dataset("spider", "validation")
     # todo: add more test
