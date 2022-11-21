@@ -1,5 +1,5 @@
 import os
-from typing import Any, Union, List, Dict
+from typing import Any, Dict
 
 import datasets
 from datasets import Dataset
@@ -21,11 +21,11 @@ class DatasetLoader(object):
 
     @staticmethod
     def load_dataset(
-            dataset_name: str,
-            dataset_split: str,
-            dataset_subset_name: str = None,
-            dataset_key_map: Dict[str, str] = None,
-            **kwargs: Any
+        dataset_name: str,
+        dataset_split: str,
+        dataset_subset_name: str = None,
+        dataset_key_map: Dict[str, str] = None,
+        **kwargs: Any
     ) -> Dataset:
         """
         Load dataset from the datasets library or from this repo.

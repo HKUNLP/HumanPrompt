@@ -50,8 +50,8 @@ if __name__ == "__main__":
 
     dataset = DatasetLoader.load_dataset(
         dataset_name=exp_config["dataset"],
-        split=exp_config["dataset_split"],
-        name=exp_config["dataset_subset_name"]
+        dataset_split=exp_config["dataset_split"],
+        dataset_subset_name=exp_config["dataset_subset_name"]
         if "dataset_subset_name" in exp_config
         else None,
     )

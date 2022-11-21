@@ -1,10 +1,10 @@
-import os
-import ssl
-from typing import Dict, List, Union
 import json
-from datasets import Dataset
-import openai
+import os
 import time
+from typing import Dict, List
+
+import openai
+from datasets import Dataset
 
 from humanprompt.evaluators.evaluator import Evaluator
 from humanprompt.methods.auto.method_auto import AutoMethod
@@ -18,7 +18,7 @@ class OpenAIKeyPool:
         self.keys = keys
         self.idx = 0
 
-    def get_key(self):
+    def get_key(self) -> str:
         key = self.keys[self.idx]
         self.idx += 1
         if self.idx == len(self.keys):
@@ -43,9 +43,14 @@ def run_experiment(
     for idx, data_item in enumerate(dataset):
         if os.path.exists(os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json")):
             # Already inferenced example
-            with open(os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json"), "r") as f:
+            with open(
+                os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json"), "r"
+            ) as f:
                 result_item = json.load(f)
-                prediction, gold_answer = result_item["prediction"], result_item["gold_answer"]
+                prediction, gold_answer = (
+                    result_item["prediction"],
+                    result_item["gold_answer"],
+                )
         else:
             # New coming example
             while True:
@@ -53,10 +58,7 @@ def run_experiment(
                     current_key = openai_key_pool.get_key()
                     os.environ["OPENAI_API_KEY"] = current_key
                     print("Using OpenAI key: ", current_key)
-                    prediction = method.run(
-                        x=data_item,
-                        verbose=verbose
-                    )
+                    prediction = method.run(x=data_item, verbose=verbose)
                     break
                 except openai.error.OpenAIError as e:
                     print(f"Error when getting response: {e}")
@@ -66,13 +68,18 @@ def run_experiment(
             gold_answer = data_item["answer"].lower()
             # Cache current example
             os.makedirs(tmp_save_dir, exist_ok=True)
-            with open(os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json"), "w") as f:
-                json.dump({
-                    "idx": idx,
-                    "id": data_item["id"],
-                    "prediction": prediction,
-                    "gold_answer": gold_answer
-                }, f)
+            with open(
+                os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json"), "w"
+            ) as f:
+                json.dump(
+                    {
+                        "idx": idx,
+                        "id": data_item["id"],
+                        "prediction": prediction,
+                        "gold_answer": gold_answer,
+                    },
+                    f,
+                )
         predictions.append(prediction)
         gold_answers.append(gold_answer)
         print(f"idx: {idx}")
@@ -94,7 +101,7 @@ if __name__ == "__main__":
             "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",
             "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",
             "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",
-            "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"
+            "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",
         ]
     )
     os.environ["OPENAI_API_KEY"] = openai_key_pool.get_key()
@@ -113,9 +120,11 @@ if __name__ == "__main__":
         dataset_name=dataset_config["dataset_name"],
         dataset_split=dataset_config["dataset_split"],
         dataset_subset_name=dataset_config["dataset_subset_name"]
-        if "dataset_subset_name" in dataset_config else None,
+        if "dataset_subset_name" in dataset_config
+        else None,
         dataset_key_map=dataset_config["dataset_key_map"]
-        if "dataset_key_map" in dataset_config else None,
+        if "dataset_key_map" in dataset_config
+        else None,
     )
 
     if not hasattr(exp_config, "method"):
@@ -124,15 +133,17 @@ if __name__ == "__main__":
     method_config = exp_config["method"]
     method = AutoMethod.from_config(
         method_name=method_config["method_name"]
-        if method_config.get("method_name") else None,
+        if method_config.get("method_name")
+        else None,
         config_file_path=method_config["method_config_file_path"]
-        if method_config.get("method_config_file_path") else None,
+        if method_config.get("method_config_file_path")
+        else None,
         **method_config.get("method_args", {}),
     )
     evaluator = Evaluator(exp_config["metrics"])
 
     eval_dict = run_experiment(dataset=dataset, method=method, evaluator=evaluator)
-    print(f"Elapsed time: ", time.time() - start_time)
+    print("Elapsed time:", time.time() - start_time)
     print(eval_dict)
     with open(os.path.join(save_dir, f"eval_{exp_name}.json"), "w") as f:
         json.dump(eval_dict, f)

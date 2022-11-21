@@ -16,8 +16,8 @@ if __name__ == "__main__":
             "question": "question",
             "choices": "choices",
             "answer": "answerKey",
-            "id": "id"
-        }
+            "id": "id",
+        },
     )
     data_item = dataset[0]
 
