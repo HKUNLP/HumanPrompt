@@ -1,8 +1,8 @@
 ---
   method_name: "cot"
   client_name: "openai"
-  transform: "cot"
-  extract: "regex"
+  transform: "cot-commonsense_qa"
+  extract: "cot-commonsense_qa"
   extraction_regex: ".*So the answer is (.*).\n?"
   prompt_file_path: "cot/commonsense_qa/prompt.txt"
   max_tokens: 256
