@@ -148,6 +148,7 @@ data
 
 # huggingface dataset cache dir
 .cached_datasets/
+cached_datasets/
 
 # debug
 debugging/
