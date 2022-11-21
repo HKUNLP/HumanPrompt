@@ -1,6 +1,6 @@
 ---
   method_name: "zero_shot_cot"
   client_name: "openai"
-  transform: "zero_shot_cot"
+  transform: "zero_shot_cot.example.zero_shot_cot.ZeroShotCoTTransform"
   extraction_words: "Choose from (a), (b), (c), (d), the answer is:"
   max_tokens: 256

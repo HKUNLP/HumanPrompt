@@ -6,7 +6,7 @@ from .transform_base import Transform
 class MultiChoiceQATransform(Transform):
     @staticmethod
     def transform(
-            x: Dict, y: Dict = None, **kwargs: Any
+        x: Union[str, Dict], y: Union[str, Dict] = None, **kwargs: Any
     ) -> str:
         """
         Transform x and y into a multi-choice format.
@@ -19,25 +19,21 @@ class MultiChoiceQATransform(Transform):
         Returns: a string of question, choices, and answer
 
         """
-        # TODO: Should we use x and y? Maybe only use a single x and check its keys to determine if output is needed.
-        if not isinstance(x, Dict) \
-                or (y and not isinstance(y, Dict)):
-            raise TypeError("x and y should be dict in multi-choice task.")
+        assert isinstance(x, Dict)
 
         transformed = f"Q: {x['question']}\n"
         transformed += "Answer choices: {}\n".format(
             " ".join(
                 [
                     "({}) {}".format(label.lower(), text.lower())
-                    for label, text in zip(
-                    x["choices"]["label"], x["choices"]["text"]
-                )
+                    for label, text in zip(x["choices"]["label"], x["choices"]["text"])
                 ]
             )
         )
         transformed += "A: "
 
         if y:
+            assert isinstance(y, Dict)
             if "extraction_words" in kwargs:
                 extraction_words = kwargs["extraction_words"]
             else:

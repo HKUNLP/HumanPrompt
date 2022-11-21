@@ -1,6 +1,6 @@
 from typing import Any, Dict, Union
 
-from .transform_base import Transform
+from humanprompt.components.transform.transform_base import Transform
 
 
 class ZeroShotCoTTransform(Transform):

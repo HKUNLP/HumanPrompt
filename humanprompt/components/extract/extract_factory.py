@@ -1,9 +1,10 @@
 from typing import Type
 
+from hub.cot.commonsense_qa.extract_cot_commonsense_qa import CoTCommonsenseQAExtract
+from humanprompt.artifacts import HUB_SOURCE
+
 from .extract_base import Extract
 from .extract_regex import RegExtract
-
-from hub.cot.commonsense_qa.extract_cot_commonsense_qa import CoTCommonsenseQAExtract
 
 
 class ExtractFactory(object):
@@ -15,7 +16,7 @@ class ExtractFactory(object):
         "default": Extract,
         "regex": RegExtract,
         # Method&Dataset-specific
-        "cot-commonsense_qa": CoTCommonsenseQAExtract
+        "cot-commonsense_qa": CoTCommonsenseQAExtract,
     }
 
     @staticmethod
@@ -24,5 +25,12 @@ class ExtractFactory(object):
         if extract in ExtractFactory.current_extracts:
             return ExtractFactory.current_extracts[extract]
         else:
-            # If the extract is not in, treat it as a class name and return the class
-            return globals()[extract]
+            try:
+                # If the transform is not in current_extracts, try to import it from the extract path
+                from pydoc import locate
+
+                extract_class = locate("{}.{}".format(HUB_SOURCE, extract))
+                return extract_class  # type: ignore
+            except Exception:
+                # If the extract is not in, treat it as a class name and return the class
+                return globals()[extract]

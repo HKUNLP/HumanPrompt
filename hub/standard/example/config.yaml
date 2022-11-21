@@ -1,6 +1,6 @@
 ---
   method_name: "standard"
   client_name: "openai"
-  transform: "cot"
+  transform: "simple_qa"
   prompt_file_path: "standard/example/prompt.txt"
   max_tokens: 256

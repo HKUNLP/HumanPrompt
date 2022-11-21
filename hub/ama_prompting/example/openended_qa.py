@@ -1,6 +1,6 @@
 from typing import Any, Dict, Union
 
-from humanprompt.components.transform.base import Transform
+from humanprompt.components.transform.transform_base import Transform
 
 
 class OpenEndedQATransform(Transform):

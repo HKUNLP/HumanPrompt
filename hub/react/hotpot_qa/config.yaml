@@ -1,6 +1,0 @@
----
-  method_name: "react"
-  client_name: "openai"
-  transform: "react"
-  prompt_file_path: "react/hotpot_qa/prompt.txt"
-  max_tokens: 256

@@ -1,5 +1,5 @@
 ---
-  dataset: "hotpot_qa"
+  dataset: "example"
   dataset_split: "validation"
   dataset_subset_name: "fullwiki"
   max_test_samples: 3
@@ -10,7 +10,7 @@
       transform: "cot"
       extract: "regex"
       extraction_regex: "(?i).*So the answer is (.*).\n?"
-      prompt_file_path: "cot/hotpot_qa/prompt.txt"
+      prompt_file_path: "cot/example/prompt.txt"
       max_tokens: 256
       temperature: 0
       engine: code-davinci-002

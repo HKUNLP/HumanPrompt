@@ -1,0 +1,6 @@
+---
+  method_name: "react"
+  client_name: "openai"
+  transform: "react.example.react.ReactTransform"
+  prompt_file_path: "react/example/prompt.txt"
+  max_tokens: 256

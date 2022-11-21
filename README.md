@@ -83,7 +83,6 @@ You can use `git commit --no-verify` to skip and allow us to handle that later o
 ### Things to be done in the future
 
 #### Before 2022.12
-- [ ] Refactor the code, move the transfer&extractor out to the ./hub
 - [ ] Add parameter hint for methods
 - [ ] Add verbose in each method
 - [ ] Add README and credict to each method
@@ -95,6 +94,7 @@ You can use `git commit --no-verify` to skip and allow us to handle that later o
 - [ ] Add one more aggregation method used in ama prompting(METAL-AMA)
 - [ ] Support batch running function
 - [ ] Start UI construction
+- [x] Refactor the code, move the transfer & extractor out to the ./hub
 - [x] Add one text-to-sql task(DB SP)
 - [x] Add AMA_prompting
 - [x] Shorten the repo name to be published on PyPI

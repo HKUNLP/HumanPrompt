@@ -3,7 +3,7 @@ from typing import Any, Optional, OrderedDict, Type
 
 from omegaconf.dictconfig import DictConfig
 
-from ...artifacts.artifact import get_class, get_config_file, get_prompt_file
+from ...artifacts.artifact import get_config_file, get_prompt_file
 from ...utils.config_utils import load_config
 from ..base_method.method import PromptMethod
 
@@ -68,18 +68,6 @@ class BaseAutoMethod:
                     )
             else:
                 raise ValueError("prompt_examples_path must be a string or a dict")
-
-        if "transform" in config:
-            if isinstance(config["transform"], str):
-                if len(config["transform"].split(".")) > 1:
-                    config["transform"] = get_class(config["transform"])
-            elif isinstance(config["transform"], DictConfig):
-                for key in config["transform"]:
-                    # If the transform s with a
-                    if len(config["transform"][key].split(".")) > 1:
-                        config["transform"][key] = get_class(config["transform"][key])
-            else:
-                raise ValueError("transform must be a string or a dict")
 
         method_name = config["method_name"]
         method_cls = cls._method_mapping.get(method_name, None)

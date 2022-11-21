@@ -1,8 +1,37 @@
 import sqlite3
-from typing import Dict, List, Tuple, Union
+from typing import Any, Dict, List, Tuple, Union
 
 import pandas as pd
 import sqlparse
+
+from .transform_base import Transform
+
+
+class DBTransform(Transform):
+    @staticmethod
+    def transform(
+        x: Union[str, Dict], y: Union[str, Dict] = None, **kwargs: Any
+    ) -> str:
+        """
+        Transform the db into a prompt.
+
+        Args:
+            x: input, contains the key of 'db'
+            y: not required
+            **kwargs:
+
+        Returns: the prompt of database.
+
+        """
+        assert isinstance(x, Dict)
+
+        db_prompt = build_db_prompt(
+            x["db"],
+            kwargs["prompt_style"]
+            if "prompt_style" in kwargs
+            else "create_table_select_3",
+        )
+        return db_prompt
 
 
 def convert_to_df(table: Union[pd.DataFrame, Dict]) -> pd.DataFrame:

@@ -5,7 +5,7 @@
 
   # Program Generation
   generation:
-    transform: "binder"
+    transform: "binder.example.transform_binder.BinderTransform"
     n_shots: 14
     generate_type: 'nsql'
     seed: 42
