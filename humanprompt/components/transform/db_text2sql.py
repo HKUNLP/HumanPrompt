@@ -1,7 +1,7 @@
 from typing import Any, Dict, Union
 
 from ..utils.db_utils import build_db_prompt
-from .base import Transform
+from .transform_base import Transform
 
 
 class DBText2SQLTransform(Transform):
