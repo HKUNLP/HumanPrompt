@@ -1,7 +1,9 @@
 from typing import Type
 
-from .base import Extract
-from .regex import RegExtract
+from .extract_base import Extract
+from .extract_regex import RegExtract
+
+from hub.cot.commonsense_qa.extract_cot_commonsense_qa import CoTCommonsenseQAExtract
 
 
 class ExtractFactory(object):
@@ -12,7 +14,8 @@ class ExtractFactory(object):
     current_extracts = {
         "default": Extract,
         "regex": RegExtract,
-        # Add more transforms here
+        # Method&Dataset-specific
+        "cot-commonsense_qa": CoTCommonsenseQAExtract
     }
 
     @staticmethod

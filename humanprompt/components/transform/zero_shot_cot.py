@@ -1,6 +1,6 @@
 from typing import Any, Dict, Union
 
-from .base import Transform
+from .transform_base import Transform
 
 
 class ZeroShotCoTTransform(Transform):

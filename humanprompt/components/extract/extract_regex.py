@@ -1,7 +1,7 @@
 import re
 from typing import Any
 
-from .base import Extract
+from .extract_base import Extract
 
 
 class RegExtract(Extract):
