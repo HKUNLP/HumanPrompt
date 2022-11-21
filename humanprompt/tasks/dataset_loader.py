@@ -1,8 +1,8 @@
 import os
-from typing import Any, Dict
+from typing import Any, Dict, Union
 
 import datasets
-from datasets import Dataset
+from datasets import Dataset, DatasetDict, IterableDataset, IterableDatasetDict
 
 DIR = os.path.join(os.path.dirname(__file__))
 
@@ -26,7 +26,7 @@ class DatasetLoader(object):
         dataset_subset_name: str = None,
         dataset_key_map: Dict[str, str] = None,
         **kwargs: Any
-    ) -> Dataset:
+    ) -> Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]:
         """
         Load dataset from the datasets library or from this repo.
         Args:
