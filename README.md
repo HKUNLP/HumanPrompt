@@ -122,16 +122,16 @@ You can use `git commit --no-verify` to skip and allow us to handle that later o
 ### Things to be done in the future
 
 #### Before 2022.12
-- [ ] Add parameter hint for methods
+- [ ] Support batch running function
 - [ ] Add verbose in each method
+- [ ] Add parameter hint for methods
 - [ ] Add README and credict to each method
+- [ ] Add one more aggregation method for code generation(MBR-EXEC)
+- [ ] Add one more aggregation method used in ama prompting(METAL-AMA)
 - [ ] Add methods(ReAct, self-ask) that requires external API
 - [ ] Add one program generation method(prompt prog)
 - [ ] Add one data generation method(ZeroGenI)
 - [ ] Add one method on dialogue component task(IC-DST)
-- [ ] Add one more aggregation method for code generation(MBR-EXEC)
-- [ ] Add one more aggregation method used in ama prompting(METAL-AMA)
-- [ ] Support batch running function
 - [ ] Start UI construction
 - [x] Refactor the code, move the transfer & extractor out to the ./hub
 - [x] Add one text-to-sql task(DB SP)
