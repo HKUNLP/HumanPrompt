@@ -1,6 +1,7 @@
 dev:
 	pip install --upgrade setuptools
 	pip install -e .[dev]
+	git git submodule update --init --recursive
 
 check:
 	isort -c examples/ humanprompt/ setup.py

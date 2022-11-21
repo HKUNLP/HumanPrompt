@@ -11,18 +11,7 @@ def test_init() -> None:
 
 @pytest.mark.usefixtures("openai_api_key")
 def test_run() -> None:
-    method = AutoMethod.from_config(
-        method_name="cot",
-        dataset_name="example",
-        engine="code-davinci-002",
-        temperature=0,
-        stop_sequence="\n",
-        transform="cot",
-        extract="regex",
-        extraction_regex="(?i).*So the answer is (.*).\n?",
-        prompt_file_path="cot/example/prompt.txt",
-        max_tokens=256,
-    )
+    method = AutoMethod.from_config("cot")
     prediction = method.run(
         {
             "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
