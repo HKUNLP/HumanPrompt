@@ -1,8 +1,8 @@
 from typing import Any, Dict, Union
 
 from ...utils.integrations import is_binder_available
-from ..utils.db_utils import build_table_prompt
-from .base import Transform
+from ..utils.db_utils import build_db_prompt
+from .transform_base import Transform
 
 has_binder = is_binder_available()
 if has_binder:
