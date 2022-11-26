@@ -1,1 +1,1 @@
-from tasks.dataset_loader import DatasetLoader  # noqa: F401
+from humanprompt.tasks.dataset_loader import DatasetLoader  # noqa: F401
