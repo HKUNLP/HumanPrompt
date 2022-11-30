@@ -1,11 +1,9 @@
 import abc
 import inspect
+import time
 from typing import Any, Dict, List, Optional, Union
 
-import backoff
 from manifest import Manifest
-
-MAX_TRIES = 3
 
 
 class PromptMethod(abc.ABC):
@@ -23,7 +21,6 @@ class PromptMethod(abc.ABC):
                 init_params[param] = kwargs[param]
         self.manifest = Manifest(**init_params)
 
-    @backoff.on_exception(backoff.expo, Exception, max_tries=MAX_TRIES)
     def run_lm(self, prompt: str, **kwargs: Any) -> Union[str, List[str]]:
         """
         Run the language model with the given prompt.
@@ -49,7 +46,18 @@ class PromptMethod(abc.ABC):
             if param in run_required_params + client_request_required_params:
                 run_params[param] = kwargs[param]
 
-        return self.manifest.run(prompt, overwrite_cache=True, **run_params)
+        response = None
+        while response is None:
+            try:
+                start_time = time.time()
+                response = self.manifest.run(prompt, **run_params)
+                print("Openai api inference time:", time.time() - start_time)
+                return response
+            except Exception as e:
+                print(e, "Retry.")
+                time.sleep(5)
+
+        return response
 
     @abc.abstractmethod
     def run(
