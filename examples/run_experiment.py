@@ -14,8 +14,21 @@ from humanprompt.utils.config_utils import load_config
 
 
 class OpenAIKeyPool:
-    def __init__(self, keys: List[str]):
-        self.keys = keys
+    def __init__(self, keys: List[str], engine: str = "code-davinci-002"):
+        def _filter_valid_keys(_keys: List[str], _engine: str) -> List[str]:
+            _valid_keys = []
+            for _key in _keys:
+                try:
+                    openai.Completion.create(engine=_engine, prompt="Q: ", api_key=_key)
+                    print(_key, "pass")
+                    _valid_keys.append(_key)
+                except Exception as e:
+                    print(_key, "not pass", str(e))
+
+            return _valid_keys
+
+        self.keys = _filter_valid_keys(keys, engine)
+        print("Valid keys:\n", "\n".join(self.keys))
         self.idx = 0
 
     def get_key(self) -> str:
