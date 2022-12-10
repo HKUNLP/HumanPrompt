@@ -22,15 +22,21 @@ class SimpleMajorityVote(Aggregate):
         answer_count = {}
         for answer in answers:
             if isinstance(answer, str):
+                if answer == "<error>":
+                    continue
                 if answer not in answer_count:
                     answer_count[answer] = 0
                 answer_count[answer] += 1
             elif isinstance(answer, List):
+                if answer == ["<error>"]:
+                    continue
                 if tuple(answer) not in answer_count:
                     answer_count[tuple(answer)] = 0
                 answer_count[tuple(answer)] += 1
-
-        vote_result = max(answer_count.items(), key=lambda x: x[1])[0]
+        try:
+            vote_result = max(answer_count.items(), key=lambda x: x[1])[0]
+        except ValueError:
+            vote_result = "0"
 
         if isinstance(vote_result, str):
             return vote_result
