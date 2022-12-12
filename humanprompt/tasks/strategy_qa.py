@@ -100,7 +100,7 @@ class StrategyQA(datasets.GeneratorBasedBuilder):
         with open(data_filepath, encoding="utf-8") as f:
             data = json.load(f)
             for idx, ex in enumerate(data):
-                if ex.get("answer", None) is None:
+                if ex.get("answer", None):
                     # Train set
                     yield idx, {
                         "id": ex["qid"],
