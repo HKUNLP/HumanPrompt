@@ -22,13 +22,18 @@ class SimpleMajorityVote(Aggregate):
         answer_count = {}
         for answer in answers:
             if isinstance(answer, str):
-                if answer == "<error>":
+                if (
+                    answer == "<error>"
+                    or answer == ""
+                    or answer == "[]"
+                    or answer == set()
+                ):
                     continue
                 if answer not in answer_count:
                     answer_count[answer] = 0
                 answer_count[answer] += 1
             elif isinstance(answer, List):
-                if answer == ["<error>"]:
+                if answer == ["<error>"] or answer == []:
                     continue
                 if tuple(answer) not in answer_count:
                     answer_count[tuple(answer)] = 0
