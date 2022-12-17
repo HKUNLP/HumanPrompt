@@ -4,6 +4,7 @@ import time
 from typing import Any, Dict, List, Optional, Union
 
 from manifest import Manifest
+from omegaconf import ListConfig
 
 
 class PromptMethod(abc.ABC):
@@ -39,15 +40,22 @@ class PromptMethod(abc.ABC):
         # Default from self kwargs
         for param in self.kwargs:
             if param in run_required_params + client_request_required_params:
-                run_params[param] = self.kwargs[param]
+                if isinstance(kwargs[param], ListConfig):
+                    run_params[param] = list(kwargs[param])
+                else:
+                    run_params[param] = kwargs[param]
 
         # Override from kwargs
         for param in kwargs:
             if param in run_required_params + client_request_required_params:
-                run_params[param] = kwargs[param]
+                if isinstance(kwargs[param], ListConfig):
+                    run_params[param] = list(kwargs[param])
+                else:
+                    run_params[param] = kwargs[param]
 
         response = None
         while response is None:
+            seconds = 5
             try:
                 start_time = time.time()
                 response = self.manifest.run(prompt, **run_params)
@@ -55,7 +63,8 @@ class PromptMethod(abc.ABC):
                 return response
             except Exception as e:
                 print(e, "Retry.")
-                time.sleep(5)
+                time.sleep(seconds)
+                seconds += 5
 
         return response
 
