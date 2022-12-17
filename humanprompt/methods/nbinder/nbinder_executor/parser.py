@@ -7,7 +7,7 @@ import sqlparse
 class TreeNode(object):
     def __init__(self, name: str = None, father: object = None, line: int = -1) -> None:
         super(TreeNode, self).__init__()
-        if not isinstance(father, TreeNode):
+        if father is not None and not isinstance(father, TreeNode):
             raise TypeError("father should be TreeNode")
         self.name: str = name
         self.rename: str = name
@@ -16,6 +16,8 @@ class TreeNode(object):
         self.children: List = []
 
     def __eq__(self, other: object) -> bool:
+        if other is None:
+            return False
         if not isinstance(other, TreeNode):
             return NotImplemented
         return self.rename == other.rename
