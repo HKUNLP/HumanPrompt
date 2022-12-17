@@ -40,10 +40,10 @@ class PromptMethod(abc.ABC):
         # Default from self kwargs
         for param in self.kwargs:
             if param in run_required_params + client_request_required_params:
-                if isinstance(kwargs[param], ListConfig):
-                    run_params[param] = list(kwargs[param])
+                if isinstance(self.kwargs[param], ListConfig):
+                    run_params[param] = list(self.kwargs[param])
                 else:
-                    run_params[param] = kwargs[param]
+                    run_params[param] = self.kwargs[param]
 
         # Override from kwargs
         for param in kwargs:
