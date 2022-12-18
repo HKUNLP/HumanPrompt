@@ -17,6 +17,7 @@ class DatasetLoader(object):
         "svamp": os.path.join(DIR, "svamp.py"),
         "wikitq": os.path.join(DIR, "wikitq.py"),
         "spider": os.path.join(DIR, "spider.py"),
+        "say_can": os.path.join(DIR, "say_can.py"),
     }
 
     @staticmethod
