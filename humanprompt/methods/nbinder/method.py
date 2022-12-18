@@ -11,6 +11,13 @@ from .nbinder_executor.execute import Executor
 class NBinderMethod(PromptMethod):
     def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)
+        self.N = int(
+            self.kwargs["generation"]["n"] / 5
+        )  # todo: add a more accurate calculator
+        self.kwargs["generation"]["n"] = int(self.kwargs["generation"]["n"] / self.N)
+        self.kwargs["generation"]["top_k_return"] = int(
+            self.kwargs["generation"]["top_k_return"] / self.N
+        )
 
     def run(
         self,
@@ -25,13 +32,9 @@ class NBinderMethod(PromptMethod):
         # ********* Annotation *********
         prompt = PromptBuilder.build_prompt(x=x, **self.kwargs["generation"])
 
-        N = int(
-            self.kwargs["generation"]["n"] / 5
-        )  # todo: add a more accurate calculator
         binder_programs: List[str] = []
-        self.kwargs["generation"]["n"] = int(self.kwargs["generation"]["n"] / N)
         # when the n_sampling is greater than 10, it will be roughly the same as the original n_sampling
-        for i in range(N):
+        for i in range(self.N):
             binder_programs.extend(self.run_lm(prompt, **self.kwargs["generation"]))
 
         # ********* Execution *********
