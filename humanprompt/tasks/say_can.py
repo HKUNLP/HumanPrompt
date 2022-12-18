@@ -56,7 +56,10 @@ class SayCan(datasets.GeneratorBasedBuilder):
 
     def _info(self):
         features = datasets.Features(
-            {"input": datasets.Value("string"), "output": datasets.Value("string")}
+            {
+                "input": datasets.Value("string"),
+                "output": datasets.Sequence(datasets.Value("string")),
+            }
         )
         return datasets.DatasetInfo(
             description=_DESCRIPTION,
@@ -88,4 +91,4 @@ class SayCan(datasets.GeneratorBasedBuilder):
                     continue
                 row = row.strip().split("\t")
                 input, output = row
-                yield id_, {"input": input, "output": output}
+                yield id_, {"input": input, "output": output.strip(".").split(", ")}
