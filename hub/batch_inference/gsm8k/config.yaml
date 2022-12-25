@@ -1,0 +1,8 @@
+---
+  method_name: "batch_inference"
+  client_name: "openai"
+  transform: "batch_inference.gsm8k.transform_batch_inference_gsm8k.BatchInferenceGSM8KTransform"
+  extract: "batch_inference.gsm8k.extract_batch_inference_gsm8k.BatchInferenceGSM8KExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "batch_inference/gsm8k/prompt.txt"
+  max_tokens: 1024

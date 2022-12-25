@@ -1,0 +1,8 @@
+---
+  method_name: "batch_inference"
+  client_name: "openai"
+  transform: "batch_inference.add_sub.transform_batch_inference_multi_arith.BatchInferenceMultiArithTransform"
+  extract: "batch_inference.multi_arith.extract_batch_inference_multi_arith.BatchInferenceMultiArithExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "batch_inference/multi_arith/prompt.txt"
+  max_tokens: 512

@@ -1,0 +1,8 @@
+---
+  method_name: "batch_inference"
+  client_name: "openai"
+  transform: "batch_inference.svamp.transform_batch_inference_svamp.BatchInferenceSVAMPTransform"
+  extract: "batch_inference.svamp.extract_batch_inference_svamp.BatchInferenceSVAMPExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "batch_inference/svamp/prompt.txt"
+  max_tokens: 512

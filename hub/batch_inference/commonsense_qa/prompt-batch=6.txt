@@ -1,0 +1,37 @@
+Q[1]: What do people use to absorb extra ink from a fountain pen?
+Answer Choices[1]: (a) shirt pocket (b) calligrapher’s hand (c) inkwell (d) desk drawer (e) blotter
+Q[2]: What home entertainment equipment requires cable?
+Answer Choices[2]: (a) radio shack (b) substation (c) television (d) cabinet
+Q[3]: The fox walked from the city into the forest, what was it looking for?
+Answer Choices[3]: (a) pretty flowers (b) hen house (c) natural habitat (d) storybook
+Q[4]: Sammy wanted to go to where the people were. Where might he go?
+Answer Choices[4]: (a) populated areas (b) race track (c) desert (d) apartment (e) roadblock
+Q[5]: Where do you put your grapes just before checking out?
+Answer Choices[5]: (a) mouth (b) grocery cart (c)supermarket (d) fruit basket (e) fruit market
+Q[6]: Google Maps and other highway and street GPS services have replaced what?
+Answer Choices[6]: (a) united states (b) mexico (c) countryside (d) atlas
+A[1]: The answer must be an item that can absorb ink. Of the above choices, only blotters are used to absorb ink. So the answer is (e).
+A[2]: The answer must require cable. Of the above choices, only television requires cable. So the answer is (c).
+A[3]: The answer must be something in the forest. Of the above choices, only natural habitat is in the forest. So the answer is (b).
+A[4]: The answer must be a place with a lot of people. Of the above choices, only populated areas have a lot of people. So the answer is (a).
+A[5]: The answer should be the place where grocery items are placed before checking out. Of the above choices, grocery cart makes the most sense for holding grocery items. So the answer is (b).
+A[6]: The answer must be something that used to do what Google Maps and GPS services do, which is to give directions. Of the above choices, only atlases are used to give directions. So the answer is (d).
+
+Q[1]: Before getting a divorce, what did the wife feel who was doing all the work?
+Answer Choices[1]: (a) harder (b) anguish (c) bitterness (d) tears (e) sadness
+Q[2]: James went to the tennis court that was located in his home what?
+Answer Choices[2]: (a) country club (b) park (c) michigan (d) sports (e) town
+Q[3]: What does you body do when you exercise?
+Answer Choices[3]: (a) need for food (b) thirst (c) work out (d) sweating (e) injury
+Q[4]: In order to see a story on the big screen what must you do?
+Answer Choices[4]: (a) go to movies (b) visualize (c) reading (d) open book (e) sketching a picture
+Q[5]: He followed the train tracks hoping to get home, he had gotten lost in the Yooperland where?
+Answer Choices[5]: (a) ghetto (b) michigan (c) new york (d) canada (e) train station
+Q[6]: What would you get if you want a painting but cannot afford the original?
+Answer Choices[6]: (a) reproduction (b) derivative (c) reproduction (d) simile (e) remake
+A[1]: The answer should be the feeling of someone getting divorced who was doing all the work. Of the above choices, the closest feeling is bitterness. So the answer is (c).
+A[2]: The answer must be a place where tennis courts are located. Of the above choices, only home town has tennis courts. So the answer is (e).
+A[3]: The answer must be something that happens when you exercise. Of the above choices, only sweating happens when you exercise. So the answer is (d).
+A[4]: The answer must be something that you do to see a story on the big screen. Of the above choices, only going to movies makes sense. So the answer is (a).
+A[5]: The answer should be a place that relates to Yooperland. Of the above choices, only michigan is related to Yooperland. So the answer is (b).
+A[6]: The answer must be something that is similar to the original. Of the above choices, only reproduction is similar to the original. So the answer is (a).

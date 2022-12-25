@@ -1,0 +1,8 @@
+---
+  method_name: "batch_inference"
+  client_name: "openai"
+  transform: "batch_inference.rte.transform_batch_inference_rte.BatchInferenceRTETransform"
+  extract: "batch_inference.rte.extract_batch_inference_rte.BatchInferenceRTEExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "batch_inference/rte/prompt.txt"
+  max_tokens: 512

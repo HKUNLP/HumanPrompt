@@ -1,8 +1,8 @@
 ---
   method_name: "batch_inference"
   client_name: "openai"
-  transform: null
-  extract: null
-  extraction_regex: null
+  transform: "batch_inference.commonsense_qa.transform_batch_inference_commonsense_qa.BatchInferenceCommonsenseQATransform"
+  extract: "batch_inference.commonsense_qa.extract_batch_inference_commonsense_qa.BatchInferenceCommonsenseQAExtract"
+  extraction_regex: ".*So the answer is (.*).\n?"
   prompt_file_path: "batch_inference/commonsense_qa/prompt.txt"
   max_tokens: 256

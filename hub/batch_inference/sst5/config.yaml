@@ -1,0 +1,8 @@
+---
+  method_name: "batch_inference"
+  client_name: "openai"
+  transform: "batch_inference.sst5.transform_batch_inference_sst5.BatchInferenceSST5Transform"
+  extract: "batch_inference.sst5.extract_batch_inference_sst5.BatchInferenceSST5Extract"
+  extraction_regex: ".*The tone is (.*).\n?"
+  prompt_file_path: "batch_inference/sst5/prompt.txt"
+  max_tokens: 512

@@ -1,0 +1,39 @@
+Determine whether the hypotheses in a batch can be entailed by the corresponding premises, True or False?
+
+Premise[1]: No Weapons of Mass Destruction Found in Iraq Yet.
+Hypothesis[1]: Weapons of Mass Destruction Found in Iraq.
+Premise[2]: A place of sorrow, after Pope John Paul II died, became a place of celebration, as Roman Catholic faithful gathered in downtown Chicago to mark the installation of new Pope Benedict XVI.
+Hypothesis[2]: Pope Benedict XVI is the new leader of the Roman Catholic Church.
+Premise[3]: Libya's case against Britain and the US concerns the dispute over their demand for extradition of Libyans charged with blowing up a Pan Am jet over Lockerbie in 1988.
+Hypothesis[3]: One case involved the extradition of Libyan suspects in the Pan Am Lockerbie bombing.
+Premise[4]: Argentina sought help from Britain on its privatization program and encouraged British investment.
+Hypothesis[4]: Argentina sought UK expertise on privatization and agriculture.
+Premise[5]: Startling new research into mobile phones claims they may reduce a man's sperm count by up to 30%.
+Hypothesis[5]: Male fertility may be affected by use of a mobile phones.
+Premise[6]: It rewrites the rules of global trade, established by the General Agreement on Tariffs and Trade, or GATT, in 1947, and modified in multiple rounds of negotiations since then.
+Hypothesis[6]: GATT was formed in 1947.
+Answer[1]: No Weapons of Mass Destruction Found, which contradicts the hypothesis. So the answer is False.
+Answer[2]: As Roman Catholic faithful gathered in downtown Chicago to mark the installation of new Pope Benedict XVI. So the answer is True.
+Answer[3]: Libya's case suspects in the Pan Am Lockerbie bombing. So the answer is True.
+Answer[4]: Argentina sought help from Britain on its privatization program, not agriculture, which contradicts the hypothesis. So the answer is False.
+Answer[5]: New research claims mobile phones reduce a man's sperm count, i.e., affects male fertility. So the answer is True.
+Answer[6]: GATT is rewritten in 1947, not formed in 1947, which contradicts the hypothesis. So the answer is False.
+
+Premise[1]: The cost of the consumer of the United States fell in June.
+Hypothesis[1]: U.S. consumer spending dived in June.
+Premise[2]: Israeli Prime Minister Ariel Sharon has said that Mahmoud Abbas is a man that Israel can do business with.
+Hypothesis[2]: Palestinian leader, Mahmoud Abbas, may be someone Israel can talk with.
+Premise[3]: In October, however, amid rising tensions between the government and opposition groups, a car bomb seriously injured an opposition politician and killed his driver, in Beirut.
+Hypothesis[3]: A member of the opposition was injured in a car bomb attack in Beirut.
+Premise[4]: Ruth's 1927 single season record of 60 home runs stood unsurpassed until Roger Maris hit 61 in 1961.
+Hypothesis[4]: Babe Ruth hit 60 home runs in his lifetime.
+Premise[5]: The German technology was employed to build Shanghai's existing maglev line, the first in the world to be used commercially.
+Hypothesis[5]: Maglev is commercially used.
+Premise[6]: Twelve of Jupiter's moons are relatively small and seem to have been more likely captured than to have been formed in orbit around Jupiter.
+Hypothesis[6]: Jupiter has Twelve moons.
+Answer[1]: The consumer cost fell in June, not the spending, which contradicts the hypothesis. So the answer is False.
+Answer[2]: Mahmoud Abbas is a man that Israel can do business with, i.e., he may be someone Israel can talk with. So the answer is True.
+Answer[3]: A car bomb seriously injured an opposition politician in Beirut. So the answer the True.
+Answer[4]: Babe Ruth hit 60 home runs in a single season, not his lifetime, which contradicts the hypothesis. So the answer is False.
+Answer[5]: The German technology was employed to build Shanghai's existing maglev line, i.e., Maglev is commercially used. So the answer is True.
+Answer[6]: Twelve of Jupiter's moons are relatively small, not Jupiter has Twelve moons, which contradicts the hypothesis. So the answer is False.

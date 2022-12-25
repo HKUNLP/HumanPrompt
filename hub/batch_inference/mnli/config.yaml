@@ -1,0 +1,8 @@
+---
+  method_name: "batch_inference"
+  client_name: "openai"
+  transform: "batch_inference.mnli.transform_batch_inference_mnli.BatchInferenceMNLITransform"
+  extract: "batch_inference.mnli.extract_batch_inference_mnli.BatchInferenceMNLIExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "batch_inference/mnli/prompt.txt"
+  max_tokens: 512

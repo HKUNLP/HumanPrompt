@@ -1,0 +1,27 @@
+Answer the question(s) in a batch with yes or no.
+
+Q[1]: Do hamsters provide food for any animals?
+Q[2]: Could Brooke Shields succeed at University of Pennsylvania?
+Q[3]: Hydrogen’s atomic number squared exceeds number of Spice Girls?
+Q[4]: Is it common to see frost during some college commencements?
+Q[5]: Could a llama birth twice during War in Vietnam (1945-46)?
+Q[6]: Would a pear sink in water?
+A[1]: Hamsters are prey animals. Prey are food for predators. Thus, hamsters provide food for some animals. So the answer is yes.
+A[2]: Brooke Shields went to Princeton University. Princeton University is about as academically rigorous as the University of Pennsylvania. Thus, Brooke Shields could also succeed at the University of Pennsylvania. So the answer is yes.
+A[3]: Hydrogen has an atomic number of 1. 1 squared is 1. There are 5 Spice Girls. Thus, Hydrogen’s atomic number squared is less than 5. So the answer is no.
+A[4]: College commencement ceremonies can happen in December, May, and June. December is in the winter, so there can be frost. Thus, there could be frost at some commencements. So the answer is yes.
+A[5]: The War in Vietnam was 6 months. The gestation period for a llama is 11 months, which is more than 6 months. Thus, a llama could not give birth twice during the War in Vietnam. So the answer is no.
+A[6]: The density of a pear is about 0.6g/cm3, which is less than water. Objects less dense than water float. Thus, a pear would float. So the answer is no.
+
+Q[1]: Can an Arvanite Greek understand some of the Albanian Declaration of Independence?
+Q[2]: Can Burundi's communicate with citizens of New Brunswick?
+Q[3]: Are quadrupeds represented on Chinese calendar?
+Q[4]: Can actress Dafne Keen win the Eurovision Song Contest finals in 2020?
+Q[5]: Would a student in eleventh grade be unable to run for president of the United States?
+Q[6]: Does the judo rank system reach the triple digits?
+A[1]: The Arvanite Greek's are a major Tosk speaking group of southern Albania. Thus, they can understand some of the Albanian Declaration of Independence. So the answer is yes.
+A[2]: French is one of the official languages of Burundi. Thus, Burundi's can communicate with citizens of New Brunswick. So the answer is yes.
+A[3]: The Chinese calendar has a number of symbols including monkeys, goats, and tigers. Tigers have four paws and balance themselves by walking on their toes. Thus, quadrupeds are represented on the Chinese calendar. So the answer is yes.
+A[4]: Contestants must be at least 16 years of age to compete in the finals of Eurovision Song Contest. Dafne Keen is 15 years old in 2020. Thus, Dafne Keen cannot win the Eurovision Song Contest finals in 2020. So the answer is no.
+A[5]: Students in the eleventh grade are typically 16–17 years of age. To serve as president, one must be at least 35 years old. Thus, a student in eleventh grade would be unable to run for president of the United States. So the answer is yes.
+A[6]: A triple digit number would be equal to at least 100. The judo dan-rank system was capped at 10th dan after the death of judo's founder, Kanō Jigorō. Thus, the judo rank system does not reach the triple digits. So the answer is no.

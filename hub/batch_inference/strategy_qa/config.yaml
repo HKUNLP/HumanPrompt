@@ -1,0 +1,8 @@
+---
+  method_name: "batch_inference"
+  client_name: "openai"
+  transform: "batch_inference.strategy_qa.transform_batch_inference_strategy_qa.BatchInferenceStrategyQATransform"
+  extract: "batch_inference.strategy_qa.extract_batch_inference_strategy_qa.BatchInferenceStrategyQAExtract"
+  extraction_regex: ".*So the answer is (.*).\n?"
+  prompt_file_path: "batch_inference/strategy_qa/prompt.txt"
+  max_tokens: 512
