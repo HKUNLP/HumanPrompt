@@ -1,0 +1,8 @@
+---
+  method_name: "cot"
+  client_name: "openai"
+  transform: "cot.svamp.transform_cot_svamp.CoTSVAMPTransform"
+  extract: "cot.svamp.extract_cot_strategy_qa.CoTSVAMPExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "cot/svamp/prompt.txt"
+  max_tokens: 256
