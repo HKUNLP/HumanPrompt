@@ -25,3 +25,23 @@ A: The answer must be something that used to do what Google Maps and GPS service
 Q: Before getting a divorce, what did the wife feel who was doing all the work?
 Answer Choices: (a) harder (b) anguish (c) bitterness (d) tears (e) sadness
 A: The answer should be the feeling of someone getting divorced who was doing all the work. Of the above choices, the closest feeling is bitterness. So the answer is (c).
+
+Q: James went to the tennis court that was located in his home what?
+Answer Choices: (a) country club (b) park (c) michigan (d) sports (e) town
+A: The answer must be a place where tennis courts are located. Of the above choices, only home town has tennis courts. So the answer is (e).
+
+Q: What does you body do when you exercise?
+Answer Choices: (a) need for food (b) thirst (c) work out (d) sweating (e) injury
+A: The answer must be something that happens when you exercise. Of the above choices, only sweating happens when you exercise. So the answer is (d).
+
+Q: In order to see a story on the big screen what must you do?
+Answer Choices: (a) go to movies (b) visualize (c) reading (d) open book (e) sketching a picture
+A: The answer must be something that you do to see a story on the big screen. Of the above choices, only going to movies makes sense. So the answer is (a).
+
+Q: He followed the train tracks hoping to get home, he had gotten lost in the Yooperland where?
+Answer Choices: (a) ghetto (b) michigan (c) new york (d) canada (e) train station
+A: The answer should be a place that relates to Yooperland. Of the above choices, only michigan is related to Yooperland. So the answer is (b).
+
+Q: What would you get if you want a painting but cannot afford the original?
+Answer Choices: (a) reproduction (b) derivative (c) reproduction (d) simile (e) remake
+A: The answer must be something that is similar to the original. Of the above choices, only reproduction is similar to the original. So the answer is (a).
