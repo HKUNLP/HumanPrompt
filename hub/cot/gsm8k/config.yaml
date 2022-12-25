@@ -1,0 +1,8 @@
+---
+  method_name: "cot"
+  client_name: "openai"
+  transform: "cot.gsm8k.transform_cot_gsm8k.CoTGSM8KTransform"
+  extract: "cot.gsm8k.extract_cot_gsm8k.CoTGSM8KExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "cot/gsm8k/prompt.txt"
+  max_tokens: 256
