@@ -1,0 +1,8 @@
+---
+  method_name: "cot"
+  client_name: "openai"
+  transform: "cot.strategy_qa.transform_cot_strategy_qa.CoTStrategyQATransform"
+  extract: "cot.strategy_qa.extract_cot_strategy_qa.CoTStrategyQAExtract"
+  extraction_regex: ".*So the answer is (.*).\n?"
+  prompt_file_path: "cot/strategy_qa/prompt.txt"
+  max_tokens: 256
