@@ -1,0 +1,8 @@
+---
+  method_name: "cot"
+  client_name: "openai"
+  transform: "cot.add_sub.transform_cot_add_sub.CoTAddSubTransform"
+  extract: "cot.add_sub.extract_cot_add_sub.CoTAddSubExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "cot/add_sub/prompt.txt"
+  max_tokens: 512
