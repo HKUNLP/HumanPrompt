@@ -1,0 +1,8 @@
+---
+  method_name: "cot"
+  client_name: "openai"
+  transform: "cot.multi_arith.transform_cot_multi_arith.CoTMultiArithTransform"
+  extract: "cot.multi_arith.extract_cot_multi_arith.CoTMultiArithExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "cot/multi_arith/prompt.txt"
+  max_tokens: 512
