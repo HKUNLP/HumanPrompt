@@ -28,7 +28,6 @@ class ExtractFactory(object):
             try:
                 # If the transform is not in current_extracts, try to import it from the extract path
                 from pydoc import locate
-
                 extract_class = locate("{}.{}".format(HUB_SOURCE, extract))
                 return extract_class  # type: ignore
             except Exception:

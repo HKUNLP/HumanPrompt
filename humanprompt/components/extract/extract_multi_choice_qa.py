@@ -20,7 +20,11 @@ class MultiChoiceQAExtract(Extract):
         if "extraction_regex" in kwargs:
             # if extraction_words is specified, we use it to extract the answer
             extraction_regex = kwargs["extraction_regex"]
-            answer = re.match(extraction_regex, raw_response).group(1)
+            answer = re.match(extraction_regex, answer)
+            if answer is None:
+                answer = "<empty>"
+            else:
+                answer = answer.group(1)
 
         answer = answer.lstrip("(").rstrip(")").lower()
 
