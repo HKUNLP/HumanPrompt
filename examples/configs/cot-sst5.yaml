@@ -1,0 +1,23 @@
+---
+  dataset:
+    dataset_name: "SetFit/sst5"
+    dataset_split: "test"
+    dataset_subset_name: null
+    dataset_key_map:
+      question: "text"
+      answer: "label"
+  method:
+    method_name: "cot"
+    method_config_file_path: null
+    method_args:
+      client_name: "openai"
+      transform: "cot.sst5.transform_cot_sst5.CoTSST5Transform"
+      extract: "cot.sst5.extract_cot_sst5.CoTSST5Extract"
+      extraction_regex: ".*The tone is (.*).\n?"
+      prompt_file_path: "cot/sst5/prompt-12shot.txt"
+      max_tokens: 512
+      temperature: 0
+      engine: code-davinci-002
+      stop_sequence: "\n\n"
+  metrics:
+    - "exact_match"

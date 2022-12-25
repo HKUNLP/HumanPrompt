@@ -8,14 +8,14 @@
       answer: "answer"
       id: "id"
   method:
-    method_name: "cot"
+    method_name: "batch_inference"
     method_config_file_path: null
     method_args:
       client_name: "openai"
-      transform: "cot.svamp.transform_cot_svamp.CoTSVAMPTransform"
-      extract: "cot.svamp.extract_cot_svamp.CoTSVAMPExtract"
+      transform: "batch_inference.svamp.transform_batch_inference_svamp.BatchInferenceSVAMPTransform"
+      extract: "batch_inference.svamp.extract_batch_inference_svamp.BatchInferenceSVAMPExtract"
       extraction_regex: ".*The answer is (.*).\n?"
-      prompt_file_path: "cot/svamp/prompt.txt"
+      prompt_file_path: "batch_inference/svamp/prompt-batch=3.txt"
       max_tokens: 512
       temperature: 0
       engine: code-davinci-002

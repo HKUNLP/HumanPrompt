@@ -1,0 +1,25 @@
+---
+  dataset:
+    dataset_name: "glue"
+    dataset_split: "validation_matched"
+    dataset_subset_name: "mnli"
+    dataset_key_map:
+      premise: "premise"
+      hypothesis: "hypothesis"
+      answer: "label"
+      id: "idx"
+  method:
+    method_name: "cot"
+    method_config_file_path: null
+    method_args:
+      client_name: "openai"
+      transform: "cot.mnli.transform_cot_mnli.CoTMNLITransform"
+      extract: "cot.mnli.extract_cot_mnli.CoTMNLIExtract"
+      extraction_regex: ".*So the answer is (.*).\n?"
+      prompt_file_path: "cot/mnli/prompt-12shot.txt"
+      max_tokens: 512
+      temperature: 0
+      engine: code-davinci-002
+      stop_sequence: "\n\n"
+  metrics:
+    - "exact_match"

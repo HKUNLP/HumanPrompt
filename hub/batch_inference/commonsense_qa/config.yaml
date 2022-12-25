@@ -1,0 +1,8 @@
+---
+  method_name: "batch_inference"
+  client_name: "openai"
+  transform: null
+  extract: null
+  extraction_regex: null
+  prompt_file_path: "batch_inference/commonsense_qa/prompt.txt"
+  max_tokens: 256

@@ -1,0 +1,24 @@
+---
+  dataset:
+    dataset_name: "multi_arith"
+    dataset_split: "validation"
+    dataset_subset_name: null
+    dataset_key_map:
+      question: "sQuestion"
+      answer: "lSolutions"
+      id: "id"
+  method:
+    method_name: "batch_inference"
+    method_config_file_path: null
+    method_args:
+      client_name: "openai"
+      transform: "batch_inference.multi_arith.transform_batch_inference_multi_arith.BatchInferenceMultiArithTransform"
+      extract: "batch_inference.multi_arith.extract_batch_inference_multi_arith.BatchInferenceMultiArithExtract"
+      extraction_regex: ".*The answer is (.*).\n?"
+      prompt_file_path: "batch_inference/multi_arith/prompt-batch=6.txt"
+      max_tokens: 512
+      temperature: 0
+      engine: code-davinci-002
+      stop_sequence: "\n\n"
+  metrics:
+    - "exact_match"

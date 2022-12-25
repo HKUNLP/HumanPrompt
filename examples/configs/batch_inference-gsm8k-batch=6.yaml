@@ -7,14 +7,14 @@
       question: "question"
       answer: "answer"
   method:
-    method_name: "cot"
+    method_name: "batch_inference"
     method_config_file_path: null
     method_args:
       client_name: "openai"
-      transform: "cot.gsm8k.transform_cot_gsm8k.CoTGSM8KTransform"
-      extract: "cot.gsm8k.extract_cot_gsm8k.CoTGSM8KExtract"
+      transform: "batch_inference.gsm8k.transform_batch_inference_gsm8k.BatchInferenceGSM8KTransform"
+      extract: "batch_inference.gsm8k.extract_batch_inference_gsm8k.BatchInferenceGSM8KExtract"
       extraction_regex: ".*The answer is (.*).\n?"
-      prompt_file_path: "cot/gsm8k/prompt.txt"
+      prompt_file_path: "batch_inference/gsm8k/prompt-batch=6.txt"
       max_tokens: 512
       temperature: 0
       engine: code-davinci-002

@@ -1,0 +1,25 @@
+---
+  dataset:
+    dataset_name: "glue"
+    dataset_split: "validation"
+    dataset_subset_name: "rte"
+    dataset_key_map:
+      premise: "sentence1"
+      hypothesis: "sentence2"
+      answer: "label"
+      id: "idx"
+  method:
+    method_name: "batch_inference"
+    method_config_file_path: null
+    method_args:
+      client_name: "openai"
+      transform: "batch_inference.rte.transform_batch_inference_rte.BatchInferenceRTETransform"
+      extract: "batch_inference.rte.extract_batch_inference_rte.BatchInferenceRTEExtract"
+      extraction_regex: ".*So the answer is (.*).\n?"
+      prompt_file_path: "batch_inference/rte/prompt-12shot-batch=4.txt"
+      max_tokens: 512
+      temperature: 0
+      engine: code-davinci-002
+      stop_sequence: "\n\n"
+  metrics:
+    - "exact_match"

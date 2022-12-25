@@ -41,6 +41,9 @@ def run_experiment(
     """
     predictions, gold_answers = [], []
     for idx, data_item in enumerate(dataset):
+        if data_item.get('id', None) is None:
+            data_item['id'] = idx
+
         if os.path.exists(os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json")):
             # Already inferenced example
             with open(
@@ -106,7 +109,7 @@ if __name__ == "__main__":
     )
     os.environ["OPENAI_API_KEY"] = openai_key_pool.get_key()
     verbose = False
-    exp_name = "cot-commonsense_qa"
+    exp_name = "cot-svamp"
     exp_config = load_config(f"configs/{exp_name}.yaml")
     save_dir = "results/"
     tmp_save_dir = os.path.join(save_dir, "tmp", f"{exp_name}/")

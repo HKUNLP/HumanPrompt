@@ -1,0 +1,23 @@
+---
+  dataset:
+    dataset_name: "SetFit/sst5"
+    dataset_split: "test"
+    dataset_subset_name: null
+    dataset_key_map:
+      question: "text"
+      answer: "label"
+  method:
+    method_name: "batch_inference"
+    method_config_file_path: null
+    method_args:
+      client_name: "openai"
+      transform: "batch_inference.sst5.transform_batch_inference_sst5.BatchInferenceSST5Transform"
+      extract: "batch_inference.sst5.extract_batch_inference_sst5.BatchInferenceSST5Extract"
+      extraction_regex: ".*The tone is (.*).\n?"
+      prompt_file_path: "batch_inference/sst5/prompt-12shot-batch=2.txt"
+      max_tokens: 512
+      temperature: 0
+      engine: code-davinci-002
+      stop_sequence: "\n\n"
+  metrics:
+    - "exact_match"
