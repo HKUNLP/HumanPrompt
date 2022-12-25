@@ -13,3 +13,35 @@ A: The distance that the person traveled would have been 20 km/hr * 2.5 hrs = 50
 Q: How many keystrokes are needed to type the numbers from 1 to 500?
 Answer Choices: (a) 1156 (b) 1392 (c) 1480 (d) 1562 (e) 1788
 A: There are 9 one-digit numbers from 1 to 9. There are 90 two-digit numbers from 10 to 99. There are 401 three-digit numbers from 100 to 500. 9 + 90(2) + 401(3) = 1392. The answer is (b).
+
+Q: A number X equals 80% of the average of 5, 7, 14 and a number Y. If the average of X and Y is 26, the value of Y is?
+Answer Choices: (a) 13 (b) 26 (c) 39 (d)36 (e) None of these
+A: Average of 5, 7, 14 and Y = (5 + 7 + 14 + Y) / 4. Therefore, X = 80% of (5 + 7 + 14 + y) / 4 = (80/100) x (26 + Y)/4 => X = (26 + Y)/5, i.e., 5X - Y = 26. Also, (X + Y) / 2 = 26. Thus, (26 + Y) / 5 + Y = 52, then Y = 39. The answer is (c).
+
+Q: A shopkeeper gave an additional 20 per cent concession on the reduced price after giving 30 per cent standard concession on an article. If Arun bought that article for 1,120, what was the original price?
+Answer Choices: (a) 3,000 (b) 4,000 (c) 2,400 (d) 2,000 (e) None of these
+A: The total discount should be (1 - 0.3) * (1 - 0.2) = 0.56. Thus, the original price should be 1120 / 0.56 = 2000. The answer is (d).
+
+Q: A and B invests Rs.3000 and Rs.7000 respectively in a business. If A doubles his capital after 6 months. In what ratio should A and B divide that year's profit?
+Answer Choices: (a) 9:6 (b) 9:8 (c) 9:14 (d) 9:9 (e) 9:5
+A: The ratio should be (3 * 6 + 6 * 6): (7 * 12) = 54:84. It simplifies to 9:14. The answer is (c).
+
+Q: The angle between two hands at 3.45 is?
+Answer Choices: (a) 110 degree (b) 115 degree (c) 112 1/2 degree (d) 117 degree (e) 157 1/2 degree
+A: The hour hand is (45/60) * (360/12) = 22.5 degree from 3 o'clock. So the angle between the hour hand and the minute hand is (9-3) * (360/12) - 22.5 = 157.5. The answer is (e).
+
+Q: Find the sum of first 30 natural numbers.
+Answer Choices: (a) 470 (b) 468 (c) 465 (d) 463 (e) 487
+A: The sum of first 30 natural numbers is 30 * (30 + 1) / 2 = 465. The answer is (c).
+
+Q: What will come in place of the x in the following Number series? 46080, 3840, ?, 48, 8, 2, 1.
+Answer Choices: (a) 1 (b) 384 (c) 5 (d) 7 (e) 9
+A: The ratio of the numbers is 10:8:6:4:2:1. So the next number should be 384. The answer is (b).
+
+Q: A password of a computer used two digits where they are from 0 and 9. What is the probability that the password solely consists of prime numbers and zero?
+Answer Choices: (a) 1/32 (b) 1/16 (c) 1/8 (d) 2/5 (e) 1/4
+A: 0, 2, 3, 5, 7 are five prime digits(including zero). So there are 5 * 5 = 25 two-digit numbers with only prime numbers and zero. The probability is 25/100 = 1/4. The answer is (e).
+
+Q: If k^3 is divisible by 120, what is the least possible value of integer k?
+Answer Choices: (a) 12 (b) 30 (c) 60 (d) 90 (e) 120
+A: 120 can be factored as 2 * 2 * 2 * 3 * 5. So the least k be 2 * 3 * 5 = 30. The answer is (b).

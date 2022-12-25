@@ -1,0 +1,8 @@
+---
+  method_name: "cot"
+  client_name: "openai"
+  transform: "cot.aqua.transform_cot_aqua.CoTAQuATransform"
+  extract: "cot.aqua.extract_cot_aqua.CoTAQuAExtract"
+  extraction_regex: ".*The answer is (.*).\n?"
+  prompt_file_path: "cot/aqua/prompt.txt"
+  max_tokens: 512
