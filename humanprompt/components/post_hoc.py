@@ -35,8 +35,9 @@ class HocPoster(object):
                     y = ExtractFactory.get_extract(extract).extract(
                         _raw_response, **kwargs
                     )
-                elif callable(_post_hoc):
+                elif callable(extract):
                     y = extract(_raw_response, **kwargs)
+                    print(y)
                 else:
                     # It is assumed that the raw response is the answer with no need to extract.
                     y = _raw_response
