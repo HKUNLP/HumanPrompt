@@ -16,6 +16,7 @@
 # mypy: ignore-errors
 import csv
 from typing import Any, Dict, Iterator, List, Tuple
+import nltk
 
 import datasets
 
@@ -118,10 +119,18 @@ class SVAMP(datasets.GeneratorBasedBuilder):
         with open(filepath, encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for idx, ex in enumerate(reader):
-                # Train set
+                # Missing key in train set
                 if "type" not in ex:
                     ex["Type"] = None
                     ex["Variation Type"] = None
+                # Replace numbers into the question
+                numbers = ex["Numbers"].split()
+                for num_idx, num in enumerate(numbers):
+                    ex["Question"] = ex["Question"].replace(f"number{num_idx}", num)
+                # Capitalize the first letter of the question
+                ex["Question"] = ex["Question"].replace(" .", ".").replace(" ?", "?")
+                sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+                ex["Question"] = " ".join([sent.capitalize() for sent in sent_tokenizer.tokenize(ex["Question"])])
                 yield idx, {
                     "id": str(idx),
                     "question": ex["Question"],

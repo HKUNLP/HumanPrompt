@@ -15,6 +15,9 @@ class DatasetLoader(object):
     own_dataset = {
         "strategy_qa": os.path.join(DIR, "strategy_qa.py"),
         "svamp": os.path.join(DIR, "svamp.py"),
+        "aqua": os.path.join(DIR, "aqua.py"),
+        "add_sub": os.path.join(DIR, "add_sub.py"),
+        "multi_arith": os.path.join(DIR, "multi_arith.py"),
         "wikitq": os.path.join(DIR, "wikitq.py"),
         "spider": os.path.join(DIR, "spider.py"),
     }
