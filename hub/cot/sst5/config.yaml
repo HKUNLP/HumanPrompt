@@ -1,0 +1,8 @@
+---
+  method_name: "cot"
+  client_name: "openai"
+  transform: "cot.sst5.transform_cot_sst5.CoTSST5Transform"
+  extract: "cot.sst5.extract_cot_sst5.CoTSST5Extract"
+  extraction_regex: ".*The tone is (.*).\n?"
+  prompt_file_path: "cot/sst5/prompt-12shot.txt"
+  max_tokens: 512

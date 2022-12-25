@@ -1,5 +1,5 @@
-from humanprompt.components.transform.transform_nli import NLITransform
+from humanprompt.components.transform.transform_simple_qa import QATransform
 
 
-class CoTRTETransform(NLITransform):
+class CoTSST5Transform(QATransform):
     pass
