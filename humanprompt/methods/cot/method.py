@@ -18,6 +18,7 @@ class CoTMethod(PromptMethod):
         prompt_file_path: Optional[str] = None,
         **kwargs: Any
     ) -> Union[str, List[str]]:
+        verbose = kwargs.get("verbose", False)
 
         prompt = PromptBuilder.build_prompt(
             x=x,
@@ -35,7 +36,13 @@ class CoTMethod(PromptMethod):
             else self.kwargs.get("extraction_words", None),
         )
 
+        if verbose:
+            print(f"Prompt::\n{prompt}")
+
         response = self.run_lm(prompt, **kwargs)
+
+        if verbose:
+            print(f"Response::\n{response}")
 
         y = HocPoster.post_hoc(
             response,

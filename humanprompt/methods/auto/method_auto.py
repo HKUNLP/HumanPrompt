@@ -8,6 +8,7 @@ from ..react.method import ReActMethod
 from ..standard.method import StandardMethod
 from ..zero_shot_cot.method import ZeroShotCoTMethod
 from .auto_factory import BaseAutoMethod
+from ..batch_infererence.method import BatchInferenceMethod
 
 METHOD_MAPPING_NAMES = OrderedDict(
     [
@@ -19,6 +20,7 @@ METHOD_MAPPING_NAMES = OrderedDict(
         ("binder", BinderMethod),
         ("ama_prompting", AMAPromptingMethod),
         ("db_text2sql", DBText2SQLMethod),
+        ("batch_inference", BatchInferenceMethod)
     ]
 )
 
