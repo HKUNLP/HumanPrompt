@@ -1,0 +1,8 @@
+---
+  method_name: "cot"
+  client_name: "openai"
+  transform: "cot.rte.transform_cot_rte.CoTRTETransform"
+  extract: "cot.rte.extract_cot_rte.CoTRTEExtract"
+  extraction_regex: ".*So the answer is (.*).\n?"
+  prompt_file_path: "cot/rte/prompt-12shot.txt"
+  max_tokens: 256

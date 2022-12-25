@@ -1,0 +1,49 @@
+Determine whether the hypothesis can be entailed by the premise, True or False or Neutral?
+
+Premise: Conceptually cream skimming has two basic dimensions - product and geography.
+Hypothesis: Product and geography are what make cream skimming work.
+Answer: Product and geography are two basic dimensions of cream skimming. It is uncertain if there are other dimensions. So the answer is Neutral.
+
+Premise: One of our number will carry out your instructions minutely.
+Hypothesis: A member of my team will execute your orders with immense precision.
+Answer: One member will carry you instructions minutely. So the answer is True.
+
+Premise: Analyzing Postal Service accounts for depreciation, fuel, and maintenance for city delivery carriers, we have estimated the average city delivery vehicle cost per route.
+Hypotheis: Driving cost estimates can be averaged with sufficient data.
+Answer: They estimate the average city delivery vehicle cost per route. It is uncertain if driving cost estimates can be averaged with sufficient data. So the answer is Neutral.
+
+Premise: Consider the United States Postal Service.
+Hypothesis: Forget the United States Postal Service.
+Answer: Consider the United States Postal Service, not forget, which contradicts the hypothesis. So the answer is False.
+
+Premise: Take a remarkable statistic that Shesol cites but lets pass relatively unexamined.
+Hypothesis: They had data that was very relevant but under used.
+Answer: There is a remarkable statistic unexamined, i.e., relevant data under used. So the answer is True.
+
+Premise: The man on the ground thinks for a moment and yells back, You must work in management.
+Hypothesis: There was no one on the ground, man or woman.
+Answer: A man is on the ground thinking, not on one, which contradicts the hypothesis. So the answer is False.
+
+Premise: Hello, Ben.
+Hypothesis: I ignored Ben.
+Answer: I said hello to Ben, not ignored him, which contradicts the hypothesis. So the answer is False.
+
+Premise: How can you prove it?
+Hypothesis: Can you tell me how to prove it?
+Answer: Ask you how to prove it. So the answer is True.
+
+Premise: In the midst of this amazing amalgam of cultures is a passion for continuity.
+Hypothesis: A passion for continuity is not the most important of these cultures.
+Answer: Passion for continuity is among the cultures. It is uncertain if it is the most important. So the answer is Neutral.
+
+Premise: Poirot, I exclaimed, with relief, and seizing him by both hands, I dragged him into the room.
+Hypothesis: Poirot was now back and I was sorry that he would take over what I now considered my own investigation.
+Answer: I seize Piorot into the room, not that he takes over my investigation, which contradicts the hypothesis. So the answer is False.
+
+Premise: There's a uh a couple called um oh i'm going to forgot his name now uh Dirkson.
+Hypothesis: I can't remember their name.
+Answer: I forgot his name. So the answer is True.
+
+Premise: It's not that the questions they asked weren't interesting or legitimate (though most did fall under the category of already asked and answered).
+Hypothesis: All of the questions were interesting according to a focus group consulted on the subject.
+Answer: The questions were not all interesting or legitimate. It is uncertain if all were interesting. So the answer is Neutral.
