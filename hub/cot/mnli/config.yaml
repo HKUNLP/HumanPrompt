@@ -1,0 +1,8 @@
+---
+  method_name: "cot"
+  client_name: "openai"
+  transform: "cot.mnli.transform_cot_mnli.CoTMNLITransform"
+  extract: "cot.mnli.extract_cot_mnli.CoTMNLIExtract"
+  extraction_regex: ".*So the answer is (.*).\n?"
+  prompt_file_path: "cot/mnli/prompt-12shot.txt"
+  max_tokens: 256
