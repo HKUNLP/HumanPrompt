@@ -118,36 +118,3 @@ pre-commit install # install all hooks
 pre-commit run --all-files # trigger all hooks
 ~~~
 You can use `git commit --no-verify` to skip and allow us to handle that later on.
-
-### Things to be done in the future
-
-#### Before 2022.12
-- [ ] Support batch running function
-- [ ] Add verbose in each method
-- [ ] Add parameter hint for methods
-- [ ] Add README and credict to each method
-- [ ] Add one more aggregation method for code generation(MBR-EXEC)
-- [ ] Add one more aggregation method used in ama prompting(METAL-AMA)
-- [ ] Add methods(ReAct, self-ask) that requires external API
-- [ ] Add one program generation method(prompt prog)
-- [ ] Add one data generation method(ZeroGenI)
-- [ ] Add one method on dialogue component task(IC-DST)
-- [ ] Start UI construction
-- [x] Refactor the code, move the transfer & extractor out to the ./hub
-- [x] Add one text-to-sql task(DB SP)
-- [x] Add AMA_prompting
-- [x] Shorten the repo name to be published on PyPI
-- [x] Add more tests
-- [x] Add one skg method(Binder)
-- [x] Init the experiments part
-- [x] Add CLI
-- [x] Add static checkings
-- [x] Derive the manifest from the method, make full use of its init, run and run_batch(In progress)
-- [x] Support in-context examples when using method.run
-- [x] Path and preparation for PyPI
-- [x] Add AutoMethod Factory
-
-#### Before 2023.1
-- [ ] PyPI publish
-- [ ] Demo website
-- [ ] twitter
