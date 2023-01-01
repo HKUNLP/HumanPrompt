@@ -50,21 +50,28 @@ class Executor(object):
 
         for step in steps[:-1]:
             line: str = binder_program.split("\n")[step.line]
-            variable_and_type = get_variable_and_type(line, step.name)
-            assert (
-                len(variable_and_type.split(":")) == 2
-            ), "variable_and_type format incorrect!"
-            _variable, _type = (
-                variable_and_type.split(":")[0].strip(),
-                variable_and_type.split(":")[1].strip(),
-            )
-            _variable = rename_variable_if_keyword(_variable)
-            variable_and_type = _variable + " : " + _type
+            variable_and_type = get_variable_and_type(
+                line, step.name
+            )  # if QA is nested, it will not work
+            if len(variable_and_type.split(":")) == 2:
+                # if there is no nested QA, like "age: int = QA("What is the age of the person?", Jack)"
+                _variable, _type = (
+                    variable_and_type.split(":")[0].strip(),
+                    variable_and_type.split(":")[1].strip(),
+                )
+                _variable = rename_variable_if_keyword(_variable)
+                variable_and_type = _variable + " : " + _type
+            else:
+                # if there is nested QA, like:
+                # "wife_age: int = QA("What is the age of the person?", QA("What is the wife of the person?", Jack))"
+                _type = "Any"
+                _variable = "tmp_var_{}".format(self.tmp_var_idx)
+                self.tmp_var_idx += 1
+                variable_and_type = _variable + " : " + _type
+
             # In case the variable name contains keyword.
             neural_part = step.rename
-            line_idx = step.line
             question, paras = parse_question_paras(neural_part)
-            # paras_used.extend(paras)
             x = {
                 "question": question,
                 "variable_and_type": variable_and_type,
@@ -82,11 +89,11 @@ class Executor(object):
                 }
             )
 
-            # todo: we will change that into a smaller model.
+            # todo: we can change this part into a smaller model.
             step.rename_father(neural_part_result)
 
             if verbose:
-                print("Step {}: {} ".format(line_idx, step.name))
+                print("Step: {} ".format(step.name))
                 print("Context: {}".format({para: all_context[para] for para in paras}))
                 print("Result: {}".format(neural_part_result))
 
