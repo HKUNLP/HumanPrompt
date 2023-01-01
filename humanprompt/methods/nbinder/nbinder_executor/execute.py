@@ -71,6 +71,7 @@ class Executor(object):
                 **{para: all_context[para] for para in paras},
             }
             neural_part_result = self.neural_model.run(x)
+            all_context[_variable] = neural_part_result  # add the result to the context
             assert isinstance(neural_part_result, str), "neural_part_result must be str"
 
             sub_qas.append(
