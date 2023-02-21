@@ -110,11 +110,8 @@ if __name__ == "__main__":
     start_time = time.time()
     openai_key_pool = OpenAIKeyPool(
         keys=[
-            "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",
-            "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",
-            "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",
-            "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",
-            "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",
+            "key_1",
+            "key_2"
         ]
     )
     os.environ["OPENAI_API_KEY"] = openai_key_pool.get_key()
