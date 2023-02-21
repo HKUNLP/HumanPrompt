@@ -1,5 +1,3 @@
-import os
-
 from humanprompt.methods.auto.method_auto import AutoMethod
 from humanprompt.tasks.dataset_loader import DatasetLoader
 

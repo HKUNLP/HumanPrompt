@@ -108,12 +108,7 @@ def run_experiment(
 if __name__ == "__main__":
     # Meta-config
     start_time = time.time()
-    openai_key_pool = OpenAIKeyPool(
-        keys=[
-            "key_1",
-            "key_2"
-        ]
-    )
+    openai_key_pool = OpenAIKeyPool(keys=["key_1", "key_2"])
     os.environ["OPENAI_API_KEY"] = openai_key_pool.get_key()
     verbose = False
     exp_name = "cot-commonsense_qa"
