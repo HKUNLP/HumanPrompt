@@ -2,6 +2,7 @@ import json
 import os
 import time
 from typing import Dict, List
+import argparse
 
 import openai
 from datasets import Dataset
@@ -11,32 +12,6 @@ from humanprompt.methods.auto.method_auto import AutoMethod
 from humanprompt.methods.base_method.method import PromptMethod
 from humanprompt.tasks.dataset_loader import DatasetLoader
 from humanprompt.utils.config_utils import load_config
-
-
-class OpenAIKeyPool:
-    def __init__(self, keys: List[str], engine: str = "code-davinci-002"):
-        def _filter_valid_keys(_keys: List[str], _engine: str) -> List[str]:
-            _valid_keys = []
-            for _key in _keys:
-                try:
-                    openai.Completion.create(engine=_engine, prompt="Q: ", api_key=_key)
-                    print(_key, "pass")
-                    _valid_keys.append(_key)
-                except Exception as e:
-                    print(_key, "not pass", str(e))
-
-            return _valid_keys
-
-        self.keys = _filter_valid_keys(keys, engine)
-        print("Valid keys:\n", "\n".join(self.keys))
-        self.idx = 0
-
-    def get_key(self) -> str:
-        key = self.keys[self.idx]
-        self.idx += 1
-        if self.idx == len(self.keys):
-            self.idx = 0
-        return key
 
 
 def run_experiment(
@@ -54,7 +29,10 @@ def run_experiment(
     """
     predictions, gold_answers = [], []
     for idx, data_item in enumerate(dataset):
-        if os.path.exists(os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json")):
+        data_item['idx'] = idx
+        if data_item.get('id', None) is None:
+            data_item['id'] = idx
+        if use_cache and os.path.exists(os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json")):
             # Already inferenced example
             with open(
                 os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json"), "r"
@@ -68,8 +46,7 @@ def run_experiment(
             # New coming example
             while True:
                 try:
-                    current_key = openai_key_pool.get_key()
-                    os.environ["OPENAI_API_KEY"] = current_key
+                    current_key = os.environ["OPENAI_API_KEY"]
                     print("Using OpenAI key: ", current_key)
                     prediction = method.run(x=data_item, verbose=verbose)
                     break
@@ -77,8 +54,10 @@ def run_experiment(
                     print(f"Error when getting response: {e}")
                     continue
             if prediction is None:
-                prediction = "<None>"
-            gold_answer = data_item["answer"].lower()
+                prediction = "<empty>"
+            # Answer post-processing for evaluation
+            prediction = evaluator.normalize_answer(prediction)
+            gold_answer = evaluator.normalize_answer(data_item["answer"])
             # Cache current example
             os.makedirs(tmp_save_dir, exist_ok=True)
             with open(
@@ -106,15 +85,29 @@ def run_experiment(
 
 
 if __name__ == "__main__":
+    # Argument parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--exp_name", type=str, default="cot-gsm8k", help="Experiment name.")
+    parser.add_argument("--num_test_samples", type=int, default=None,
+                        help="Number of test samples. Set None to use all.")
+    parser.add_argument("--debug_indices", type=str, default=None,
+                        help="Debug indices of samples in dataset. Set None to use all.")
+    parser.add_argument("--save_dir", type=str, default="results/", help="Directory to save evaluation results.")
+    parser.add_argument("--use_cache", type=bool, default=True,
+                        help="Whether to use cache for already tested samples.")
+    parser.add_argument("--verbose", action="store_true", help="Whether to print verbose information.")
+    args = parser.parse_args()
+
     # Meta-config
-    start_time = time.time()
-    openai_key_pool = OpenAIKeyPool(keys=["key_1", "key_2"])
-    os.environ["OPENAI_API_KEY"] = openai_key_pool.get_key()
-    verbose = False
-    exp_name = "cot-commonsense_qa"
+    exp_name = args.exp_name
     exp_config = load_config(f"configs/{exp_name}.yaml")
-    save_dir = "results/"
+    num_test_samples = args.num_test_samples
+    debug_indices = args.debug_indices if args.debug_indices is None \
+        else [int(x) for x in args.debug_indices.split(",")]
+    save_dir = args.save_dir
     tmp_save_dir = os.path.join(save_dir, "tmp", f"{exp_name}/")
+    use_cache = args.use_cache
+    verbose = args.verbose
 
     # Config
     if not hasattr(exp_config, "dataset"):
@@ -131,6 +124,10 @@ if __name__ == "__main__":
         if "dataset_key_map" in dataset_config
         else None,
     )
+    if num_test_samples:
+        dataset = dataset.select(range(num_test_samples))
+    if debug_indices:
+        dataset = dataset.select(debug_indices)
 
     if not hasattr(exp_config, "method"):
         raise ValueError("Experiment config must have a `method` field.")
@@ -145,8 +142,15 @@ if __name__ == "__main__":
         else None,
         **method_config.get("method_args", {}),
     )
-    evaluator = Evaluator(exp_config["metrics"])
+    evaluator = Evaluator(
+        metrics=exp_config["metrics"],
+        dataset_name=dataset_config["dataset_name"],
+        dataset_subset_name=dataset_config["dataset_subset_name"]
+        if "dataset_subset_name" in dataset_config
+        else None,
+    )
 
+    start_time = time.time()
     eval_dict = run_experiment(dataset=dataset, method=method, evaluator=evaluator)
     print("Elapsed time:", time.time() - start_time)
     print(eval_dict)
