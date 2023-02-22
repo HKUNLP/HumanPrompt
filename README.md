@@ -125,7 +125,7 @@ Following is a config file example for Chain-of-Thought method on GSM8K:
   metrics:
     - "exact_match"                      # metrics to evaluate the results
 ```
-Users can create the `transform` and `extract` classes to customize the prompt generation and answer extraction process. 
+Users can create the `transform` and `extract` classes to customize the prompt generation and answer extraction process.
 Prompt file can be replaced or specified according to the user's need.
 
 ### Run experiment

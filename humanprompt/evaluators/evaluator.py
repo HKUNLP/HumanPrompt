@@ -1,5 +1,5 @@
-from typing import Any, Dict, List, Set, Union
 import re
+from typing import Any, Dict, List, Set, Union
 
 import evaluate
 
@@ -13,7 +13,7 @@ class Evaluator:
         self,
         metrics: List[str],
         dataset_name: str = None,
-        dataset_subset_name: str = None
+        dataset_subset_name: str = None,
     ):
         self.metric_executors = {}
         for metric in metrics:
@@ -48,10 +48,7 @@ class Evaluator:
 
         return eval_dict
 
-    def normalize_answer(
-            self,
-            answer: Union[str, List[str]]
-    ) -> Union[str, List[str]]:
+    def normalize_answer(self, answer: Union[str, List[str]]) -> Union[str, List[str]]:
         """
         Normalize answers according to the dataset.
         Reference https://github.com/kojima-takeshi188/zero_shot_cot/blob/main/utils.py
@@ -69,7 +66,7 @@ class Evaluator:
             try:
                 if self.dataset_name in ("gsm8k", "add_sub", "multi_arith", "svamp"):
                     a = a.replace(",", "")
-                    a = re.findall(r'-?\d+\.?\d*', a)[-1]
+                    a = re.findall(r"-?\d+\.?\d*", a)[-1]
                     # (For arithmetic tasks) if a word ends with period, it will be omitted ...
                     if a != "":
                         if a[-1] == ".":
@@ -104,7 +101,7 @@ class Evaluator:
                         a = "3"
                     elif a == "very positive":
                         a = "4"
-            except Exception as e:
+            except Exception:
                 pass
             answer[idx] = a
 

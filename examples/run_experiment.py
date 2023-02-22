@@ -1,8 +1,8 @@
+import argparse
 import json
 import os
 import time
-from typing import Dict, List
-import argparse
+from typing import Dict
 
 import openai
 from datasets import Dataset
@@ -29,10 +29,12 @@ def run_experiment(
     """
     predictions, gold_answers = [], []
     for idx, data_item in enumerate(dataset):
-        data_item['idx'] = idx
-        if data_item.get('id', None) is None:
-            data_item['id'] = idx
-        if use_cache and os.path.exists(os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json")):
+        data_item["idx"] = idx
+        if data_item.get("id", None) is None:
+            data_item["id"] = idx
+        if use_cache and os.path.exists(
+            os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json")
+        ):
             # Already inferenced example
             with open(
                 os.path.join(tmp_save_dir, f"{idx}_{data_item['id']}.json"), "r"
@@ -87,23 +89,47 @@ def run_experiment(
 if __name__ == "__main__":
     # Argument parser
     parser = argparse.ArgumentParser()
-    parser.add_argument("--exp_name", type=str, default="cot-gsm8k", help="Experiment name.")
-    parser.add_argument("--num_test_samples", type=int, default=None,
-                        help="Number of test samples. Set None to use all.")
-    parser.add_argument("--debug_indices", type=str, default=None,
-                        help="Debug indices of samples in dataset. Set None to use all.")
-    parser.add_argument("--save_dir", type=str, default="results/", help="Directory to save evaluation results.")
-    parser.add_argument("--use_cache", type=bool, default=True,
-                        help="Whether to use cache for already tested samples.")
-    parser.add_argument("--verbose", action="store_true", help="Whether to print verbose information.")
+    parser.add_argument(
+        "--exp_name", type=str, default="cot-gsm8k", help="Experiment name."
+    )
+    parser.add_argument(
+        "--num_test_samples",
+        type=int,
+        default=None,
+        help="Number of test samples. Set None to use all.",
+    )
+    parser.add_argument(
+        "--debug_indices",
+        type=str,
+        default=None,
+        help="Debug indices of samples in dataset. Set None to use all.",
+    )
+    parser.add_argument(
+        "--save_dir",
+        type=str,
+        default="results/",
+        help="Directory to save evaluation results.",
+    )
+    parser.add_argument(
+        "--use_cache",
+        type=bool,
+        default=True,
+        help="Whether to use cache for already tested samples.",
+    )
+    parser.add_argument(
+        "--verbose", action="store_true", help="Whether to print verbose information."
+    )
     args = parser.parse_args()
 
     # Meta-config
     exp_name = args.exp_name
     exp_config = load_config(f"configs/{exp_name}.yaml")
     num_test_samples = args.num_test_samples
-    debug_indices = args.debug_indices if args.debug_indices is None \
+    debug_indices = (
+        args.debug_indices
+        if args.debug_indices is None
         else [int(x) for x in args.debug_indices.split(",")]
+    )
     save_dir = args.save_dir
     tmp_save_dir = os.path.join(save_dir, "tmp", f"{exp_name}/")
     use_cache = args.use_cache
