@@ -23,6 +23,7 @@ HumanPrompt is a framework for easier human-in-the-loop design, manage, sharing,
 + [Architecture](#architecture)
 + [Contributing](#contributing)
   - [Pre-commit](#pre-commit)
++ [Used by](#used-by)
 + [Citation](#citation)
 
 
@@ -216,6 +217,8 @@ pre-commit run --all-files # trigger all hooks
 ~~~
 You can use `git commit --no-verify` to skip and allow us to handle that later on.
 
+## Used by
+- [Batch Prompting](https://github.com/HKUNLP/batch-prompting)
 
 ## Citation
 If you find this repo useful, please cite our project and [manifest](https://github.com/HazyResearch/manifest):
