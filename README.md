@@ -15,6 +15,17 @@
 
 HumanPrompt is a framework for easier human-in-the-loop design, manage, sharing, and usage of prompt and prompt methods.
 
+## Content
++ [To start](#to-start)
++ [To accelerate your research](#to-accelerate-your-research)
+  - [Config](#config)
+  - [Run experiment](#run-experiment)
++ [Architecture](#architecture)
++ [Contributing](#contributing)
+  - [Pre-commit](#pre-commit)
++ [Citation](#citation)
+
+
 ## To start
 
 Firstly, clone this repo, then run:
@@ -83,13 +94,99 @@ print(result)
 print(data_item)
 ```
 
-Click [here]() to see all tasks and methods we support for now.
-
 ## To accelerate your research
-to be added
+### Config
+We adopt "one config, one experiment" paradigm to facilitate research, especially when benchmarking different prompting methods.
+In each experiment's config file(.yaml) under `examples/configs/`, you can config the dataset, prompting method, and metrics.
+
+Following is a config file example for Chain-of-Thought method on GSM8K:
+```yaml
+---
+  dataset:
+    dataset_name: "gsm8k"                # dataset name, aligned with huggingface dataset if loaded from it
+    dataset_split: "test"                # dataset split
+    dataset_subset_name: "main"          # dataset subset name, null if not used
+    dataset_key_map:                     # mapping original dataset keys to humanprompt task keys to unify the interface
+      question: "question"
+      answer: "answer"
+  method:
+    method_name: "cot"                   # method name to initialize the prompting method class
+    method_config_file_path: null        # method config file path, null if not used(will be overriden by method_args).
+    method_args:
+      client_name: "openai"              # LLM API client name, adopted from github.com/HazyResearch/manifest
+      transform: "cot.gsm8k.transform_cot_gsm8k.CoTGSM8KTransform"  # user-defined transform class to build the prompts
+      extract: "cot.gsm8k.extract_cot_gsm8k.CoTGSM8KExtract"        # user-defined extract class to extract the answers from output
+      extraction_regex: ".*The answer is (.*).\n?"                  # user-defined regex to extract the answer from output
+      prompt_file_path: "cot/gsm8k/prompt.txt"                      # prompt file path
+      max_tokens: 512                    # max generated tokens
+      temperature: 0                     # temperature for generated tokens
+      engine: code-davinci-002           # LLM engine
+      stop_sequence: "\n\n"              # stop sequence for generation
+  metrics:
+    - "exact_match"                      # metrics to evaluate the results
+```
+Users can create the `transform` and `extract` classes to customize the prompt generation and answer extraction process. 
+Prompt file can be replaced or specified according to the user's need.
+
+### Run experiment
+To run experiments, you can specify the experiment name and other meta configs in command line under `examples/` directory.
+
+For example, run the following command to run Chain-of-Thought on GSM8K:
+```bash
+python run_experiment.py
+  --exp_name cot-gsm8k
+  --num_test_samples 300
+```
+For new combination of methods and tasks, you can simply add a new config file under `examples/configs/` and run the command.
 
 ## Architecture
-to be added
+```text
+.
+├── examples
+│   ├── configs                    # config files for experiments
+│   ├── main.py                    # one sample demo script
+│   └── run_experiment.py          # experiment script
+├── hub                            # hub contains static files for methods and tasks
+│   ├── cot                        # method Chain-of-Thought
+│   │   ├── gsm8k                  # task GSM8K, containing prompt file and transform/extract classes, etc.
+│   │   └── ...
+│   ├── ama_prompting              # method Ask Me Anything
+│   ├── binder                     # method Binder
+│   ├── db_text2sql                # method text2sql
+│   ├── react                      # method ReAct
+│   ├── standard                   # method standard prompting
+│   └── zero_shot_cot              # method zero-shot Chain-of-Thought
+├── humanprompt                    # humanprompt package, containing building blocks for the complete prompting pipeline
+│   ├── artifacts
+│   │   ├── artifact.py
+│   │   └── hub
+│   ├── components                 # key components for the prompting pipeline
+│   │   ├── aggregate              # aggregate classes to aggregate the answers
+│   │   ├── extract                # extract classes to extract the answers from output
+│   │   ├── post_hoc.py            # post-hoc processing
+│   │   ├── prompt.py              # prompt classes to build the prompts
+│   │   ├── retrieve               # retrieve classes to retrieve in-context examples
+│   │   └── transform              # transform classes to transform the raw data to the method's input format
+│   ├── evaluators                 # evaluators
+│   │   └── evaluator.py           # evaluator class to evaluate the dataset results
+│   ├── methods                    # prompting methods, usually one method is related to one paper
+│   │   ├── ama_prompting          # Ask Me Anything(https://arxiv.org/pdf/2210.02441.pdf)
+│   │   ├── binder                 # Binder(https://arxiv.org/pdf/2210.02875.pdf)
+│   │   └── ...
+│   ├── tasks                      # dataset loading and preprocessing
+│   │   ├── add_sub.py             # AddSub dataset
+│   │   ├── wikitq.py              # WikiTableQuestions dataset
+│   │   └── ...
+│   ├── third_party                # third party packages
+│   └── utils                      # utils
+│       ├── config_utils.py
+│       └── integrations.py
+└── tests                          # test scripts
+    ├── conftest.py
+    ├── test_datasetloader.py
+    └── test_method.py
+
+```
 
 ## Contributing
 This repository is designed for researchers to give a quick usages and easy manipulation of different prompt methods.
@@ -118,3 +215,30 @@ pre-commit install # install all hooks
 pre-commit run --all-files # trigger all hooks
 ~~~
 You can use `git commit --no-verify` to skip and allow us to handle that later on.
+
+
+## Citation
+If you find this repo useful, please cite our project and [manifest](https://github.com/HazyResearch/manifest):
+```bibtex
+@software{humanprompt,
+  author = {Tianbao Xie and
+            Zhoujun Cheng and
+            Yiheng Xu and
+            Peng Shi and
+            Tao Yu},
+  title = {A framework for human-readable prompt-based method with large language models},
+  howpublished = {\url{https://github.com/hkunlp/humanprompt}},
+  year = 2022,
+  month = October
+}
+```
+
+```bibtex
+@misc{orr2022manifest,
+  author = {Orr, Laurel},
+  title = {Manifest},
+  year = {2022},
+  publisher = {GitHub},
+  howpublished = {\url{https://github.com/HazyResearch/manifest}},
+}
+```
