@@ -78,7 +78,6 @@ class PromptBuilder:
         y: Union[str, Dict] = None,
         **kwargs: Any,
     ) -> str:
-
         if callable(transform):
             if x and y:
                 return transform(x, y, **kwargs)

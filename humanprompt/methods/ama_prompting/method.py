@@ -25,7 +25,6 @@ class AMAPromptingMethod(PromptMethod):
         prompt_file_path: Optional[str] = None,
         **kwargs: Any
     ) -> Union[str, List[str]]:
-
         assert isinstance(x, Dict)
 
         y_s = []
