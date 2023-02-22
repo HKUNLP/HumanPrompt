@@ -1,0 +1,23 @@
+---
+  dataset:
+    dataset_name: "gsm8k"
+    dataset_split: "test"
+    dataset_subset_name: "main"
+    dataset_key_map:
+      question: "question"
+      answer: "answer"
+  method:
+    method_name: "cot"
+    method_config_file_path: null
+    method_args:
+      client_name: "openai"
+      transform: "cot.gsm8k.transform_cot_gsm8k.CoTGSM8KTransform"
+      extract: "cot.gsm8k.extract_cot_gsm8k.CoTGSM8KExtract"
+      extraction_regex: ".*The answer is (.*).\n?"
+      prompt_file_path: "cot/gsm8k/prompt.txt"
+      max_tokens: 512
+      temperature: 0
+      engine: code-davinci-002
+      stop_sequence: "\n\n"
+  metrics:
+    - "exact_match"
