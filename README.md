@@ -10,10 +10,14 @@
     <a href="https://img.shields.io/github/last-commit/HKUNLP/HumanPrompt?color=green">
         <img src="https://img.shields.io/github/last-commit/HKUNLP/HumanPrompt?color=green">
     </a>
+    <a>
+    <a href="https://join.slack.com/t/slack-cwl8878/shared_invite/zt-1q0ai1g6b-~t9HUL209jtNxiy2E3TWPA">
+        <img src="https://img.shields.io/badge/Slack-join-blueviolet?logo=slack&amp">
+    </a>
     <br/>
 </p>
 
-HumanPrompt is a framework for easier human-in-the-loop design, manage, sharing, and usage of prompt and prompt methods.
+HumanPrompt is a framework for easier human-in-the-loop design, manage, sharing, and usage of prompt and prompt methods. It is specially designed for researchers. It is still in progress👶, we highly welcome new contributions on methods and modules. Check out our proposal [here](https://docs.google.com/document/d/1xJ1upJAnGOg_miAoEfhUksKzLqKWa2XryLrcNSv-pPo/edit?usp=sharing).
 
 ## Content
 + [To start](#to-start)
